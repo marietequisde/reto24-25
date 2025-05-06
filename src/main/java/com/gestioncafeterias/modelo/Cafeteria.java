@@ -17,23 +17,23 @@ public class Cafeteria {
     private String direccion;
     private int aforoLocal;
     private double precioAlquiler;
-    private String gerente;
+    private String nombreGerente;
 
-    public Cafeteria(String horario, String direccion, int aforoLocal, double precioAlquiler, String gerente) {
+    public Cafeteria(String horario, String direccion, int aforoLocal, double precioAlquiler, String nombreGerente) {
         this.horario = horario;
         this.direccion = direccion;
         this.aforoLocal = aforoLocal;
         this.precioAlquiler = precioAlquiler;
-        this.gerente = gerente;
+        this.nombreGerente = nombreGerente;
     }
 
-    public Cafeteria(int idCafeteria, String horario, String direccion, int aforoLocal, double precioAlquiler, String gerente) {
+    public Cafeteria(int idCafeteria, String horario, String direccion, int aforoLocal, double precioAlquiler, String nombreGerente) {
         this.idCafeteria = idCafeteria;
         this.horario = horario;
         this.direccion = direccion;
         this.aforoLocal = aforoLocal;
         this.precioAlquiler = precioAlquiler;
-        this.gerente = gerente;
+        this.nombreGerente = nombreGerente;
     }
 
     public int getIdCafeteria() {
@@ -72,17 +72,17 @@ public class Cafeteria {
         this.precioAlquiler = precioAlquiler;
     }
 
-    public String getGerente() {
-        return gerente;
+    public String getNombreGerente() {
+        return nombreGerente;
     }
 
-    public void setGerente(String gerente) {
-        this.gerente = gerente;
+    public void setNombreGerente(String nombreGerente) {
+        this.nombreGerente = nombreGerente;
     }
 
     @Override
     public String toString() {
-        return "Cafeteria{" + "idCafeteria=" + idCafeteria + ", horario=" + horario + ", direccion=" + direccion + ", aforoLocal=" + aforoLocal + ", precioAlquiler=" + precioAlquiler + ", gerente=" + gerente + '}';
+        return "Cafeteria{" + "idCafeteria=" + idCafeteria + ", horario=" + horario + ", direccion=" + direccion + ", aforoLocal=" + aforoLocal + ", precioAlquiler=" + precioAlquiler + ", gerente=" + nombreGerente + '}';
     }
 
     public String[] toDataArray() {
@@ -92,7 +92,7 @@ public class Cafeteria {
         atributos[2] = direccion;
         atributos[3] = String.valueOf(aforoLocal);
         atributos[4] = String.valueOf(precioAlquiler);
-        atributos[5] = gerente;
+        atributos[5] = nombreGerente;
         return atributos;
     }
 

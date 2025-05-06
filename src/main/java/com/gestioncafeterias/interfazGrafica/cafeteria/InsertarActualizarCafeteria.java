@@ -5,10 +5,14 @@
 package com.gestioncafeterias.interfazGrafica.cafeteria;
 
 import com.gestioncafeterias.acceso.AccesoCafeteria;
+import com.gestioncafeterias.acceso.AccesoEmpleado;
 import com.gestioncafeterias.modelo.Cafeteria;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -23,39 +27,49 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertarCafeteria
+     *
+     * @param parent
+     * @param modal
      */
     public InsertarActualizarCafeteria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
-        jButtonAccion.setText("Insertar");
-        modo = MODO_INSERTAR;
+        try {
+            inicializarComponentes();
+            jButtonAccion.setText("Insertar");
+            modo = MODO_INSERTAR;
+        } catch (ClassNotFoundException | SQLException ex) {
+            jLabelError.setText("Error de BBDD");
+            Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public InsertarActualizarCafeteria(java.awt.Frame parent, boolean modal, int idCafeteria) {
         super(parent, modal);
-        initComponents();
-        jButtonAccion.setText("Actualizar");
-        Cafeteria cafeteria = null;
         try {
-            cafeteria = AccesoCafeteria.consultar(idCafeteria);
+            inicializarComponentes();
+            jButtonAccion.setText("Actualizar");
+            Cafeteria cafeteria = AccesoCafeteria.consultar(idCafeteria);
             if (cafeteria != null) {
                 this.idCafeteria = cafeteria.getIdCafeteria();
                 jTextFieldAlquiler.setText(String.valueOf(cafeteria.getPrecioAlquiler()));
                 jTextFieldDireccion.setText(cafeteria.getDireccion());
                 jTextFieldHorario.setText(cafeteria.getHorario());
                 jSpinnerAforo.setValue(cafeteria.getAforoLocal());
-
+                jComboGerente.setSelectedItem(cafeteria.getNombreGerente());
                 modo = MODO_ACTUALIZAR;
-                // TODO jComboGerente.setSelectedItem(null);
+
             }
-        } catch (ClassNotFoundException ex) {
-            jLabelError.setText("Error de BBDD");
-            Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             jLabelError.setText("Error de BBDD");
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    private void inicializarComponentes() throws ClassNotFoundException, SQLException {
+        initComponents();
+        List<String> empleados = AccesoEmpleado.consultarNombres();
+        modeloGerentes = new DefaultComboBoxModel(empleados.toArray());
+        jComboGerente.setModel(modeloGerentes);
     }
 
     /**
@@ -218,31 +232,30 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         String horario = jTextFieldHorario.getText();
         String direccion = jTextFieldDireccion.getText();
         int aforoLocal = (Integer) jSpinnerAforo.getValue();
+        String nombreGerente = (String) jComboGerente.getSelectedItem();
 
-        if (jTextFieldAlquiler.getText() == null || jTextFieldAlquiler.getText().isEmpty() || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
-            jLabelError.setText("El precio de alquiler debe ser mayor que 0.");
+        try {
+            if (jTextFieldAlquiler.getText() == null || jTextFieldAlquiler.getText().isEmpty() || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
+                jLabelError.setText("El precio de alquiler debe ser mayor que 0.");
 
-        } else {
-            double precioAlquiler = Double.parseDouble(jTextFieldAlquiler.getText());
-            String gerente = (String) jComboGerente.getSelectedItem();
-            Cafeteria nuevaCafeteria = new Cafeteria(horario, direccion, aforoLocal, precioAlquiler, gerente);
-            try {
+            } else {
+                double precioAlquiler = Double.parseDouble(jTextFieldAlquiler.getText());
+                Cafeteria nuevaCafeteria = new Cafeteria(horario, direccion, aforoLocal, precioAlquiler, nombreGerente);
+
                 if (modo == MODO_INSERTAR) {
                     AccesoCafeteria.insertar(nuevaCafeteria);
                 } else if (modo == MODO_ACTUALIZAR) {
-                    AccesoCafeteria.actualizar(idCafeteria, horario, direccion, aforoLocal, precioAlquiler);
+                    AccesoCafeteria.actualizar(idCafeteria, horario, direccion, aforoLocal, precioAlquiler, nombreGerente);
                 }
                 this.dispose();
-            } catch (ClassNotFoundException ex) {
-                jLabelError.setText("Error de BBDD");
-                Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                jLabelError.setText("Error de BBDD");
-                Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ClassNotFoundException | SQLException ex) {
+            jLabelError.setText("Error de BBDD");
+            Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            jLabelError.setText("El dato debe ser numérico.");
+            Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_jButtonAccionActionPerformed
 
     /**
@@ -303,4 +316,5 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldHorario;
     // End of variables declaration//GEN-END:variables
+    private DefaultComboBoxModel modeloGerentes;
 }

@@ -236,6 +236,9 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             mostrarMensajeError("Error interno.");
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            mostrarMensajeError("El identificador debe ser numérico.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 

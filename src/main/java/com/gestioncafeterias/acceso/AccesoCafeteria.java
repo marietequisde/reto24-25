@@ -17,10 +17,10 @@ public class AccesoCafeteria {
             conexion = DerbyUtil.abrirConexion();
 
             String stringPrecio = String.valueOf(cafeteria.getPrecioAlquiler()).replace(',', '.');
-            String sentenciaInsert = String.format("INSERT INTO cafeteria (horario, direccion, aforo_local, precio_alquiler) "
-                    + "VALUES ('%s', '%s', %d, %s)",
+            String sentenciaInsert = String.format("INSERT INTO cafeteria (horario, direccion, aforo_local, precio_alquiler, gerente) "
+                    + "VALUES ('%s', '%s', %d, %s, (SELECT id_empleado FROM empleado WHERE nombre = '%s'))",
                     cafeteria.getHorario(), cafeteria.getDireccion(),
-                    cafeteria.getAforoLocal(), stringPrecio);
+                    cafeteria.getAforoLocal(), stringPrecio, cafeteria.getNombreGerente());
             System.out.println(sentenciaInsert);
             Statement sentencia = conexion.createStatement();
 
@@ -93,7 +93,7 @@ public class AccesoCafeteria {
         return cafeterias;
     }
 
-    public static boolean actualizar(int codigo, String horario, String direccion, int aforoLocal, double precioAlquiler) throws ClassNotFoundException, SQLException {
+    public static boolean actualizar(int codigo, String horario, String direccion, int aforoLocal, double precioAlquiler, String nombreGerente) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         boolean modificado = false;
 
@@ -101,8 +101,9 @@ public class AccesoCafeteria {
             conexion = DerbyUtil.abrirConexion();
             String precioString = String.format("%.2f", precioAlquiler).replace(',', '.');
             String sentenciaActualizar = String.format("UPDATE cafeteria "
-                    + "SET horario = '%s', direccion = '%s', aforo_local = %d, precio_alquiler = %s "
-                    + "WHERE id_cafeteria = %d", horario, direccion, aforoLocal, precioString, codigo);
+                    + "SET horario = '%s', direccion = '%s', aforo_local = %d, precio_alquiler = %s , "
+                    + "gerente = (SELECT id_empleado FROM empleado WHERE nombre = '%s') "
+                    + "WHERE id_cafeteria = %d", horario, direccion, aforoLocal, precioString, nombreGerente, codigo);
             System.out.println(sentenciaActualizar);
             Statement sentencia = conexion.createStatement();
             if (sentencia.executeUpdate(sentenciaActualizar) == 1) {

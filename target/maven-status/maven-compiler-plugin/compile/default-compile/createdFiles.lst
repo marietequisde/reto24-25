@@ -9,6 +9,7 @@ com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$3.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$2.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$3.class
 com\gestioncafeterias\modelo\Cafeteria.class
+com\gestioncafeterias\acceso\AccesoEmpleado.class
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$7.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria.class
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$8.class
