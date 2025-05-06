@@ -11,12 +11,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
  */
 public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
@@ -235,17 +234,24 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         String nombreGerente = (String) jComboGerente.getSelectedItem();
 
         try {
-            if (jTextFieldAlquiler.getText() == null || jTextFieldAlquiler.getText().isEmpty() || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
+            if (jTextFieldAlquiler.getText() == null
+                    || jTextFieldAlquiler.getText().isEmpty()
+                    || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
                 jLabelError.setText("El precio de alquiler debe ser mayor que 0.");
 
             } else {
                 double precioAlquiler = Double.parseDouble(jTextFieldAlquiler.getText());
-                Cafeteria nuevaCafeteria = new Cafeteria(horario, direccion, aforoLocal, precioAlquiler, nombreGerente);
 
                 if (modo == MODO_INSERTAR) {
+                    Cafeteria nuevaCafeteria = new Cafeteria(horario, direccion,
+                            aforoLocal, precioAlquiler, nombreGerente);
+
                     AccesoCafeteria.insertar(nuevaCafeteria);
                 } else if (modo == MODO_ACTUALIZAR) {
-                    AccesoCafeteria.actualizar(idCafeteria, horario, direccion, aforoLocal, precioAlquiler, nombreGerente);
+                    Cafeteria nuevaCafeteria = new Cafeteria(idCafeteria, horario,
+                            direccion, aforoLocal, precioAlquiler, nombreGerente);
+
+                    AccesoCafeteria.actualizar(nuevaCafeteria);
                 }
                 this.dispose();
             }
@@ -274,30 +280,20 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InsertarActualizarCafeteria dialog = new InsertarActualizarCafeteria(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            InsertarActualizarCafeteria dialog = new InsertarActualizarCafeteria(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 

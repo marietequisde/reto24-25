@@ -4,7 +4,6 @@
  */
 package com.gestioncafeterias.acceso;
 
-import com.gestioncafeterias.modelo.Cafeteria;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,22 +11,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author DAM1B11
- */
 public class AccesoEmpleado {
-    
-        public static List<String> consultarNombres() throws ClassNotFoundException, SQLException {
+
+    public static List<String> consultarNombres() throws ClassNotFoundException, SQLException {
         List<String> nombres = new ArrayList<>();
         Connection conexion = null;
-
+        Statement sentencia = null;
+        ResultSet resultados = null;
         try {
             conexion = DerbyUtil.abrirConexion();
 
             String sentenciaConsultar = String.format("SELECT nombre FROM empleado");
-            Statement sentencia = conexion.createStatement();
-            ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);
+            sentencia = conexion.createStatement();
+            resultados = sentencia.executeQuery(sentenciaConsultar);
 
             while (resultados.next()) {
                 nombres.add(resultados.getString("nombre"));
@@ -37,6 +33,12 @@ public class AccesoEmpleado {
             sentencia.close();
         } finally {
             DerbyUtil.cerrarConexion(conexion);
+            if (sentencia != null) {
+                sentencia.close();
+            }
+            if (resultados != null) {
+                resultados.close();
+            }
         }
 
         return nombres;

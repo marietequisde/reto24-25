@@ -4,11 +4,9 @@
  */
 package com.gestioncafeterias.modelo;
 
-import java.util.Arrays;
-
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
  */
 public class Cafeteria {
 
