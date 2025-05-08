@@ -43,6 +43,9 @@ public class PruebaTabs extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(850, 523));
+
+        jTabbedPane1.setPreferredSize(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
