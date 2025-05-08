@@ -6,9 +6,7 @@ package com.gestioncafeterias.interfazGrafica;
 
 import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
 import com.gestioncafeterias.interfazGrafica.producto.MostrarProductos;
-import java.awt.Dimension;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
 /**

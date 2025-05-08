@@ -180,6 +180,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
         InsertarActualizarCafeteria ventana = new InsertarActualizarCafeteria(this, true);
+        ventana.setLocationRelativeTo(jTableCafeterias);
         ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
             @Override
@@ -193,6 +194,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         InsertarActualizarCafeteria ventana = new InsertarActualizarCafeteria(this, true, obtenerIdSeleccion());
+        ventana.setLocationRelativeTo(jTableCafeterias);
         ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
             @Override
@@ -204,7 +206,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Eliminar cafetería?", "Eliminar", JOptionPane.YES_NO_OPTION);
+        int opcion = JOptionPane.showConfirmDialog(jTableCafeterias, "¿Eliminar cafetería?", "Eliminar", JOptionPane.YES_NO_OPTION);
         if (opcion == 0) {
             try {
                 AccesoCafeteria.eliminar(obtenerIdSeleccion());
