@@ -105,17 +105,21 @@ public class AccesoEmpleado {
         return modificado;
     }
 
-    public static boolean eliminar(int codigo) throws ClassNotFoundException, SQLException {
+    public static boolean eliminar(int codigo, int idNuevoGerente) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         boolean eliminado = false;
         try {
             conexion = DerbyUtil.abrirConexion();
-
-            String sentenciaActualizar = String.format("DELETE FROM empleado "
-                    + "WHERE id_empleado = %d", codigo);
             Statement sentencia = conexion.createStatement();
-            if (sentencia.executeUpdate(sentenciaActualizar) == 1) {
-                eliminado = true;
+            if (idNuevoGerente > 0 && existeEmpleado(conexion, idNuevoGerente)) {
+                String sentenciaActualizarGerente = String.format("UPDATE cafeteria SET gerente = %d WHERE gerente = %d", idNuevoGerente, codigo);
+                int filasActualizadas = sentencia.executeUpdate(sentenciaActualizarGerente);
+                if (filasActualizadas > 0) {
+                    String sentenciaEliminar = String.format("DELETE FROM empleado WHERE id_empleado = %d", codigo);
+                    if (sentencia.executeUpdate(sentenciaEliminar) == 1) {
+                        eliminado = true;
+                    }
+                }
             }
         } finally {
             DerbyUtil.cerrarConexion(conexion);
@@ -153,4 +157,51 @@ public class AccesoEmpleado {
 
         return nombres;
     }
+
+    public static boolean esGerenteEliminar(int codigoEmpleado) throws ClassNotFoundException, SQLException {
+        Connection conexion = null;
+        boolean esGerente = false;
+        boolean eliminado = false;
+        try {
+            conexion = DerbyUtil.abrirConexion();
+            Statement sentencia = conexion.createStatement();
+            String consultaVerificarGerente = String.format("SELECT COUNT(*) FROM cafeteria WHERE gerente = %d", codigoEmpleado);
+            ResultSet resultadoGerente = sentencia.executeQuery(consultaVerificarGerente);
+            resultadoGerente.next();
+            if (resultadoGerente.getInt(1) > 0) {
+                esGerente = true;
+            } else {
+                String sentenciaActualizar = String.format("DELETE FROM empleado "
+                        + "WHERE id_empleado = %d", codigoEmpleado);
+                if (sentencia.executeUpdate(sentenciaActualizar) == 1) {
+                    eliminado = true;
+                }
+            }
+            resultadoGerente.close();
+        } finally {
+            DerbyUtil.cerrarConexion(conexion);
+        }
+        return esGerente;
+    }
+
+    private static boolean existeEmpleado(Connection conn, int idEmpleado) throws SQLException {
+        Statement sentencia;
+        ResultSet resultado = null;
+        boolean existe = false;
+        try {
+            String consultaExistencia = String.format("SELECT COUNT(*) FROM empleado WHERE id_empleado = %d", idEmpleado);
+            sentencia = conn.createStatement();
+            resultado = sentencia.executeQuery(consultaExistencia);
+            resultado.next();
+            if (resultado.getInt(1) > 0) {
+                existe = true;
+            }
+        } finally {
+            if (resultado != null) {
+                resultado.close();
+            }
+        }
+        return existe;
+    }
+
 }
