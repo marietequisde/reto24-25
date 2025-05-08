@@ -6,6 +6,7 @@ com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$3.cl
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$7.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$1.class
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$2.class
+com\gestioncafeterias\interfazGrafica\PruebaTabs$1.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$4.class
 com\gestioncafeterias\interfazGrafica\UIPrincipal.class
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$4.class
@@ -20,6 +21,7 @@ com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias.class
 com\gestioncafeterias\interfazGrafica\NewMDIApplication$2.class
 com\gestioncafeterias\interfazGrafica\UIPrincipal$1.class
 com\gestioncafeterias\GestionCafeterias.class
+com\gestioncafeterias\interfazGrafica\PruebaTabs.class
 com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias$1.class
 com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria$5.class
 com\gestioncafeterias\acceso\AccesoCafeteria.class
