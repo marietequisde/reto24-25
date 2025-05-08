@@ -38,7 +38,7 @@ public class GestionCafeterias {
     }
 
 	public static void main(String[] args) {
-		int opcion,codigo,total;
+		int opcion,codigo,idNuevoGerente;
                 double salario;
 		Empleado empleado;
 		String nombre, fechaAlta, dni;
@@ -99,19 +99,21 @@ public class GestionCafeterias {
                                                     }
                                     break;
 				case 5:
-					//Eliminar un departamento, por codigo, de la base de datos.
 					codigo=Teclado.leerEntero("Codigo?: ");
-					 if(AccesoEmpleado.eliminar(codigo)) {
-						System.out.println("Se ha eliminado un empleado de la base de datos.");
-                                            }
-						else {
-							System.out.println("No existe ningún empleado con ese OID en la base de datos.");
-						}
-                                        System.out.println();
-					break;
-				default:
-					System.out.println("La opción de menú debe estar comprendida entre 0 y 5.");
-					break;
+				if (AccesoEmpleado.esGerenteEliminar(codigo)){
+					idNuevoGerente = Teclado.leerEntero("id del nuevo gerente?");
+					 if(AccesoEmpleado.eliminar(codigo, idNuevoGerente)) {
+					System.out.println("Se ha eliminado un empleado de la base de datos.");
+					}
+				else {
+					System.out.println("No existe ningún empleado con ese ID en la base de datos.");
+				}
+				}
+				else{
+					System.out.println("Se ha eliminado un empleado de la base de datos.");
+				}
+				System.out.println();
+				break;
 				}
 			}
 			while(opcion!=0);
