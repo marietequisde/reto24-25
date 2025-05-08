@@ -19,14 +19,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andro
  */
-public class MostrarProductos extends javax.swing.JFrame {
+public class MainMenu extends javax.swing.JFrame {
 
     DefaultTableModel modelTabla = new DefaultTableModel();
 
     /**
      * Creates new form MostrarProductos
      */
-    public MostrarProductos() {
+    public MainMenu() {
         initComponents();
 
         modelTabla.addColumn("ID");
@@ -77,9 +77,9 @@ public class MostrarProductos extends javax.swing.JFrame {
             model.setRowCount(0);
             mostrar();
         } catch (SQLException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -256,9 +256,9 @@ public class MostrarProductos extends javax.swing.JFrame {
             mostrar();
             /* new InsertarMenu().setVisible(true);*/
         } catch (SQLException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
@@ -281,7 +281,8 @@ public class MostrarProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_UptTablaBtnActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        /* ventana = new MenuEliminar();
+        
+        MenuEliminar ventana = new MenuEliminar();
         ventana.setVisible(true);
         
         ventana.addWindowListener(new WindowAdapter() {
@@ -289,31 +290,7 @@ public class MostrarProductos extends javax.swing.JFrame {
 
                 actualizarTabla();
             }
-        });*/
-
-        try {
-            // TODO add your handling code here:
-
-            Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
-
-            String id = getSelectedID();
-
-            String sentenciaEliminacion = String.format("DELETE FROM producto "
-                    + "WHERE id_producto = " + id);
-            Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaEliminacion);
-
-            jVerify.setVisible(true);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-            ExceptionDialog.setVisible(true);
-            TextErrEliminar.setText(ex.getMessage());
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        });
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -341,20 +318,21 @@ public class MostrarProductos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarProductos().setVisible(true);
+                new MainMenu().setVisible(true);
             }
         });
     }
