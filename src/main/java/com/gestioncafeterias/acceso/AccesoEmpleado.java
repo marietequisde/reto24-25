@@ -17,7 +17,8 @@ import java.util.List;
  * @author DAM1B07
  */
 public class AccesoEmpleado {
-     public static void insertar(Empleado empleado) throws ClassNotFoundException, SQLException {
+
+    public static void insertar(Empleado empleado) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         try {
             String precioString = String.format("%.2f", empleado.getSalario()).replace(',', '.');
@@ -33,8 +34,8 @@ public class AccesoEmpleado {
             DerbyUtil.cerrarConexion(conexion);
         }
     }
-     
-     public static Empleado consultar(int codigo) throws ClassNotFoundException, SQLException {
+
+    public static Empleado consultar(int codigo) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         Empleado empleado = null;
         try {
@@ -46,7 +47,7 @@ public class AccesoEmpleado {
             ResultSet resultado = sentencia.executeQuery(sentenciaConsulta);
             if (resultado.next()) {
                 empleado = new Empleado(
-                         resultado.getInt("id_empleado"),
+                        resultado.getInt("id_empleado"),
                         resultado.getString("nombre"),
                         resultado.getDouble("salario"),
                         resultado.getString("fecha_alta_empresa"),
@@ -58,8 +59,8 @@ public class AccesoEmpleado {
         }
         return empleado;
     }
-     
-     public static List<Empleado> consultarTodos() throws ClassNotFoundException, SQLException {
+
+    public static List<Empleado> consultarTodos() throws ClassNotFoundException, SQLException {
         List<Empleado> listaEmpleados = new ArrayList<>();
         Connection conexion = null;
         try {
@@ -68,7 +69,7 @@ public class AccesoEmpleado {
             Statement sentencia = conexion.createStatement();
             ResultSet resultado = sentencia.executeQuery(sentenciaConsulta);
             while (resultado.next()) {
-                Empleado empleado= new Empleado(
+                Empleado empleado = new Empleado(
                         resultado.getInt("id_empleado"),
                         resultado.getString("nombre"),
                         resultado.getDouble("salario"),
@@ -83,9 +84,9 @@ public class AccesoEmpleado {
         }
         return listaEmpleados;
     }
-     
-     public static boolean actualizar(int codigo, String nombre, double salario,
-             String fechaAlta, String dni) throws ClassNotFoundException, SQLException {
+
+    public static boolean actualizar(int codigo, String nombre, double salario,
+            String fechaAlta, String dni) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         boolean modificado = false;
         try {
@@ -103,8 +104,8 @@ public class AccesoEmpleado {
         }
         return modificado;
     }
-     
-      public static boolean eliminar(int codigo) throws ClassNotFoundException, SQLException {
+
+    public static boolean eliminar(int codigo) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         boolean eliminado = false;
         try {
@@ -121,7 +122,35 @@ public class AccesoEmpleado {
         }
         return eliminado;
     }
-      public static List<String> consultarNombres(){
-          return null;
-      }
+
+    public static List<String> consultarNombres() throws ClassNotFoundException, SQLException {
+        List<String> nombres = new ArrayList<>();
+        Connection conexion = null;
+        Statement sentencia = null;
+        ResultSet resultados = null;
+        try {
+            conexion = DerbyUtil.abrirConexion();
+
+            String sentenciaConsultar = String.format("SELECT nombre FROM empleado");
+            sentencia = conexion.createStatement();
+            resultados = sentencia.executeQuery(sentenciaConsultar);
+
+            while (resultados.next()) {
+                nombres.add(resultados.getString("nombre"));
+            }
+
+            resultados.close();
+            sentencia.close();
+        } finally {
+            DerbyUtil.cerrarConexion(conexion);
+            if (sentencia != null) {
+                sentencia.close();
+            }
+            if (resultados != null) {
+                resultados.close();
+            }
+        }
+
+        return nombres;
+    }
 }
