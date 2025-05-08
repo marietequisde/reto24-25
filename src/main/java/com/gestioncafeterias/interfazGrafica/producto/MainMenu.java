@@ -58,16 +58,15 @@ public class MainMenu extends javax.swing.JFrame {
             modelTabla.addRow(datos);
 
         }
-        int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
+        /*int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
         String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
-        LabelPrueba.setText(filaSeleccionadaStr);
+        LabelPrueba.setText(filaSeleccionadaStr);*/
         // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
     }
 
     public String getSelectedID() {
         int row = TablaConsultar.getSelectedRow();
         String value = TablaConsultar.getModel().getValueAt(row, 0).toString();
-        LabelPrueba.setText("ID seleccionado: " + value);
         return value;
     }
 
@@ -97,11 +96,12 @@ public class MainMenu extends javax.swing.JFrame {
         BtnInsertar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
-        LabelPrueba = new javax.swing.JLabel();
         UptTablaBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jVerify = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        LabelIdNoExist = new javax.swing.JLabel();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -189,8 +189,17 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
-        jVerify.setText("Eliminado!");
+        jButton1.setText("Consultar por ID");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
+        LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
+        LabelIdNoExist.setText("Este ID no existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,29 +209,32 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BtnConsultar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnInsertar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnEliminar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(LabelPrueba)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(170, 471, Short.MAX_VALUE)
                         .addComponent(UptTablaBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jVerify, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnConsultar)
+                                .addGap(15, 15, 15)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnInsertar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator2)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(LabelIdNoExist)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,18 +245,19 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UptTablaBtn)
-                .addGap(7, 7, 7)
-                .addComponent(LabelPrueba)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(jVerify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LabelIdNoExist)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
                     .addComponent(BtnInsertar)
                     .addComponent(BtnActualizar)
-                    .addComponent(BtnEliminar))
+                    .addComponent(BtnEliminar)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -304,6 +317,42 @@ public class MainMenu extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            Connection conexion = null;
+            conexion = DerbyUtil.abrirConexion();
+
+            String id = jTextField1.getText();
+
+            String sentenciaConsulta = String.format("SELECT * FROM producto "
+                    + "WHERE id_producto = " + id);
+            Statement sentencia = conexion.createStatement();
+            ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
+            
+            
+            if(rs.next() == false){
+                LabelIdNoExist.setVisible(true);
+            }else{
+            
+            String sentenciaEliminacion = String.format("DELETE FROM producto "
+                    + "WHERE id_producto = " + id);
+            int result = sentencia.executeUpdate(sentenciaEliminacion);
+
+            jVerify.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            Dialog1.setVisible(true);
+            jTextArea1.setText(ex.getMessage());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -343,15 +392,16 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
     private javax.swing.JDialog ExceptionDialog;
-    private javax.swing.JLabel LabelPrueba;
+    private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;
     private javax.swing.JTextArea TextErrEliminar;
     private javax.swing.JButton UptTablaBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel jVerify;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

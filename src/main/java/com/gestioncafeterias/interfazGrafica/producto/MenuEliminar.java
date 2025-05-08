@@ -18,6 +18,7 @@ import javax.swing.JTextField;
  * @author andro
  */
 public class MenuEliminar extends javax.swing.JFrame {
+    
 
     String[] datos = new String[1];
 
@@ -27,6 +28,7 @@ public class MenuEliminar extends javax.swing.JFrame {
     public MenuEliminar() {
         initComponents();
         jVerify.setVisible(false);
+        LabelIdNoExist.setVisible(false);
     }
 
     public void insertarPrueba() {
@@ -50,6 +52,7 @@ public class MenuEliminar extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Insertbtn = new javax.swing.JButton();
         jVerify = new javax.swing.JLabel();
+        LabelIdNoExist = new javax.swing.JLabel();
 
         Dialog1.setTitle("Exception");
         Dialog1.setSize(new java.awt.Dimension(379, 285));
@@ -107,18 +110,17 @@ public class MenuEliminar extends javax.swing.JFrame {
         jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
         jVerify.setText("Eliminado!");
 
+        LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
+        LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
+        LabelIdNoExist.setText("Este ID no existe");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(Insertbtn)
@@ -126,15 +128,26 @@ public class MenuEliminar extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jVerify)
                         .addGap(43, 43, 43))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelIdNoExist))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
+                .addComponent(LabelIdNoExist)
+                .addGap(17, 17, 17)
                 .addComponent(jVerify)
                 .addGap(39, 39, 39)
                 .addComponent(Insertbtn)
@@ -151,14 +164,24 @@ public class MenuEliminar extends javax.swing.JFrame {
             Connection conexion = null;
             conexion = DerbyUtil.abrirConexion();
 
-            datos[0] = jTextField1.getText();
+            String id = jTextField1.getText();
 
-            String sentenciaEliminacion = String.format("DELETE FROM producto "
-                    + "WHERE id_producto = " + datos[0]);
+            String sentenciaConsulta = String.format("SELECT * FROM producto "
+                    + "WHERE id_producto = " + id);
             Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaEliminacion);
+            ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
+            
+            
+            if(rs.next() == false){
+                LabelIdNoExist.setVisible(true);
+            }else{
+            
+            String sentenciaEliminacion = String.format("DELETE FROM producto "
+                    + "WHERE id_producto = " + id);
+            int result = sentencia.executeUpdate(sentenciaEliminacion);
 
             jVerify.setVisible(true);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,6 +240,7 @@ public class MenuEliminar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Dialog1;
     private javax.swing.JButton Insertbtn;
+    private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
