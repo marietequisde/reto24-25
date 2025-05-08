@@ -4,7 +4,9 @@
  */
 package com.gestioncafeterias.interfazGrafica.producto;
 
+import com.gestioncafeterias.acceso.AccesoProducto;
 import com.gestioncafeterias.acceso.DerbyUtil;
+import com.gestioncafeterias.modelo.Producto;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -16,6 +18,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -41,23 +45,19 @@ public class MainMenu extends javax.swing.JFrame {
 
     public void mostrar() throws SQLException, ClassNotFoundException {
         Connection conexion = null;
-        conexion = DerbyUtil.abrirConexion();
-        String sentenciaConsulta = String.format("SELECT * FROM producto");
-        Statement sentencia = conexion.createStatement();
-        ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
+        List<Producto> productos = AccesoProducto.consultarTodos();
 
         TablaConsultar.setModel(modelTabla);
 
         String[] datos = new String[5];
 
-        while (rs.next()) {
-            // Añadir filas (ajusta según tus columnas)
-
-            datos[0] = rs.getString("id_producto");
-            datos[1] = rs.getString("nombre");
-            datos[2] = rs.getString("precio");
-            datos[3] = rs.getString("tipo");
-            datos[4] = rs.getString("proveedor");
+        for (Producto producto : productos) {
+            
+            datos[0] = String.valueOf(producto.getIdProducto());
+            datos[1] = producto.getNombre();
+            datos[2] = String.valueOf(producto.getPrecio());
+            datos[3] = producto.getTipo();
+            datos[4] = producto.getProveedor();
             modelTabla.addRow(datos);
 
         }
@@ -109,6 +109,7 @@ public class MainMenu extends javax.swing.JFrame {
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
         AreaInputId = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -145,17 +146,18 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UI Gestion de Productos");
+        setBackground(new java.awt.Color(153, 204, 255));
         setForeground(new java.awt.Color(242, 242, 242));
 
         TablaConsultar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Precio €", "Tipo", "Proveedor"
             }
         ));
         TablaConsultar.setGridColor(new java.awt.Color(0, 0, 204));
@@ -206,7 +208,8 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setText("Este ID no existe");
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\warning.png")); // NOI18N
+        LabelIdNoExist.setText("¡Este ID no existe!");
 
         AreaInputId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,11 +223,18 @@ public class MainMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(116, 116, 116)
+                .addComponent(LabelIdNoExist)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(170, 471, Short.MAX_VALUE)
                         .addComponent(UptTablaBtn))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
@@ -238,15 +248,11 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addComponent(BtnInsertar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(BtnEliminar))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(LabelIdNoExist)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +263,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UptTablaBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(LabelIdNoExist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,6 +354,7 @@ public class MainMenu extends javax.swing.JFrame {
             if (rs.next() == false) {
                 LabelIdNoExist.setVisible(true);
             } else {
+                LabelIdNoExist.setVisible(false);
                 limpiarTabla();
                 sentenciaConsulta = String.format("SELECT * FROM producto "
                         + "WHERE id_producto = " + id);
@@ -429,5 +438,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }

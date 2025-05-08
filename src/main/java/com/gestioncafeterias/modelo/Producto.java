@@ -9,12 +9,15 @@ package com.gestioncafeterias.modelo;
  * @author DAM1B22
  */
 public class Producto {
-     private String nombre;
-     private double precio;
-     private String tipo;
-     private String proveedor;
 
-    public Producto(String nombre, double precio, String tipo, String proveedor) {
+    private int idProducto;
+    private String nombre;
+    private double precio;
+    private String tipo;
+    private String proveedor;
+
+    public Producto(int idProducto, String nombre, double precio, String tipo, String proveedor) {
+        this.idProducto = idProducto;
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
@@ -23,7 +26,15 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", proveedor=" + proveedor + '}';
+        return "Producto{ id = " + idProducto + ", nombre = " + nombre + ", precio=" + precio + ", tipo=" + tipo + ", proveedor=" + proveedor + '}';
+    }
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {
@@ -57,5 +68,5 @@ public class Producto {
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
     }
-     
+
 }

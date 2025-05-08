@@ -48,6 +48,7 @@ public class AccesoProducto {
             
             while(resultado.next()){
                 Producto producto = new Producto(
+                    resultado.getInt("id_producto"),
                     resultado.getString("nombre"),
                     resultado.getDouble("precio"),
                     resultado.getString("tipo"),
