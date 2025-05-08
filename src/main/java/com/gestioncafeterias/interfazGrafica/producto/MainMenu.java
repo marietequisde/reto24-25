@@ -5,6 +5,11 @@
 package com.gestioncafeterias.interfazGrafica.producto;
 
 import com.gestioncafeterias.acceso.DerbyUtil;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -23,11 +28,9 @@ public class MainMenu extends javax.swing.JFrame {
 
     DefaultTableModel modelTabla = new DefaultTableModel();
 
-    /**
-     * Creates new form MostrarProductos
-     */
     public MainMenu() {
         initComponents();
+        LabelIdNoExist.setVisible(false);
 
         modelTabla.addColumn("ID");
         modelTabla.addColumn("Nombre");
@@ -98,10 +101,9 @@ public class MainMenu extends javax.swing.JFrame {
         BtnEliminar = new javax.swing.JButton();
         UptTablaBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -189,10 +191,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Consultar por ID");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnConsultaPorID.setText("Consultar por ID");
+        BtnConsultaPorID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnConsultaPorIDActionPerformed(evt);
             }
         });
 
@@ -200,6 +202,8 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setText("Este ID no existe");
+
+        jTextField1.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,22 +222,21 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(BtnConsultar)
                                 .addGap(15, 15, 15)
-                                .addComponent(jButton1)
+                                .addComponent(BtnConsultaPorID)
                                 .addGap(18, 18, 18)
                                 .addComponent(BtnActualizar)
                                 .addGap(18, 18, 18)
                                 .addComponent(BtnInsertar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnEliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2)))))
+                                .addComponent(BtnEliminar)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(114, 114, 114)
-                .addComponent(LabelIdNoExist)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelIdNoExist))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -245,19 +248,17 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UptTablaBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(LabelIdNoExist)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
                     .addComponent(BtnInsertar)
                     .addComponent(BtnActualizar)
                     .addComponent(BtnEliminar)
-                    .addComponent(jButton1))
+                    .addComponent(BtnConsultaPorID))
                 .addContainerGap())
         );
 
@@ -281,6 +282,7 @@ public class MainMenu extends javax.swing.JFrame {
         ventana.setVisible(true);
 
         ventana.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 TablaConsultar.clearSelection();
                 actualizarTabla();
@@ -294,11 +296,12 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_UptTablaBtnActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        
+
         MenuEliminar ventana = new MenuEliminar();
         ventana.setVisible(true);
-        
+
         ventana.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
 
                 actualizarTabla();
@@ -310,6 +313,7 @@ public class MainMenu extends javax.swing.JFrame {
         MenuActualizar ventana = new MenuActualizar();
         ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 TablaConsultar.clearSelection();
                 actualizarTabla();
@@ -317,41 +321,50 @@ public class MainMenu extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
         try {
             // TODO add your handling code here:
-
+            
             Connection conexion = null;
             conexion = DerbyUtil.abrirConexion();
-
+            
             String id = jTextField1.getText();
-
             String sentenciaConsulta = String.format("SELECT * FROM producto "
                     + "WHERE id_producto = " + id);
             Statement sentencia = conexion.createStatement();
             ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
             
-            
-            if(rs.next() == false){
+            if (rs.next() == false) {
                 LabelIdNoExist.setVisible(true);
-            }else{
-            
-            String sentenciaEliminacion = String.format("DELETE FROM producto "
-                    + "WHERE id_producto = " + id);
-            int result = sentencia.executeUpdate(sentenciaEliminacion);
-
-            jVerify.setVisible(true);
+            } else {
+                
             }
-
+            sentenciaConsulta = String.format("SELECT * FROM producto WHERE id_producto");
+            sentencia = conexion.createStatement();
+            ResultSet rst = sentencia.executeQuery(sentenciaConsulta);
+            
+            TablaConsultar.setModel(modelTabla);
+            
+            String[] datos = new String[5];
+            
+            while (rs.next()) {
+                // Añadir filas (ajusta según tus columnas)
+                
+                datos[0] = rst.getString("id_producto");
+                datos[1] = rst.getString("nombre");
+                datos[2] = rst.getString("precio");
+                datos[3] = rst.getString("tipo");
+                datos[4] = rst.getString("proveedor");
+                modelTabla.addRow(datos);
+                
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-            Dialog1.setVisible(true);
-            jTextArea1.setText(ex.getMessage());
-
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -388,6 +401,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
+    private javax.swing.JButton BtnConsultaPorID;
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
@@ -396,12 +410,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTable TablaConsultar;
     private javax.swing.JTextArea TextErrEliminar;
     private javax.swing.JButton UptTablaBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
