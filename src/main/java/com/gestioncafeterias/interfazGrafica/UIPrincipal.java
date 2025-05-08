@@ -4,17 +4,32 @@
  */
 package com.gestioncafeterias.interfazGrafica;
 
+import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
+import com.gestioncafeterias.interfazGrafica.producto.MostrarProductos;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author DAM1B11
  */
 public class UIPrincipal extends javax.swing.JFrame {
 
+    private static final String TITULO_CAFETERIAS = "Cafeterías";
+    private static final String TITULO_EMPLEADOS = "Empleados";
+    private static final String TITULO_PRODUCTOS = "Productos";
     /**
-     * Creates new form UIPrincipal
+     * Creates new form PruebaTabs
      */
     public UIPrincipal() {
         initComponents();
+        anyadirTab(TITULO_CAFETERIAS, new ConsultarCafeterias());
+        anyadirTab(TITULO_EMPLEADOS, new ConsultarCafeterias());
+        anyadirTab(TITULO_PRODUCTOS, new MostrarProductos());
+        
+
     }
 
     /**
@@ -29,22 +44,34 @@ public class UIPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(850, 523));
+
+        jTabbedPane1.setPreferredSize(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 271, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void anyadirTab(String titulo, JFrame jFrame) {
+        jTabbedPane1.addTab(titulo, (JPanel) jFrame.getContentPane());
+
+    }
 
     /**
      * @param args the command line arguments
@@ -72,6 +99,7 @@ public class UIPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(UIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -84,4 +112,5 @@ public class UIPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+
 }

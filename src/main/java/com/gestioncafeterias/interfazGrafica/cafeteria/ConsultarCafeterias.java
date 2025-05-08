@@ -60,10 +60,8 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButtonRefrescar = new javax.swing.JButton();
-        jLabelTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jButtonRefrescar = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jButtonInsertar = new javax.swing.JButton();
         jButtonActualizar = new javax.swing.JButton();
@@ -76,21 +74,15 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         setTitle("Cafeterías");
         setIconImage((new ImageIcon("iconos/cafe.png")).getImage());
 
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
+
         jButtonRefrescar.setText("Volver al listado");
         jButtonRefrescar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefrescarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonRefrescar);
-
-        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Listado cafeterías");
-        jLabelTitulo.setToolTipText("");
-        jPanel1.add(jLabelTitulo);
-
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
+        jPanel2.add(jButtonRefrescar);
 
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +133,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGap(0, 354, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -153,7 +145,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
@@ -163,9 +154,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,7 +176,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         jButtonEliminar.setEnabled(false);
         jButtonActualizar.setEnabled(false);
         jButtonRefrescar.setVisible(false);
-        jLabelTitulo.setVisible(true);
     }
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
@@ -246,7 +234,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
                 }
 
                 jButtonRefrescar.setVisible(true);
-                jLabelTitulo.setVisible(false);
             } else {
                 mostrarMensajeError("No existe ninguna cafetería con id: " + idCafeteria);
             }
@@ -306,8 +293,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonInsertar;
     private javax.swing.JButton jButtonRefrescar;
-    private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
