@@ -5,6 +5,7 @@
 package com.gestioncafeterias.interfazGrafica;
 
 import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
+import com.gestioncafeterias.interfazGrafica.empleado.ConsultaEmpleados;
 import com.gestioncafeterias.interfazGrafica.producto.MostrarProductos;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +25,7 @@ public class UIPrincipal extends javax.swing.JFrame {
     public UIPrincipal() {
         initComponents();
         anyadirTab(TITULO_CAFETERIAS, new ConsultarCafeterias());
-        anyadirTab(TITULO_EMPLEADOS, new ConsultarCafeterias());
+        anyadirTab(TITULO_EMPLEADOS, new ConsultaEmpleados());
         anyadirTab(TITULO_PRODUCTOS, new MostrarProductos());
         
 
