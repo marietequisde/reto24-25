@@ -85,6 +85,11 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }
 
+    public void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
+        model.setRowCount(0);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,7 +108,7 @@ public class MainMenu extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        AreaInputId = new javax.swing.JTextField();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -203,7 +208,11 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setText("Este ID no existe");
 
-        jTextField1.setText("jTextField1");
+        AreaInputId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AreaInputIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,15 +237,15 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(BtnInsertar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnEliminar)))))
+                                .addComponent(BtnEliminar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LabelIdNoExist))
+                .addGap(116, 116, 116)
+                .addComponent(LabelIdNoExist)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -251,7 +260,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(LabelIdNoExist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
@@ -303,7 +312,7 @@ public class MainMenu extends javax.swing.JFrame {
         ventana.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-
+                TablaConsultar.clearSelection();
                 actualizarTabla();
             }
         });
@@ -324,40 +333,41 @@ public class MainMenu extends javax.swing.JFrame {
     private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
         try {
             // TODO add your handling code here:
-            
+
             Connection conexion = null;
             conexion = DerbyUtil.abrirConexion();
-            
-            String id = jTextField1.getText();
+
+            String id = AreaInputId.getText();
             String sentenciaConsulta = String.format("SELECT * FROM producto "
                     + "WHERE id_producto = " + id);
             Statement sentencia = conexion.createStatement();
             ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
-            
+
             if (rs.next() == false) {
                 LabelIdNoExist.setVisible(true);
             } else {
-                
+                limpiarTabla();
+                sentenciaConsulta = String.format("SELECT * FROM producto "
+                        + "WHERE id_producto = " + id);
+                sentencia = conexion.createStatement();
+                ResultSet rst = sentencia.executeQuery(sentenciaConsulta);
+
+                TablaConsultar.setModel(modelTabla);
+
+                String[] datos = new String[5];
+
+                while (rst.next()) {
+
+                    datos[0] = rst.getString("id_producto");
+                    datos[1] = rst.getString("nombre");
+                    datos[2] = rst.getString("precio");
+                    datos[3] = rst.getString("tipo");
+                    datos[4] = rst.getString("proveedor");
+                    modelTabla.addRow(datos);
+
+                }
             }
-            sentenciaConsulta = String.format("SELECT * FROM producto WHERE id_producto");
-            sentencia = conexion.createStatement();
-            ResultSet rst = sentencia.executeQuery(sentenciaConsulta);
-            
-            TablaConsultar.setModel(modelTabla);
-            
-            String[] datos = new String[5];
-            
-            while (rs.next()) {
-                // Añadir filas (ajusta según tus columnas)
-                
-                datos[0] = rst.getString("id_producto");
-                datos[1] = rst.getString("nombre");
-                datos[2] = rst.getString("precio");
-                datos[3] = rst.getString("tipo");
-                datos[4] = rst.getString("proveedor");
-                modelTabla.addRow(datos);
-                
-            }
+
         } catch (SQLException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -365,6 +375,10 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
+
+    private void AreaInputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaInputIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AreaInputIdActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -400,6 +414,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AreaInputId;
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnConsultaPorID;
     private javax.swing.JButton BtnConsultar;
@@ -414,6 +429,5 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
