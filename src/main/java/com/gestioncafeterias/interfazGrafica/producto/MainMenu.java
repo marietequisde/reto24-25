@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,7 +36,6 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         LabelIdNoExist.setVisible(false);
-
         modelTabla.addColumn("ID");
         modelTabla.addColumn("Nombre");
         modelTabla.addColumn("Precio €");
@@ -43,28 +43,34 @@ public class MainMenu extends javax.swing.JFrame {
         modelTabla.addColumn("Proveedor");
     }
 
-    public void mostrar() throws SQLException, ClassNotFoundException {
-        Connection conexion = null;
-        List<Producto> productos = AccesoProducto.consultarTodos();
+    public void mostrar() {
 
-        TablaConsultar.setModel(modelTabla);
+        try {
+            List<Producto> productos = AccesoProducto.consultarTodos();
 
-        String[] datos = new String[5];
+            TablaConsultar.setModel(modelTabla);
 
-        for (Producto producto : productos) {
-            
-            datos[0] = String.valueOf(producto.getIdProducto());
-            datos[1] = producto.getNombre();
-            datos[2] = String.valueOf(producto.getPrecio());
-            datos[3] = producto.getTipo();
-            datos[4] = producto.getProveedor();
-            modelTabla.addRow(datos);
+            String[] datos = new String[5];
 
+            for (Producto producto : productos) {
+
+                datos[0] = String.valueOf(producto.getIdProducto());
+                datos[1] = producto.getNombre();
+                datos[2] = String.valueOf(producto.getPrecio());
+                datos[3] = producto.getTipo();
+                datos[4] = producto.getProveedor();
+                modelTabla.addRow(datos);
+
+            }
+            /*int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
+            String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
+            LabelPrueba.setText(filaSeleccionadaStr);*/
+            // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
+        } catch (SQLException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
-        String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
-        LabelPrueba.setText(filaSeleccionadaStr);*/
-        // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
     }
 
     public String getSelectedID() {
@@ -74,15 +80,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     public void actualizarTabla() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
-            model.setRowCount(0);
-            mostrar();
-        } catch (SQLException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
+        model.setRowCount(0);
+        mostrar();
+
     }
 
     public void limpiarTabla() {
@@ -283,14 +284,10 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
-        try {
-            mostrar();
-            /* new InsertarMenu().setVisible(true);*/
-        } catch (SQLException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        mostrar();
+        /* new InsertarMenu().setVisible(true);*/
+
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
     private void BtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInsertarActionPerformed
@@ -339,39 +336,28 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
+
         try {
-            // TODO add your handling code here:
+            int id = Integer.parseInt(AreaInputId.getText());
+            
+            List<Producto> productos = AccesoProducto.consultarPorID(id);
 
-            Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
+            TablaConsultar.setModel(modelTabla);
 
-            String id = AreaInputId.getText();
-            String sentenciaConsulta = String.format("SELECT * FROM producto "
-                    + "WHERE id_producto = " + id);
-            Statement sentencia = conexion.createStatement();
-            ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
+            String[] datos = new String[5];
 
-            if (rs.next() == false) {
+            if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
             } else {
                 LabelIdNoExist.setVisible(false);
                 limpiarTabla();
-                sentenciaConsulta = String.format("SELECT * FROM producto "
-                        + "WHERE id_producto = " + id);
-                sentencia = conexion.createStatement();
-                ResultSet rst = sentencia.executeQuery(sentenciaConsulta);
+                for (Producto producto : productos) {
 
-                TablaConsultar.setModel(modelTabla);
-
-                String[] datos = new String[5];
-
-                while (rst.next()) {
-
-                    datos[0] = rst.getString("id_producto");
-                    datos[1] = rst.getString("nombre");
-                    datos[2] = rst.getString("precio");
-                    datos[3] = rst.getString("tipo");
-                    datos[4] = rst.getString("proveedor");
+                    datos[0] = String.valueOf(producto.getIdProducto());
+                    datos[1] = producto.getNombre();
+                    datos[2] = String.valueOf(producto.getPrecio());
+                    datos[3] = producto.getTipo();
+                    datos[4] = producto.getProveedor();
                     modelTabla.addRow(datos);
 
                 }
@@ -383,10 +369,13 @@ public class MainMenu extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 
     private void AreaInputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaInputIdActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_AreaInputIdActionPerformed
 
     public static void main(String args[]) {
