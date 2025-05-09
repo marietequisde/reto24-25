@@ -5,12 +5,8 @@
 package com.gestioncafeterias.interfazGrafica.empleado;
 
 import com.gestioncafeterias.acceso.AccesoEmpleado;
-import com.gestioncafeterias.acceso.DerbyUtil;
 import com.gestioncafeterias.modelo.Empleado;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 public class ConsultaEmpleados extends javax.swing.JFrame {
 
     DefaultTableModel modelTabla = new DefaultTableModel();
-
     /**
      * Creates new form ConsultaEmpleados
      */
@@ -58,9 +53,6 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 modelTabla.addRow(datos);
                 
             }
-            int filaSeleccionadaIn = jTableTodos.getSelectedRow();
-            String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
-            labelText.setText(filaSeleccionadaStr);
             jTableTodos.setModel(modelTabla);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConsultaEmpleados.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +64,6 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     public String getSelectedID() {
         int row = jTableTodos.getSelectedRow();
         String value = jTableTodos.getModel().getValueAt(row, 0).toString();
-        labelText.setText("ID seleccionado: " + value);
         return value;
     }
 
@@ -87,6 +78,14 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTodos = new javax.swing.JTable();
+        botonInsertar = new javax.swing.JButton();
+        botonConsultar = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
+        labelCodigo = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        lblError = new javax.swing.JLabel();
+        botonRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,13 +102,80 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableTodos);
 
+        botonInsertar.setText("Insertar");
+
+        botonConsultar.setText("Consultar ");
+        botonConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarActionPerformed(evt);
+            }
+        });
+
+        botonActualizar.setText("Actualizar");
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
+
+        botonEliminar.setText("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
+
+        labelCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelCodigo.setText("Codigo:");
+
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        botonRefresh.setText("Actualizar Tabla");
+        botonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelCodigo)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonConsultar)
+                        .addGap(82, 82, 82)
+                        .addComponent(botonActualizar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(botonInsertar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonEliminar)
+                        .addGap(50, 50, 50))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonRefresh)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,11 +183,74 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonRefresh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(lblError)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCodigo)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonConsultar)
+                    .addComponent(botonActualizar)
+                    .addComponent(botonInsertar)
+                    .addComponent(botonEliminar))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
+               try{
+           lblError.setText("");
+        int codigo = Integer.parseInt(txtCodigo.getText());
+        Empleado empleado = AccesoEmpleado.consultar(codigo);
+         String[] datos = new String[5];
+        if (empleado == null){
+            lblError.setText("No existe ningun departamento con ese codigo");
+        }
+        else{
+                modelTabla.setRowCount(0);
+                datos[0] = String.valueOf(empleado.getIdEmpleado());
+                datos[1] = empleado.getNombre();
+                datos[2] = String.valueOf(empleado.getSalario());
+                datos[3] = empleado.getFechaAlta();
+                datos[4] = empleado.getDni();
+                modelTabla.addRow(datos);
+        }
+        
+       }
+       catch(NumberFormatException nfe){
+           lblError.setText("Tiene que ser un numero entero");
+       }
+        catch (ClassNotFoundException cnfe) {
+             lblError.setText("Error al conectar con la base de datos");
+	}
+        catch(SQLException sqle){
+             lblError.setText("Error con la base de datos");
+        }
+    }//GEN-LAST:event_botonConsultarActionPerformed
+
+    private void botonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRefreshActionPerformed
+        mostrarEmpleados();
+    }//GEN-LAST:event_botonRefreshActionPerformed
+
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        int id_empleado = Integer.parseInt(txtCodigo.getText());
+        ActualizarEmpleado actualizar = new ActualizarEmpleado(id_empleado);
+        actualizar.setVisible(true);
+    }//GEN-LAST:event_botonActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,7 +288,15 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton botonConsultar;
+    private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonInsertar;
+    private javax.swing.JButton botonRefresh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTodos;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
