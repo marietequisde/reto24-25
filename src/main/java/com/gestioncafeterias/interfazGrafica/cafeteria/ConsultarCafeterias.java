@@ -222,22 +222,23 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         try {
-            // TODO add your handling code here:
-            int idCafeteria = Integer.parseInt(JOptionPane.showInputDialog(this, "Introduzca el id de la cafetería"));
-            Cafeteria cafeteria = AccesoCafeteria.consultar(idCafeteria);
-            if (cafeteria != null) {
-                cafeterias = new ArrayList<>();
-                cafeterias.add(cafeteria);
-                modeloCafeterias = new DefaultTableModel(headerCafeterias, 0);
-                modeloCafeterias.addRow(cafeteria.toDataArray());
+            String resultadoPopUp = JOptionPane.showInputDialog(jTableCafeterias, "Introduzca el id de la cafetería");
+            if (resultadoPopUp != null && !resultadoPopUp.isEmpty()) {
+                Cafeteria cafeteria = AccesoCafeteria.consultar(Integer.parseInt(resultadoPopUp));
+                if (cafeteria != null) {
+                    cafeterias = new ArrayList<>();
+                    cafeterias.add(cafeteria);
+                    modeloCafeterias = new DefaultTableModel(headerCafeterias, 0);
+                    modeloCafeterias.addRow(cafeteria.toDataArray());
 
-                if (jTableCafeterias != null) {
-                    jTableCafeterias.setModel(modeloCafeterias);
+                    if (jTableCafeterias != null) {
+                        jTableCafeterias.setModel(modeloCafeterias);
+                    }
+
+                    jButtonRefrescar.setVisible(true);
+                } else {
+                    mostrarMensajeError("No existe ninguna cafetería con id: " + resultadoPopUp);
                 }
-
-                jButtonRefrescar.setVisible(true);
-            } else {
-                mostrarMensajeError("No existe ninguna cafetería con id: " + idCafeteria);
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -285,6 +286,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         Cafeteria cafeteria = cafeterias.get(indice);
         return cafeteria.getIdCafeteria();
     }
+
     private void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
