@@ -17,7 +17,7 @@ public class AccesoCafeteria {
     private static final String SQL_INSERTAR
             = "INSERT INTO cafeteria (horario, "
             + "direccion, aforo_local, precio_alquiler, gerente) "
-            + "VALUES ('%s', '%s', %d, %s, "
+            + "VALUES ('%s', '%s', %s, %s, "
             + "(SELECT id_empleado FROM empleado WHERE nombre = '%s'))";
 
     private static final String SQL_CONSULTAR_UNO
