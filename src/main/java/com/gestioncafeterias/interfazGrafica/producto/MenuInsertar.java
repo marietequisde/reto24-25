@@ -4,11 +4,14 @@
  */
 package com.gestioncafeterias.interfazGrafica.producto;
 
+import com.gestioncafeterias.acceso.AccesoProducto;
 import com.gestioncafeterias.acceso.DerbyUtil;
+import com.gestioncafeterias.modelo.Producto;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
@@ -61,7 +64,7 @@ public class MenuInsertar extends javax.swing.JFrame {
         Dialog1.setTitle("Exception");
         Dialog1.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\cruz.png")); // NOI18N
         jLabel5.setText("Error de insercion. Descripcion del Error: ");
 
         jTextArea1.setColumns(20);
@@ -73,21 +76,21 @@ public class MenuInsertar extends javax.swing.JFrame {
         Dialog1Layout.setHorizontalGroup(
             Dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog1Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(54, 54, 54))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(39, 39, 39))
         );
         Dialog1Layout.setVerticalGroup(
             Dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Dialog1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -116,7 +119,8 @@ public class MenuInsertar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
+        jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\controlar.png")); // NOI18N
         jVerify.setText("Guardado!");
 
         jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
@@ -173,7 +177,7 @@ public class MenuInsertar extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(29, 29, 29)
                 .addComponent(jVerify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Insertbtn)
                 .addGap(22, 22, 22)
                 .addComponent(jLabel6))
@@ -190,20 +194,23 @@ public class MenuInsertar extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
 
-            Connection conexion = null;
+            /*Connection conexion = null;
             conexion = DerbyUtil.abrirConexion();
 
-            datos[0] = jTextField1.getText();
-            datos[1] = jTextField2.getText();
-            datos[2] = jTextField3.getText();
-            datos[3] = jTextField4.getText();
+            
 
             String sentenciaInsercion = String.format("INSERT INTO "
                     + "producto(nombre, precio, tipo, proveedor) values"
                     + "('" + datos[0] + "', " + datos[1] + " , '" + datos[2]
                     + "', '" + datos[3] + "')");
             Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaInsercion);
+            int rs = sentencia.executeUpdate(sentenciaInsercion);*/
+            String nombre = jTextField1.getText();
+            Double precio = Double.parseDouble(jTextField2.getText());
+            String tipo = jTextField3.getText();
+            String proveedor = jTextField4.getText();
+
+            AccesoProducto.insertarProducto(nombre, precio, tipo, proveedor);
 
             jVerify.setVisible(true);
 

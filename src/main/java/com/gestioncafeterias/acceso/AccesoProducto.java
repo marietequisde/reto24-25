@@ -4,8 +4,10 @@
  */
 package com.gestioncafeterias.acceso;
 
+import com.gestioncafeterias.acceso.DerbyUtil;
 import com.gestioncafeterias.modelo.Producto;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,22 +20,28 @@ import java.util.List;
  */
 public class AccesoProducto {
 
-    public static void insertarProducto(Producto producto) throws SQLException, ClassNotFoundException {
+    public static boolean insertarProducto(String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
+        boolean insertado = false;
         Connection conexion = null;
 
         try {
             conexion = DerbyUtil.abrirConexion();
-            String sentenciaInsercion = String.format("INSERT INTO producto (nombre, precio,tipo,proveedor)"
-                    + "VALUES (%s, %f, %s, %s)",
-                    producto.getNombre(),
-                    producto.getPrecio(),
-                    producto.getTipo(),
-                    producto.getProveedor());
-            Statement sentencia = conexion.createStatement();
+            String sentenciaInsercion = "INSERT INTO producto (nombre, precio, tipo, proveedor) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement sentencia = conexion.prepareStatement(sentenciaInsercion);
+            sentencia.setString(1, nombre);
+            sentencia.setDouble(2, precio);
+            sentencia.setString(3, tipo);
+            sentencia.setString(4, proveedor);
+
+            if (sentencia.executeUpdate() == 1) {
+                insertado = true;
+            }
             sentencia.close();
         } finally {
             DerbyUtil.cerrarConexion(conexion);
         }
+        return insertado;
     }
 
     public static List<Producto> consultarTodos() throws SQLException, ClassNotFoundException {
@@ -91,7 +99,7 @@ public class AccesoProducto {
         return productos;
     }
 
-    public static boolean actualizar(int id, String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
+    /*public static boolean actualizar(int id, String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
         Connection conexion = null;
         boolean actualizado = false;
 
@@ -108,6 +116,29 @@ public class AccesoProducto {
             DerbyUtil.cerrarConexion(conexion);
         }
         return actualizado;
+    }*/
+    public static boolean actualizar(int id, String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
+        Connection conexion = null;
+        boolean actualizado = false;
+
+        try {
+            conexion = DerbyUtil.abrirConexion();
+            String sentenciaUpt = "UPDATE producto SET nombre = ?, precio = ?, tipo = ?, proveedor = ? WHERE id_producto = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sentenciaUpt);
+
+            pstmt.setString(1, nombre);
+            pstmt.setDouble(2, precio);
+            pstmt.setString(3, tipo);
+            pstmt.setString(4, proveedor);
+            pstmt.setInt(5, id);
+
+            if (pstmt.executeUpdate() == 1) {
+                actualizado = true;
+            }
+        } finally {
+            DerbyUtil.cerrarConexion(conexion);
+        }
+        return actualizado;
     }
 
     public static boolean eliminar(int id) throws SQLException, ClassNotFoundException {
@@ -116,11 +147,12 @@ public class AccesoProducto {
 
         try {
             conexion = DerbyUtil.abrirConexion();
-            String sentenciaEliminar = String.format("DELETE FROM productos WHERE id_producto = " + id);
+            String sentenciaEliminar = String.format("DELETE FROM producto WHERE id_producto = " + id);
             Statement sentencia = conexion.createStatement();
             if (sentencia.executeUpdate(sentenciaEliminar) == 1) {
                 eliminado = true;
             }
+            sentencia.close();
         } finally {
             DerbyUtil.cerrarConexion(conexion);
         }

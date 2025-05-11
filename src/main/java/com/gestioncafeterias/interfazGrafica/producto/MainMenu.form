@@ -40,9 +40,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\DAM1B22\Pictures\x-mark-64.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Error de eliminacion. Descripcion del Error: "/>
           </Properties>
         </Component>
@@ -147,7 +144,7 @@
               <Component id="UptTablaBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
               <Component id="LabelIdNoExist" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="AreaInputId" min="-2" max="-2" attributes="0"/>
@@ -284,7 +281,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\DAM1B22\Pictures\warning.png"/>
+          <Image iconType="2" name="C:\Users\andro\Documents\GitProjectGestioncafereria\iconos\error.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#xa1;Este ID no existe!"/>
       </Properties>

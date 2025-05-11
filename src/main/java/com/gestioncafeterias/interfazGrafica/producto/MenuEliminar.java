@@ -4,6 +4,7 @@
  */
 package com.gestioncafeterias.interfazGrafica.producto;
 
+import com.gestioncafeterias.acceso.AccesoProducto;
 import com.gestioncafeterias.acceso.DerbyUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,7 +19,6 @@ import javax.swing.JTextField;
  * @author andro
  */
 public class MenuEliminar extends javax.swing.JFrame {
-    
 
     String[] datos = new String[1];
 
@@ -57,7 +57,7 @@ public class MenuEliminar extends javax.swing.JFrame {
         Dialog1.setTitle("Exception");
         Dialog1.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\Okn't.png")); // NOI18N
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
         jTextArea1.setColumns(20);
@@ -69,21 +69,21 @@ public class MenuEliminar extends javax.swing.JFrame {
         Dialog1Layout.setHorizontalGroup(
             Dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog1Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(54, 54, 54))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Dialog1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(Dialog1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Dialog1Layout.setVerticalGroup(
             Dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Dialog1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -107,12 +107,13 @@ public class MenuEliminar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
+        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\controlar.png")); // NOI18N
         jVerify.setText("Eliminado!");
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\warning.png")); // NOI18N
         LabelIdNoExist.setText("Este ID no existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,13 +142,13 @@ public class MenuEliminar extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LabelIdNoExist)
-                .addGap(17, 17, 17)
+                .addGap(23, 23, 23)
                 .addComponent(jVerify)
                 .addGap(39, 39, 39)
                 .addComponent(Insertbtn)
@@ -159,28 +160,16 @@ public class MenuEliminar extends javax.swing.JFrame {
 
     private void InsertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertbtnActionPerformed
         try {
-            // TODO add your handling code here:
 
-            Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
+            int id = Integer.parseInt(jTextField1.getText());
 
-            String id = jTextField1.getText();
-
-            String sentenciaConsulta = String.format("SELECT * FROM producto "
-                    + "WHERE id_producto = " + id);
-            Statement sentencia = conexion.createStatement();
-            ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
-            
-            
-            if(rs.next() == false){
+            if (!AccesoProducto.siExiste(id)) {
                 LabelIdNoExist.setVisible(true);
-            }else{
-            
-            String sentenciaEliminacion = String.format("DELETE FROM producto "
-                    + "WHERE id_producto = " + id);
-            int result = sentencia.executeUpdate(sentenciaEliminacion);
-
-            jVerify.setVisible(true);
+                
+            } else {
+                LabelIdNoExist.setVisible(false);
+                AccesoProducto.eliminar(id);
+                jVerify.setVisible(true);
             }
 
         } catch (SQLException ex) {

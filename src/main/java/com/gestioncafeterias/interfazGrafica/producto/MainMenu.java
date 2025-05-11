@@ -115,7 +115,6 @@ public class MainMenu extends javax.swing.JFrame {
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
         TextErrEliminar.setColumns(20);
@@ -209,7 +208,7 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\warning.png")); // NOI18N
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\error.png")); // NOI18N
         LabelIdNoExist.setText("¡Este ID no existe!");
 
         AreaInputId.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +265,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(UptTablaBtn)
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(LabelIdNoExist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
