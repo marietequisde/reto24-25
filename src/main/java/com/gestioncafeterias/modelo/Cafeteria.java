@@ -4,11 +4,13 @@
  */
 package com.gestioncafeterias.modelo;
 
+import com.gestioncafeterias.interfazGrafica.FilaTabla;
+
 /**
  *
  * @author Mario Fernández
  */
-public class Cafeteria {
+public class Cafeteria implements FilaTabla {
 
     private int idCafeteria;
     private String horario;
@@ -83,7 +85,8 @@ public class Cafeteria {
         return "Cafeteria{" + "idCafeteria=" + idCafeteria + ", horario=" + horario + ", direccion=" + direccion + ", aforoLocal=" + aforoLocal + ", precioAlquiler=" + precioAlquiler + ", gerente=" + nombreGerente + '}';
     }
 
-    public String[] toDataArray() {
+    @Override
+    public String[] toVectorStrings() {
         String[] atributos = new String[6];
         atributos[0] = String.valueOf(idCafeteria);
         atributos[1] = horario;

@@ -4,7 +4,9 @@
  */
 package com.gestioncafeterias.interfazGrafica.cafeteria;
 
+import com.gestioncafeterias.interfazGrafica.ModeloTabla;
 import com.gestioncafeterias.acceso.AccesoCafeteria;
+import com.gestioncafeterias.interfazGrafica.FilaTabla;
 import com.gestioncafeterias.modelo.Cafeteria;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -166,10 +168,8 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void refrescarListado() {
         try {
-            obtenerModeloTabla().limpiarDatos();
-            for (Cafeteria cafeteria : AccesoCafeteria.consultarTodos()) {
-                obtenerModeloTabla().addRow(cafeteria.toDataArray());
-            }
+            FilaTabla[] filas = AccesoCafeteria.consultarTodos().toArray(FilaTabla[]::new);
+            obtenerModeloTabla().rellenar(filas);
         } catch (ClassNotFoundException | SQLException ex) {
             mostrarMensajeError("Error interno.");
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,9 +222,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
             if (resultadoPopUp != null && !resultadoPopUp.isEmpty()) {
                 Cafeteria cafeteria = AccesoCafeteria.consultar(Integer.parseInt(resultadoPopUp));
                 if (cafeteria != null) {
-                    obtenerModeloTabla().limpiarDatos();
-                    obtenerModeloTabla().addRow(cafeteria.toDataArray());
-
+                    obtenerModeloTabla().mostrarElemento(cafeteria);
                     jButtonRefrescar.setVisible(true);
                 } else {
                     mostrarMensajeError("No existe ninguna cafetería con id: " + resultadoPopUp);
