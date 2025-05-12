@@ -5,25 +5,15 @@
 package com.gestion_cafeterias.interfaz_grafica.producto;
 
 import com.gestion_cafeterias.acceso.AccesoProducto;
-import com.gestion_cafeterias.acceso.DerbyUtil;
-import com.gestion_cafeterias.modelo.Producto;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author andro
  */
 public class MenuActualizar extends javax.swing.JFrame {
-
-    String[] datos = new String[4];
 
     /**
      * Creates new form InsertarMenu
@@ -31,11 +21,7 @@ public class MenuActualizar extends javax.swing.JFrame {
     public MenuActualizar() {
         initComponents();
         jVerify.setVisible(false);
-        DefaultTableModel modelTabla = new DefaultTableModel();
         LabelIdNoExist.setVisible(false);
-    }
-
-    public void insertarPrueba() {
 
     }
 
@@ -51,7 +37,7 @@ public class MenuActualizar extends javax.swing.JFrame {
         Dialog1 = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        ErrtextArea = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -73,9 +59,9 @@ public class MenuActualizar extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
         jLabel5.setText("Error de insercion. Descripcion del Error: ");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        ErrtextArea.setColumns(20);
+        ErrtextArea.setRows(5);
+        jScrollPane1.setViewportView(ErrtextArea);
 
         javax.swing.GroupLayout Dialog1Layout = new javax.swing.GroupLayout(Dialog1.getContentPane());
         Dialog1.getContentPane().setLayout(Dialog1Layout);
@@ -101,7 +87,7 @@ public class MenuActualizar extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("UI Insertar Producto");
+        setTitle("UI Actualizar Producto");
         setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setText("Nombre");
@@ -125,7 +111,8 @@ public class MenuActualizar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
+        jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Actualizado!");
 
         jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
@@ -135,7 +122,7 @@ public class MenuActualizar extends javax.swing.JFrame {
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\warning.png")); // NOI18N
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
         LabelIdNoExist.setText("¡Este ID no existe!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,8 +146,9 @@ public class MenuActualizar extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jVerify)
-                            .addComponent(Updatebtn)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jVerify)
+                                .addComponent(Updatebtn))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -170,18 +158,18 @@ public class MenuActualizar extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(45, 45, 45)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(15, 15, 15)
                 .addComponent(LabelIdNoExist)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -197,9 +185,9 @@ public class MenuActualizar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jVerify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(Updatebtn)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6))
@@ -214,46 +202,15 @@ public class MenuActualizar extends javax.swing.JFrame {
 
     private void UpdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatebtnActionPerformed
         try {
-            /*try {
-            // TODO add your handling code here:
 
-            Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
-            
-            String id = jTextField5.getText();
-
-            datos[0] = jTextField1.getText();
-            datos[1] = jTextField2.getText();
-            datos[2] = jTextField3.getText();
-            datos[3] = jTextField4.getText();
-
-            String sentenciaInsercion = String.format("UPDATE producto SET "
-            + "nombre = " + "'"+ datos[0]+ "'" + ","
-            + "precio = " + datos[1] + ","
-            + "tipo = " + "'" + datos[2]+ "'" + ","
-            + "proveedor = " + "'" + datos[3] + "'" + " WHERE id_producto = " + id);
-            Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaInsercion);
-
-            jVerify.setVisible(true);
-            
-            } catch (SQLException ex) {
-            Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-            Dialog1.setVisible(true);
-            jTextArea1.setText(ex.getMessage());
-            
-            } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
             boolean actualizado;
             int id = Integer.parseInt(jTextField5.getText());
 
             String nombre = jTextField1.getText();
-            Double precio = Double.parseDouble(jTextField2.getText());
+            Double precio = Double.valueOf(jTextField2.getText());
             String tipo = jTextField3.getText();
             String proveedor = jTextField4.getText();
 
-            String[] datos = new String[5];
 
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
@@ -264,12 +221,14 @@ public class MenuActualizar extends javax.swing.JFrame {
                 if (actualizado) {
                     jVerify.setVisible(true);
                 }
-
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            Dialog1.setVisible(true);
+            ErrtextArea.setText(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 
@@ -305,6 +264,7 @@ public class MenuActualizar extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MenuActualizar().setVisible(true);
             }
@@ -313,6 +273,7 @@ public class MenuActualizar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Dialog1;
+    private javax.swing.JTextArea ErrtextArea;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JButton Updatebtn;
     private javax.swing.JLabel jLabel1;
@@ -323,7 +284,6 @@ public class MenuActualizar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

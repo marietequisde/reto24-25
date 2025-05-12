@@ -5,22 +5,15 @@
 package com.gestion_cafeterias.interfaz_grafica.producto;
 
 import com.gestion_cafeterias.acceso.AccesoProducto;
-import com.gestion_cafeterias.acceso.DerbyUtil;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
 
 /**
  *
  * @author andro
  */
 public class MenuEliminar extends javax.swing.JFrame {
-
-    String[] datos = new String[1];
 
     /**
      * Creates new form InsertarMenu
@@ -30,11 +23,6 @@ public class MenuEliminar extends javax.swing.JFrame {
         jVerify.setVisible(false);
         LabelIdNoExist.setVisible(false);
     }
-
-    public void insertarPrueba() {
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +35,7 @@ public class MenuEliminar extends javax.swing.JFrame {
         Dialog1 = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        TextAreaErr = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Insertbtn = new javax.swing.JButton();
@@ -57,12 +45,12 @@ public class MenuEliminar extends javax.swing.JFrame {
         Dialog1.setTitle("Exception");
         Dialog1.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\Okn't.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("iconos\\Okn't.png"));
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        TextAreaErr.setColumns(20);
+        TextAreaErr.setRows(5);
+        jScrollPane1.setViewportView(TextAreaErr);
 
         javax.swing.GroupLayout Dialog1Layout = new javax.swing.GroupLayout(Dialog1.getContentPane());
         Dialog1.getContentPane().setLayout(Dialog1Layout);
@@ -88,7 +76,7 @@ public class MenuEliminar extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Eliminar registro con ID");
+        setTitle("UI Eliminar por ID");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(1, 55, 238));
 
@@ -107,13 +95,14 @@ public class MenuEliminar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\controlar.png")); // NOI18N
+        jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Eliminado!");
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\warning.png")); // NOI18N
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
         LabelIdNoExist.setText("Este ID no existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,36 +110,35 @@ public class MenuEliminar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Insertbtn)
-                        .addGap(71, 71, 71))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jVerify)
-                        .addGap(43, 43, 43))))
+                    .addComponent(jVerify)
+                    .addComponent(Insertbtn))
+                .addGap(71, 71, 71))
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelIdNoExist)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LabelIdNoExist))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LabelIdNoExist)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jVerify)
-                .addGap(39, 39, 39)
+                .addGap(32, 32, 32)
                 .addComponent(Insertbtn)
                 .addGap(18, 18, 18))
         );
@@ -165,7 +153,7 @@ public class MenuEliminar extends javax.swing.JFrame {
 
             if (!AccesoProducto.siExiste(id)) {
                 LabelIdNoExist.setVisible(true);
-                
+
             } else {
                 LabelIdNoExist.setVisible(false);
                 AccesoProducto.eliminar(id);
@@ -173,15 +161,15 @@ public class MenuEliminar extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
             Dialog1.setVisible(true);
-            jTextArea1.setText(ex.getMessage());
-
+            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
+            TextAreaErr.setText(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Dialog1.setVisible(true);
+            TextAreaErr.setText(ex.getLocalizedMessage());
         }
-
-
     }//GEN-LAST:event_InsertbtnActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -220,6 +208,7 @@ public class MenuEliminar extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MenuEliminar().setVisible(true);
             }
@@ -230,10 +219,10 @@ public class MenuEliminar extends javax.swing.JFrame {
     private javax.swing.JDialog Dialog1;
     private javax.swing.JButton Insertbtn;
     private javax.swing.JLabel LabelIdNoExist;
+    private javax.swing.JTextArea TextAreaErr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jVerify;
     // End of variables declaration//GEN-END:variables

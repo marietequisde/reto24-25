@@ -5,24 +5,13 @@
 package com.gestion_cafeterias.interfaz_grafica.producto;
 
 import com.gestion_cafeterias.acceso.AccesoProducto;
-import com.gestion_cafeterias.acceso.DerbyUtil;
 import com.gestion_cafeterias.modelo.Producto;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +30,9 @@ public class MainMenu extends javax.swing.JFrame {
         modelTabla.addColumn("Precio €");
         modelTabla.addColumn("Tipo");
         modelTabla.addColumn("Proveedor");
+        if(TablaConsultar.isVisible()){
+            mostrar();
+        }
     }
 
     public void mostrar() {
@@ -90,7 +82,12 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
         model.setRowCount(0);
     }
-
+    
+    public void estaAbierto(boolean abierto){
+        if(abierto){
+            mostrar();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,12 +102,9 @@ public class MainMenu extends javax.swing.JFrame {
         BtnInsertar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
-        UptTablaBtn = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
         AreaInputId = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -146,8 +140,8 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UI Gestion de Productos");
-        setBackground(new java.awt.Color(153, 204, 255));
         setForeground(new java.awt.Color(242, 242, 242));
+        setIconImage((new javax.swing.ImageIcon("iconos/cafe.png")).getImage());
 
         TablaConsultar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,7 +157,7 @@ public class MainMenu extends javax.swing.JFrame {
         TablaConsultar.setGridColor(new java.awt.Color(0, 0, 204));
         jScrollPane1.setViewportView(TablaConsultar);
 
-        BtnConsultar.setText("Consultar");
+        BtnConsultar.setText("Volver al listado");
         BtnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnConsultarActionPerformed(evt);
@@ -191,13 +185,6 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        UptTablaBtn.setText("Actualizar tabla");
-        UptTablaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UptTablaBtnActionPerformed(evt);
-            }
-        });
-
         BtnConsultaPorID.setText("Consultar por ID");
         BtnConsultaPorID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +195,7 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\error.png")); // NOI18N
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
         LabelIdNoExist.setText("¡Este ID no existe!");
 
         AreaInputId.addActionListener(new java.awt.event.ActionListener() {
@@ -221,61 +208,44 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(LabelIdNoExist)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(170, 471, Short.MAX_VALUE)
-                        .addComponent(UptTablaBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BtnConsultar)
-                                .addGap(15, 15, 15)
-                                .addComponent(BtnConsultaPorID)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnInsertar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnEliminar))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
+                        .addGap(129, 129, 129)
                         .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(LabelIdNoExist)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnConsultar)
+                        .addGap(15, 15, 15)
+                        .addComponent(BtnConsultaPorID)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnInsertar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                        .addComponent(BtnEliminar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(UptTablaBtn)
-                .addGap(3, 3, 3)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(LabelIdNoExist)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelIdNoExist))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
                     .addComponent(BtnInsertar)
                     .addComponent(BtnActualizar)
-                    .addComponent(BtnEliminar)
-                    .addComponent(BtnConsultaPorID))
+                    .addComponent(BtnConsultaPorID)
+                    .addComponent(BtnEliminar))
                 .addContainerGap())
         );
 
@@ -283,7 +253,7 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
-
+        limpiarTabla();
         mostrar();
         /* new InsertarMenu().setVisible(true);*/
 
@@ -302,11 +272,6 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_BtnInsertarActionPerformed
-
-    private void UptTablaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UptTablaBtnActionPerformed
-
-        actualizarTabla();
-    }//GEN-LAST:event_UptTablaBtnActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
 
@@ -338,7 +303,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         try {
             int id = Integer.parseInt(AreaInputId.getText());
-            
+
             List<Producto> productos = AccesoProducto.consultarPorID(id);
 
             TablaConsultar.setModel(modelTabla);
@@ -404,6 +369,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainMenu().setVisible(true);
             }
@@ -421,11 +387,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;
     private javax.swing.JTextArea TextErrEliminar;
-    private javax.swing.JButton UptTablaBtn;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }
