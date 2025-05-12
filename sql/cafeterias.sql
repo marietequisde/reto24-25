@@ -1,3 +1,4 @@
+/*---TABLA PRODUCTO---*/
 CREATE TABLE producto (
     id_producto INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
     nombre VARCHAR(50) NOT NULL, 
@@ -8,6 +9,7 @@ CREATE TABLE producto (
     PRIMARY KEY (id_producto)
 );
 
+/*---TABLA EMPLEADO---*/
 CREATE TABLE empleado (
     id_empleado INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
     nombre VARCHAR(50),
@@ -18,6 +20,7 @@ CREATE TABLE empleado (
     PRIMARY KEY (id_empleado)
 );
 
+/*---TABLA CAFETERIA---*/
 CREATE TABLE cafeteria (
     id_cafeteria INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), 
     horario VARCHAR(50),
@@ -30,6 +33,7 @@ CREATE TABLE cafeteria (
     PRIMARY KEY (id_cafeteria)
 );
 
+/*---TABLA ALMACENA---*/
 CREATE TABLE almacena (
     id_producto INT,
     id_cafeteria INT,
@@ -40,6 +44,7 @@ CREATE TABLE almacena (
     CONSTRAINT stock_pos CHECK (stock >= 0)
 );
 
+/*---TABLA TRABAJA EN---*/
 CREATE TABLE trabaja_en (
     id_empleado INT,
     id_cafeteria INT,
@@ -49,12 +54,12 @@ CREATE TABLE trabaja_en (
     CONSTRAINT fk_tr_cafeteria FOREIGN KEY (id_cafeteria) REFERENCES cafeteria (id_cafeteria)
 );
 
+/*---TRIGGER ELIMINAR RELACIONES SIN STOCK---*/
 CREATE TRIGGER eliminar_sin_stock
 AFTER UPDATE OF STOCK ON ALMACENA
 DELETE FROM ALMACENA WHERE STOCK <= 0;
 
-/*---EMPLEADOS---*/
-
+/*--- INSERTAR EMPLEADOS---*/
 INSERT INTO EMPLEADO(nombre, salario,fecha_alta_empresa, dni)
 VALUES('Ricardo Lopez', 2157.98, DATE('2020-01-12'), '33789412G');
 INSERT INTO EMPLEADO(nombre, salario,fecha_alta_empresa, dni)
@@ -108,8 +113,7 @@ VALUES('Beatriz Delgado Suarez', 3590.80, DATE('2016-08-08'), '21548736K');
 INSERT INTO EMPLEADO(nombre, salario, fecha_alta_empresa, dni)
 VALUES('Lorena Vazquez Ortega', 3995.20, DATE('2015-01-27'), '63257894Y');
 
-/*---CAFETERIAS---*/
-
+/*--- INSERTAR CAFETERIAS---*/
 INSERT INTO CAFETERIA(horario, direccion, aforo_local, precio_alquiler, gerente)
 VALUES('08:30-20:30', 'C/ Alfonso Primero 47', 120, 1540.50, 1);
 INSERT INTO CAFETERIA(horario, direccion, aforo_local, precio_alquiler, gerente)
@@ -163,8 +167,7 @@ VALUES('07:00-20:00', 'Avenida Europa, 22', 75, 3150,6);
 INSERT INTO CAFETERIA(horario, direccion, aforo_local, precio_alquiler, gerente)
 VALUES('08:00-20:30', 'Plaza Wolfgang, 1 ', 55, 2650,20);
 
-/*---Producto---*/
-
+/*--- INSERTAR PRODUCTOS---*/
 INSERT INTO PRODUCTO(nombre, precio,tipo, proveedor)
 VALUES('Cocacola', 2.15, 'Refresco', 'Cocacola');
 INSERT INTO PRODUCTO(nombre, precio,tipo, proveedor)
@@ -212,6 +215,7 @@ VALUES('Smoothie de Frutas', 3.80, 'Bebida Fria', 'Naturaleza en Vaso');
 INSERT INTO PRODUCTO(nombre, precio, tipo, proveedor)
 VALUES('Tarta de Chocolate', 4.50, 'Reposteria', 'Dulce Tentacion');
 
+/*--- INSERTAR PRODUCTOS EN CAFETERIAS---*/
 INSERT INTO almacena VALUES (1, 1, 40);
 INSERT INTO almacena VALUES (2, 1, 35);
 INSERT INTO almacena VALUES (3, 2, 50);
@@ -238,6 +242,7 @@ INSERT INTO almacena VALUES (23, 12, 12);
 INSERT INTO almacena VALUES (1, 13, 40);
 INSERT INTO almacena VALUES (2, 14, 33);
 
+/*--- INSERTAR EMPLEADOS EN CAFETERIAS---*/
 INSERT INTO trabaja_en VALUES (4, 1, '08:30-14:30');
 INSERT INTO trabaja_en VALUES (5, 1, '14:30-20:30');
 INSERT INTO trabaja_en VALUES (6, 2, '06:30-13:30');
@@ -263,6 +268,3 @@ INSERT INTO trabaja_en VALUES (25, 17, '09:00-17:00');
 INSERT INTO trabaja_en VALUES (13, 18, '08:00-16:00');
 INSERT INTO trabaja_en VALUES (12, 19, '07:00-14:00');
 INSERT INTO trabaja_en VALUES (11, 20, '07:00-13:30');
-
-
-
