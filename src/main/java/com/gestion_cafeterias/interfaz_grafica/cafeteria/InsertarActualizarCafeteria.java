@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package com.gestioncafeterias.interfazGrafica.cafeteria;
+package com.gestion_cafeterias.interfaz_grafica.cafeteria;
 
-import com.gestioncafeterias.acceso.AccesoCafeteria;
-import com.gestioncafeterias.acceso.AccesoEmpleado;
-import com.gestioncafeterias.modelo.Cafeteria;
+import com.gestion_cafeterias.acceso.AccesoCafeteria;
+import com.gestion_cafeterias.acceso.AccesoEmpleado;
+import com.gestion_cafeterias.modelo.Cafeteria;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;

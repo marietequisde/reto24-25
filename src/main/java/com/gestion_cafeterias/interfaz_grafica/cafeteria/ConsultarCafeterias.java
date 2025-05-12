@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.gestioncafeterias.interfazGrafica.cafeteria;
+package com.gestion_cafeterias.interfaz_grafica.cafeteria;
 
-import com.gestioncafeterias.interfazGrafica.ModeloTabla;
-import com.gestioncafeterias.acceso.AccesoCafeteria;
-import com.gestioncafeterias.interfazGrafica.FilaTabla;
-import com.gestioncafeterias.modelo.Cafeteria;
+import com.gestion_cafeterias.interfaz_grafica.ModeloTabla;
+import com.gestion_cafeterias.acceso.AccesoCafeteria;
+import com.gestion_cafeterias.interfaz_grafica.FilaTabla;
+import com.gestion_cafeterias.modelo.Cafeteria;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;

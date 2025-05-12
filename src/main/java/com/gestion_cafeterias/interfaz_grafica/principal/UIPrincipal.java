@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.gestioncafeterias.interfazGrafica.principal;
+package com.gestion_cafeterias.interfaz_grafica.principal;
 
-import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
-import com.gestioncafeterias.interfazGrafica.empleado.ConsultaEmpleados;
-import com.gestioncafeterias.interfazGrafica.producto.MainMenu;
-import com.gestioncafeterias.util.Constantes;
+import com.gestion_cafeterias.interfaz_grafica.cafeteria.ConsultarCafeterias;
+import com.gestion_cafeterias.interfaz_grafica.empleado.ConsultaEmpleados;
+import com.gestion_cafeterias.interfaz_grafica.producto.MainMenu;
+import com.gestion_cafeterias.util.Constantes;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

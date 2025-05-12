@@ -1,6 +1,6 @@
-package com.gestioncafeterias.acceso;
+package com.gestion_cafeterias.acceso;
 
-import com.gestioncafeterias.modelo.Cafeteria;
+import com.gestion_cafeterias.modelo.Cafeteria;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.gestioncafeterias.acceso;
+package com.gestion_cafeterias.acceso;
 
-import com.gestioncafeterias.acceso.DerbyUtil;
-import com.gestioncafeterias.modelo.Producto;
+import com.gestion_cafeterias.acceso.DerbyUtil;
+import com.gestion_cafeterias.modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

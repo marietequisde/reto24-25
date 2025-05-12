@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>com.gestioncafeterias.GestionCafeterias</exec.mainClass>
+        <exec.mainClass>com.gestion_cafeterias.GestionCafeterias</exec.mainClass>
     </properties>
     
     <dependencies>

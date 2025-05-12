@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.gestioncafeterias.modelo;
+package com.gestion_cafeterias.modelo;
 
-import com.gestioncafeterias.interfazGrafica.FilaTabla;
+import com.gestion_cafeterias.interfaz_grafica.FilaTabla;
 
 /**
  *
