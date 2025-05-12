@@ -21,8 +21,10 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
     private static final int MODO_INSERTAR = 0;
     private static final int MODO_ACTUALIZAR = 1;
+    private static final String GERENTE_SIN_ASIGNAR = "Sin asignar";
     private int modo = -1;
     private int idCafeteria;
+    
 
     /**
      * Creates new form InsertarCafeteria
@@ -56,7 +58,13 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                 jTextFieldDireccion.setText(cafeteria.getDireccion());
                 jTextFieldHorario.setText(cafeteria.getHorario());
                 jSpinnerAforo.setValue(cafeteria.getAforoLocal());
-                jComboGerente.setSelectedItem(cafeteria.getNombreGerente());
+                String nombreGerente = cafeteria.getNombreGerente();
+                if (nombreGerente != null) {
+                    jComboGerente.setSelectedItem(nombreGerente);
+                } else {
+                    jComboGerente.setSelectedItem(GERENTE_SIN_ASIGNAR);
+                }
+                
                 modo = MODO_ACTUALIZAR;
 
             }
@@ -69,6 +77,7 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private void inicializarComponentes() throws ClassNotFoundException, SQLException {
         initComponents();
         List<String> empleados = AccesoEmpleado.consultarNombres();
+        empleados.addFirst(GERENTE_SIN_ASIGNAR);
         modeloGerentes = new DefaultComboBoxModel(empleados.toArray());
         jComboGerente.setModel(modeloGerentes);
     }
@@ -205,6 +214,9 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         String direccion = jTextFieldDireccion.getText();
         int aforoLocal = (Integer) jSpinnerAforo.getValue();
         String nombreGerente = (String) jComboGerente.getSelectedItem();
+        if (nombreGerente.equals(GERENTE_SIN_ASIGNAR)) {
+            nombreGerente = null;
+        }
 
         try {
             if (jTextFieldAlquiler.getText() == null
