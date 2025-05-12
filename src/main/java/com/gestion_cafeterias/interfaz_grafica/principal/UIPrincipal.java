@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
  */
 public class UIPrincipal extends javax.swing.JFrame {
 

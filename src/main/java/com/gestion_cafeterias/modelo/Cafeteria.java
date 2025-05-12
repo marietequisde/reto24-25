@@ -82,7 +82,10 @@ public class Cafeteria implements FilaTabla {
 
     @Override
     public String toString() {
-        return "Cafeteria{" + "idCafeteria=" + idCafeteria + ", horario=" + horario + ", direccion=" + direccion + ", aforoLocal=" + aforoLocal + ", precioAlquiler=" + precioAlquiler + ", gerente=" + nombreGerente + '}';
+        return "Cafeteria{" + "idCafeteria=" + idCafeteria + ", horario="
+                + horario + ", direccion=" + direccion + ", aforoLocal="
+                + aforoLocal + ", precioAlquiler=" + precioAlquiler
+                + ", gerente=" + nombreGerente + '}';
     }
 
     @Override

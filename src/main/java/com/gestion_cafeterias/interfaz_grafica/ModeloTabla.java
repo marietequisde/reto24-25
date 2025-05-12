@@ -41,11 +41,11 @@ public class ModeloTabla extends AbstractTableModel {
     public void addRow(FilaTabla fila) {
         String[] datosFila = fila.toVectorStrings();
         datos.add(datosFila);
-        int row = datos.indexOf(datosFila);
-        for (int column = 0; column < datosFila.length; column++) {
-            fireTableCellUpdated(row, column);
+        int filaModelo = datos.indexOf(datosFila);
+        for (int columna = 0; columna < datosFila.length; columna++) {
+            fireTableCellUpdated(filaModelo, columna);
         }
-        fireTableRowsInserted(row, row);
+        fireTableRowsInserted(filaModelo, filaModelo);
     }
     
     public void limpiarDatos() {

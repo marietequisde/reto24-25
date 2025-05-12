@@ -6,7 +6,7 @@ package com.gestion_cafeterias.util;
 
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
  */
 public class Constantes {
 
