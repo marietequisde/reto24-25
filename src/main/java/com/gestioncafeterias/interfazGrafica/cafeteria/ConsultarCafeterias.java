@@ -283,7 +283,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     }
 
     private void mostrarMensajeError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(jTableCafeterias, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
