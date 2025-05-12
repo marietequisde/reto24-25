@@ -4,31 +4,38 @@
  */
 package com.gestioncafeterias.interfazGrafica.producto;
 
+import com.gestioncafeterias.acceso.AccesoProducto;
 import com.gestioncafeterias.acceso.DerbyUtil;
+import com.gestioncafeterias.modelo.Producto;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author andro
  */
-public class MostrarProductos extends javax.swing.JFrame {
+public class MainMenu extends javax.swing.JFrame {
 
     DefaultTableModel modelTabla = new DefaultTableModel();
 
-    /**
-     * Creates new form MostrarProductos
-     */
-    public MostrarProductos() {
+    public MainMenu() {
         initComponents();
-
+        LabelIdNoExist.setVisible(false);
         modelTabla.addColumn("ID");
         modelTabla.addColumn("Nombre");
         modelTabla.addColumn("Precio €");
@@ -36,51 +43,52 @@ public class MostrarProductos extends javax.swing.JFrame {
         modelTabla.addColumn("Proveedor");
     }
 
-    public void mostrar() throws SQLException, ClassNotFoundException {
-        Connection conexion = null;
-        conexion = DerbyUtil.abrirConexion();
-        String sentenciaConsulta = String.format("SELECT * FROM producto");
-        Statement sentencia = conexion.createStatement();
-        ResultSet rs = sentencia.executeQuery(sentenciaConsulta);
+    public void mostrar() {
 
-        TablaConsultar.setModel(modelTabla);
+        try {
+            List<Producto> productos = AccesoProducto.consultarTodos();
 
-        String[] datos = new String[5];
+            TablaConsultar.setModel(modelTabla);
 
-        while (rs.next()) {
-            // Añadir filas (ajusta según tus columnas)
+            String[] datos = new String[5];
 
-            datos[0] = rs.getString("id_producto");
-            datos[1] = rs.getString("nombre");
-            datos[2] = rs.getString("precio");
-            datos[3] = rs.getString("tipo");
-            datos[4] = rs.getString("proveedor");
-            modelTabla.addRow(datos);
+            for (Producto producto : productos) {
 
+                datos[0] = String.valueOf(producto.getIdProducto());
+                datos[1] = producto.getNombre();
+                datos[2] = String.valueOf(producto.getPrecio());
+                datos[3] = producto.getTipo();
+                datos[4] = producto.getProveedor();
+                modelTabla.addRow(datos);
+
+            }
+            /*int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
+            String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
+            LabelPrueba.setText(filaSeleccionadaStr);*/
+            // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
+        } catch (SQLException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
-        String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
-        LabelPrueba.setText(filaSeleccionadaStr);
-        // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
     }
 
     public String getSelectedID() {
         int row = TablaConsultar.getSelectedRow();
         String value = TablaConsultar.getModel().getValueAt(row, 0).toString();
-        LabelPrueba.setText("ID seleccionado: " + value);
         return value;
     }
 
     public void actualizarTabla() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
-            model.setRowCount(0);
-            mostrar();
-        } catch (SQLException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
+        model.setRowCount(0);
+        mostrar();
+
+    }
+
+    public void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
+        model.setRowCount(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -97,16 +105,16 @@ public class MostrarProductos extends javax.swing.JFrame {
         BtnInsertar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
-        LabelPrueba = new javax.swing.JLabel();
         UptTablaBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        BtnConsultaPorID = new javax.swing.JButton();
+        LabelIdNoExist = new javax.swing.JLabel();
+        AreaInputId = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jVerify = new javax.swing.JLabel();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
         TextErrEliminar.setColumns(20);
@@ -138,17 +146,18 @@ public class MostrarProductos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UI Gestion de Productos");
+        setBackground(new java.awt.Color(153, 204, 255));
         setForeground(new java.awt.Color(242, 242, 242));
 
         TablaConsultar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Precio €", "Tipo", "Proveedor"
             }
         ));
         TablaConsultar.setGridColor(new java.awt.Color(0, 0, 204));
@@ -189,8 +198,24 @@ public class MostrarProductos extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
-        jVerify.setText("Eliminado!");
+        BtnConsultaPorID.setText("Consultar por ID");
+        BtnConsultaPorID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnConsultaPorIDActionPerformed(evt);
+            }
+        });
+
+        LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
+        LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
+        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\error.png")); // NOI18N
+        LabelIdNoExist.setText("¡Este ID no existe!");
+
+        AreaInputId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AreaInputIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,30 +223,35 @@ public class MostrarProductos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(116, 116, 116)
+                .addComponent(LabelIdNoExist)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BtnConsultar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnInsertar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnEliminar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(LabelPrueba)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(170, 471, Short.MAX_VALUE)
                         .addComponent(UptTablaBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jVerify, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnConsultar)
+                                .addGap(15, 15, 15)
+                                .addComponent(BtnConsultaPorID)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnInsertar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnEliminar))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,18 +263,19 @@ public class MostrarProductos extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UptTablaBtn)
-                .addGap(7, 7, 7)
-                .addComponent(LabelPrueba)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(jVerify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(LabelIdNoExist)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
                     .addComponent(BtnInsertar)
                     .addComponent(BtnActualizar)
-                    .addComponent(BtnEliminar))
+                    .addComponent(BtnEliminar)
+                    .addComponent(BtnConsultaPorID))
                 .addContainerGap())
         );
 
@@ -252,14 +283,10 @@ public class MostrarProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
-        try {
-            mostrar();
-            /* new InsertarMenu().setVisible(true);*/
-        } catch (SQLException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MostrarProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        mostrar();
+        /* new InsertarMenu().setVisible(true);*/
+
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
     private void BtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInsertarActionPerformed
@@ -268,6 +295,7 @@ public class MostrarProductos extends javax.swing.JFrame {
         ventana.setVisible(true);
 
         ventana.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 TablaConsultar.clearSelection();
                 actualizarTabla();
@@ -281,51 +309,73 @@ public class MostrarProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_UptTablaBtnActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        /* ventana = new MenuEliminar();
-        ventana.setVisible(true);
-        
-        ventana.addWindowListener(new WindowAdapter() {
-            public void windowClosed(WindowEvent e) {
 
+        MenuEliminar ventana = new MenuEliminar();
+        ventana.setVisible(true);
+
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                TablaConsultar.clearSelection();
                 actualizarTabla();
             }
-        });*/
-
-        try {
-            // TODO add your handling code here:
-
-            Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
-
-            String id = getSelectedID();
-
-            String sentenciaEliminacion = String.format("DELETE FROM producto "
-                    + "WHERE id_producto = " + id);
-            Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaEliminacion);
-
-            jVerify.setVisible(true);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-            ExceptionDialog.setVisible(true);
-            TextErrEliminar.setText(ex.getMessage());
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        });
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
         MenuActualizar ventana = new MenuActualizar();
         ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 TablaConsultar.clearSelection();
                 actualizarTabla();
             }
         });
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
+
+        try {
+            int id = Integer.parseInt(AreaInputId.getText());
+            
+            List<Producto> productos = AccesoProducto.consultarPorID(id);
+
+            TablaConsultar.setModel(modelTabla);
+
+            String[] datos = new String[5];
+
+            if (AccesoProducto.siExiste(id) == false) {
+                LabelIdNoExist.setVisible(true);
+            } else {
+                LabelIdNoExist.setVisible(false);
+                limpiarTabla();
+                for (Producto producto : productos) {
+
+                    datos[0] = String.valueOf(producto.getIdProducto());
+                    datos[1] = producto.getNombre();
+                    datos[2] = String.valueOf(producto.getPrecio());
+                    datos[3] = producto.getTipo();
+                    datos[4] = producto.getProveedor();
+                    modelTabla.addRow(datos);
+
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
+
+    private void AreaInputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaInputIdActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_AreaInputIdActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -341,31 +391,34 @@ public class MostrarProductos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MostrarProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarProductos().setVisible(true);
+                new MainMenu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AreaInputId;
     private javax.swing.JButton BtnActualizar;
+    private javax.swing.JButton BtnConsultaPorID;
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
     private javax.swing.JDialog ExceptionDialog;
-    private javax.swing.JLabel LabelPrueba;
+    private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;
     private javax.swing.JTextArea TextErrEliminar;
     private javax.swing.JButton UptTablaBtn;
@@ -374,6 +427,5 @@ public class MostrarProductos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel jVerify;
     // End of variables declaration//GEN-END:variables
 }

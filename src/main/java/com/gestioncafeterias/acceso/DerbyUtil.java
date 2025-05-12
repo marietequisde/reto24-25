@@ -13,7 +13,8 @@ import java.sql.SQLException;
  * @author DAM1B07
  */
 public class DerbyUtil {
-     private static final String CONNECT_DERBY = "org.apache.derby.client.ClientAutoloadedDriver";
+
+    private static final String CONNECT_DERBY = "org.apache.derby.client.ClientAutoloadedDriver";
     private static final String URL_DERBY = "jdbc:derby://localhost:1527/Cafeterias";
     private static final String USUARIO = "root";
     private static final String CONTRASENYA = "root";
