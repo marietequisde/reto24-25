@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.gestioncafeterias.interfazGrafica;
+package com.gestioncafeterias.interfazGrafica.principal;
 
 import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
 import com.gestioncafeterias.interfazGrafica.empleado.ConsultaEmpleados;

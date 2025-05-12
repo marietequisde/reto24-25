@@ -6,7 +6,10 @@ package com.gestioncafeterias.interfazGrafica;
 
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
+ * 
+ * Esta interfaz facilita la implementación de tablas a partir de ModeloTabla,
+ * la idea es que una clase modelo implemente esta interfaz.
  */
 public interface FilaTabla {
 

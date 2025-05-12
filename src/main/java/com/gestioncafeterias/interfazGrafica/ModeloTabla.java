@@ -10,7 +10,11 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author DAM1B11
+ * @author Mario Fernández
+ * 
+ * Esta clase extiende a AbstractTableModel para visualizar datos en una tabla.
+ * Es muy aconsejable que la clase del modelo del dato que se quiere visualizar,
+ * extienda a FilaTabla.
  */
 public class ModeloTabla extends AbstractTableModel {
     
