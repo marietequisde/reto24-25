@@ -7,6 +7,7 @@ package com.gestioncafeterias.interfazGrafica;
 import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
 import com.gestioncafeterias.interfazGrafica.empleado.ConsultaEmpleados;
 import com.gestioncafeterias.interfazGrafica.producto.MainMenu;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -43,6 +44,7 @@ public class UIPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage((new ImageIcon("iconos/cafe.png")).getImage());
         setPreferredSize(new java.awt.Dimension(850, 523));
 
         jTabbedPane1.setPreferredSize(null);

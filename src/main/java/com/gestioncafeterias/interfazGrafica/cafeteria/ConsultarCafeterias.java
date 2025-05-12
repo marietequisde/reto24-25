@@ -9,14 +9,11 @@ import com.gestioncafeterias.modelo.Cafeteria;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,25 +21,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultarCafeterias extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConsultarCafeterias
-     */
     public ConsultarCafeterias() {
-        refrescarListado();
         initComponents();
         inicializarComponentes();
     }
 
     private void refrescarListado() {
         try {
-            cafeterias = AccesoCafeteria.consultarTodos();
-            modeloCafeterias = new DefaultTableModel(headerCafeterias, 0);
-            for (Cafeteria cafeteria : cafeterias) {
+            modeloCafeterias.limpiarDatos();
+            for (Cafeteria cafeteria : AccesoCafeteria.consultarTodos()) {
                 modeloCafeterias.addRow(cafeteria.toDataArray());
-            }
-
-            if (jTableCafeterias != null) {
-                jTableCafeterias.setModel(modeloCafeterias);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             mostrarMensajeError("Error interno.");
@@ -72,7 +60,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cafeterías");
-        setIconImage((new ImageIcon("iconos/cafe.png")).getImage());
 
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
@@ -116,7 +103,14 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonEliminar);
 
-        jTableCafeterias.setModel(modeloCafeterias);
+        jTableCafeterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jTableCafeterias.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTableCafeterias);
 
@@ -166,10 +160,17 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void inicializarComponentes() {
         inicializarBotones();
+        inicializarTabla();
+    }
+
+    private void inicializarTabla() {
+        modeloCafeterias = new ModeloTabla(headerCafeterias);
+        jTableCafeterias.setModel(modeloCafeterias);
         jTableCafeterias.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             jButtonEliminar.setEnabled(true);
             jButtonActualizar.setEnabled(true);
         });
+        refrescarListado();
     }
 
     private void inicializarBotones() {
@@ -226,14 +227,8 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
             if (resultadoPopUp != null && !resultadoPopUp.isEmpty()) {
                 Cafeteria cafeteria = AccesoCafeteria.consultar(Integer.parseInt(resultadoPopUp));
                 if (cafeteria != null) {
-                    cafeterias = new ArrayList<>();
-                    cafeterias.add(cafeteria);
-                    modeloCafeterias = new DefaultTableModel(headerCafeterias, 0);
+                    modeloCafeterias.limpiarDatos();
                     modeloCafeterias.addRow(cafeteria.toDataArray());
-
-                    if (jTableCafeterias != null) {
-                        jTableCafeterias.setModel(modeloCafeterias);
-                    }
 
                     jButtonRefrescar.setVisible(true);
                 } else {
@@ -282,9 +277,10 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     }
 
     private int obtenerIdSeleccion() {
-        int indice = jTableCafeterias.getSelectedRow();
-        Cafeteria cafeteria = cafeterias.get(indice);
-        return cafeteria.getIdCafeteria();
+        int filaSeleccionada = jTableCafeterias.getSelectedRow();
+        int filaModelo = jTableCafeterias.convertRowIndexToModel(filaSeleccionada);
+        int idCafeteria = Integer.parseInt(modeloCafeterias.getValueAt(filaModelo, 0));
+        return idCafeteria;
     }
 
     private void mostrarMensajeError(String mensaje) {
@@ -303,6 +299,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     private javax.swing.JTable jTableCafeterias;
     // End of variables declaration//GEN-END:variables
     String[] headerCafeterias = new String[]{"id", "Horario", "Dirección", "Aforo", "Precio alquiler", "Gerente"};
-    private DefaultTableModel modeloCafeterias;
-    List<Cafeteria> cafeterias;
+    private ModeloTabla modeloCafeterias;
+
 }
