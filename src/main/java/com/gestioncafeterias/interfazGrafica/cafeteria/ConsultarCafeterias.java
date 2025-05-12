@@ -11,7 +11,6 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
@@ -24,19 +23,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     public ConsultarCafeterias() {
         initComponents();
         inicializarComponentes();
-    }
-
-    private void refrescarListado() {
-        try {
-            modeloCafeterias.limpiarDatos();
-            for (Cafeteria cafeteria : AccesoCafeteria.consultarTodos()) {
-                modeloCafeterias.addRow(cafeteria.toDataArray());
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            mostrarMensajeError("Error interno.");
-            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**
@@ -163,8 +149,14 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         inicializarTabla();
     }
 
+    private void inicializarBotones() {
+        jButtonEliminar.setEnabled(false);
+        jButtonActualizar.setEnabled(false);
+        jButtonRefrescar.setVisible(false);
+    }
+
     private void inicializarTabla() {
-        modeloCafeterias = new ModeloTabla(headerCafeterias);
+        modeloCafeterias = new ModeloTabla(HEADER_CAFETERIAS);
         jTableCafeterias.setModel(modeloCafeterias);
         jTableCafeterias.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             jButtonEliminar.setEnabled(true);
@@ -173,28 +165,33 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         refrescarListado();
     }
 
-    private void inicializarBotones() {
-        jButtonEliminar.setEnabled(false);
-        jButtonActualizar.setEnabled(false);
-        jButtonRefrescar.setVisible(false);
+    private void refrescarListado() {
+        try {
+            modeloCafeterias.limpiarDatos();
+            for (Cafeteria cafeteria : AccesoCafeteria.consultarTodos()) {
+                modeloCafeterias.addRow(cafeteria.toDataArray());
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            mostrarMensajeError("Error interno.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
-        InsertarActualizarCafeteria ventana = new InsertarActualizarCafeteria(this, true);
-        ventana.setLocationRelativeTo(jTableCafeterias);
-        ventana.setVisible(true);
-        ventana.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refrescarListado();
-                inicializarBotones();
-            }
-        });
-
+        mostrarInsertarActualizar(null);
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        InsertarActualizarCafeteria ventana = new InsertarActualizarCafeteria(this, true, obtenerIdSeleccion());
+        mostrarInsertarActualizar(obtenerIdSeleccion());
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void mostrarInsertarActualizar(Integer idCafeteria) {
+        InsertarActualizarCafeteria ventana;
+        if (idCafeteria == null) {
+            ventana = new InsertarActualizarCafeteria(this, true);
+        } else {
+            ventana = new InsertarActualizarCafeteria(this, true, idCafeteria);
+        }
         ventana.setLocationRelativeTo(jTableCafeterias);
         ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
@@ -204,7 +201,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
                 inicializarBotones();
             }
         });
-    }//GEN-LAST:event_jButtonActualizarActionPerformed
+    }
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(jTableCafeterias, "¿Eliminar cafetería?", "Eliminar", JOptionPane.YES_NO_OPTION);
@@ -218,7 +215,6 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
                 Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -298,7 +294,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableCafeterias;
     // End of variables declaration//GEN-END:variables
-    String[] headerCafeterias = new String[]{"id", "Horario", "Dirección", "Aforo", "Precio alquiler", "Gerente"};
+    private static final String[] HEADER_CAFETERIAS = new String[]{"id", "Horario", "Dirección", "Aforo", "Precio alquiler", "Gerente"};
     private ModeloTabla modeloCafeterias;
 
 }

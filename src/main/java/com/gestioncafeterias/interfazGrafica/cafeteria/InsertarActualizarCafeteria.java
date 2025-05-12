@@ -104,31 +104,13 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Insertar cafetería");
 
-        jTextFieldHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldHorarioActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Horario");
 
         jLabel3.setText("Dirección");
 
-        jTextFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDireccionActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Aforo local");
 
         jLabel5.setText("Precio alquiler");
-
-        jTextFieldAlquiler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAlquilerActionPerformed(evt);
-            }
-        });
 
         jComboGerente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -215,18 +197,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHorarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldHorarioActionPerformed
-
-    private void jTextFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDireccionActionPerformed
-
-    private void jTextFieldAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAlquilerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAlquilerActionPerformed
 
     private void jButtonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccionActionPerformed
         // TODO add your handling code here:
