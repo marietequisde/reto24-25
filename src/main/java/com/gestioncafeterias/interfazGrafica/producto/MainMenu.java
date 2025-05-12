@@ -157,7 +157,7 @@ public class MainMenu extends javax.swing.JFrame {
         TablaConsultar.setGridColor(new java.awt.Color(0, 0, 204));
         jScrollPane1.setViewportView(TablaConsultar);
 
-        BtnConsultar.setText("Consultar");
+        BtnConsultar.setText("Volver al listado");
         BtnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnConsultarActionPerformed(evt);
@@ -213,9 +213,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(129, 129, 129)
                         .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(LabelIdNoExist)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -226,7 +226,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(BtnActualizar)
                         .addGap(18, 18, 18)
                         .addComponent(BtnInsertar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
                         .addComponent(BtnEliminar)))
                 .addContainerGap())
         );
