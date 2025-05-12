@@ -39,8 +39,8 @@ CREATE TABLE almacena (
     id_cafeteria INT,
     stock INT,
     PRIMARY KEY (id_producto, id_cafeteria),
-    CONSTRAINT fk_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto),
-    CONSTRAINT fk_cafeteria FOREIGN KEY (id_cafeteria) REFERENCES cafeteria (id_cafeteria),
+    CONSTRAINT fk_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto) ON DELETE CASCADE,
+    CONSTRAINT fk_cafeteria FOREIGN KEY (id_cafeteria) REFERENCES cafeteria (id_cafeteria) ON DELETE CASCADE,
     CONSTRAINT stock_pos CHECK (stock >= 0)
 );
 
@@ -50,8 +50,8 @@ CREATE TABLE trabaja_en (
     id_cafeteria INT,
     horario_trabajo VARCHAR(50),
     PRIMARY KEY (id_empleado, id_cafeteria),
-    CONSTRAINT fk_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado),
-    CONSTRAINT fk_tr_cafeteria FOREIGN KEY (id_cafeteria) REFERENCES cafeteria (id_cafeteria)
+    CONSTRAINT fk_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado) ON DELETE CASCADE,
+    CONSTRAINT fk_tr_cafeteria FOREIGN KEY (id_cafeteria) REFERENCES cafeteria (id_cafeteria) ON DELETE CASCADE
 );
 
 /*---TRIGGER ELIMINAR RELACIONES SIN STOCK---*/
