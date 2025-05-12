@@ -156,8 +156,7 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     }
 
     private void inicializarTabla() {
-        modeloCafeterias = new ModeloTabla(HEADER_CAFETERIAS);
-        jTableCafeterias.setModel(modeloCafeterias);
+        jTableCafeterias.setModel(new ModeloTabla(HEADER_CAFETERIAS));
         jTableCafeterias.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             jButtonEliminar.setEnabled(true);
             jButtonActualizar.setEnabled(true);
@@ -167,9 +166,9 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
 
     private void refrescarListado() {
         try {
-            modeloCafeterias.limpiarDatos();
+            obtenerModeloTabla().limpiarDatos();
             for (Cafeteria cafeteria : AccesoCafeteria.consultarTodos()) {
-                modeloCafeterias.addRow(cafeteria.toDataArray());
+                obtenerModeloTabla().addRow(cafeteria.toDataArray());
             }
         } catch (ClassNotFoundException | SQLException ex) {
             mostrarMensajeError("Error interno.");
@@ -223,8 +222,8 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
             if (resultadoPopUp != null && !resultadoPopUp.isEmpty()) {
                 Cafeteria cafeteria = AccesoCafeteria.consultar(Integer.parseInt(resultadoPopUp));
                 if (cafeteria != null) {
-                    modeloCafeterias.limpiarDatos();
-                    modeloCafeterias.addRow(cafeteria.toDataArray());
+                    obtenerModeloTabla().limpiarDatos();
+                    obtenerModeloTabla().addRow(cafeteria.toDataArray());
 
                     jButtonRefrescar.setVisible(true);
                 } else {
@@ -275,8 +274,12 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     private int obtenerIdSeleccion() {
         int filaSeleccionada = jTableCafeterias.getSelectedRow();
         int filaModelo = jTableCafeterias.convertRowIndexToModel(filaSeleccionada);
-        int idCafeteria = Integer.parseInt(modeloCafeterias.getValueAt(filaModelo, 0));
+        int idCafeteria = Integer.parseInt(obtenerModeloTabla().getValueAt(filaModelo, 0));
         return idCafeteria;
+    }
+
+    private ModeloTabla obtenerModeloTabla() {
+        return (ModeloTabla) jTableCafeterias.getModel();
     }
 
     private void mostrarMensajeError(String mensaje) {
@@ -295,6 +298,5 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
     private javax.swing.JTable jTableCafeterias;
     // End of variables declaration//GEN-END:variables
     private static final String[] HEADER_CAFETERIAS = new String[]{"id", "Horario", "Dirección", "Aforo", "Precio alquiler", "Gerente"};
-    private ModeloTabla modeloCafeterias;
 
 }

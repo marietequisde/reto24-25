@@ -15,16 +15,16 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTabla extends AbstractTableModel {
 
     private final String[] cabecera;
-    private List<String[]> datosTabla;
+    private List<String[]> datos;
 
     public ModeloTabla(String[] cabecera) {
         this.cabecera = cabecera;
-        this.datosTabla = new ArrayList<>();
+        this.datos = new ArrayList<>();
     }
 
     public void addRow(String[] fila) {
-        datosTabla.add(fila);
-        int row = datosTabla.indexOf(fila);
+        datos.add(fila);
+        int row = datos.indexOf(fila);
         for (int column = 0; column < fila.length; column++) {
             fireTableCellUpdated(row, column);
         }
@@ -32,7 +32,7 @@ public class ModeloTabla extends AbstractTableModel {
     }
 
     public void limpiarDatos() {
-        this.datosTabla = new ArrayList<>();
+        this.datos = new ArrayList<>();
         fireTableDataChanged();
     }
 
@@ -43,7 +43,7 @@ public class ModeloTabla extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return datosTabla.size();
+        return datos.size();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ModeloTabla extends AbstractTableModel {
 
     @Override
     public String getValueAt(int rowIndex, int columnIndex) {
-        return datosTabla.get(rowIndex)[columnIndex];
+        return datos.get(rowIndex)[columnIndex];
     }
 
     @Override

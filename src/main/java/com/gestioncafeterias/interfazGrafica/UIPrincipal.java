@@ -7,6 +7,7 @@ package com.gestioncafeterias.interfazGrafica;
 import com.gestioncafeterias.interfazGrafica.cafeteria.ConsultarCafeterias;
 import com.gestioncafeterias.interfazGrafica.empleado.ConsultaEmpleados;
 import com.gestioncafeterias.interfazGrafica.producto.MainMenu;
+import com.gestioncafeterias.util.Constantes;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,16 +21,14 @@ public class UIPrincipal extends javax.swing.JFrame {
     private static final String TITULO_CAFETERIAS = "Cafeterías";
     private static final String TITULO_EMPLEADOS = "Empleados";
     private static final String TITULO_PRODUCTOS = "Productos";
-    /**
-     * Creates new form PruebaTabs
-     */
+
+    private static final String RUTA_ICONO_CAFE = Constantes.RUTA_ICONOS + "cafe.png";
+
     public UIPrincipal() {
         initComponents();
         anyadirTab(TITULO_CAFETERIAS, new ConsultarCafeterias());
         anyadirTab(TITULO_EMPLEADOS, new ConsultaEmpleados());
         anyadirTab(TITULO_PRODUCTOS, new MainMenu());
-        
-
     }
 
     /**
@@ -44,7 +43,7 @@ public class UIPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage((new ImageIcon("iconos/cafe.png")).getImage());
+        setIconImage((new ImageIcon(RUTA_ICONO_CAFE)).getImage());
         setPreferredSize(new java.awt.Dimension(850, 523));
 
         jTabbedPane1.setPreferredSize(null);
@@ -103,10 +102,8 @@ public class UIPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UIPrincipal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UIPrincipal().setVisible(true);
         });
     }
 
