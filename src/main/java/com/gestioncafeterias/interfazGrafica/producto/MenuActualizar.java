@@ -101,7 +101,7 @@ public class MenuActualizar extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("UI Insertar Producto");
+        setTitle("UI Actualizar Producto");
         setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setText("Nombre");
@@ -125,7 +125,7 @@ public class MenuActualizar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\greenCheck (1).png")); // NOI18N
+        jVerify.setIcon(new javax.swing.ImageIcon("D:\\Prgramacion\\RepoMario\\iconos\\Ok.png")); // NOI18N
         jVerify.setText("Actualizado!");
 
         jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
@@ -199,7 +199,7 @@ public class MenuActualizar extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(28, 28, 28)
                 .addComponent(jVerify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(Updatebtn)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6))

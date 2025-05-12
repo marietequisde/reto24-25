@@ -57,7 +57,6 @@ public class MenuEliminar extends javax.swing.JFrame {
         Dialog1.setTitle("Exception");
         Dialog1.setSize(new java.awt.Dimension(379, 285));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\Okn't.png")); // NOI18N
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
         jTextArea1.setColumns(20);
@@ -88,7 +87,7 @@ public class MenuEliminar extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Eliminar registro con ID");
+        setTitle("UI Eliminar con ID");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(1, 55, 238));
 
@@ -107,13 +106,11 @@ public class MenuEliminar extends javax.swing.JFrame {
             }
         });
 
-        jVerify.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\controlar.png")); // NOI18N
         jVerify.setText("Eliminado!");
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
-        LabelIdNoExist.setIcon(new javax.swing.ImageIcon("C:\\Users\\andro\\Documents\\GitProjectGestioncafereria\\iconos\\warning.png")); // NOI18N
         LabelIdNoExist.setText("Este ID no existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
