@@ -44,7 +44,7 @@ public class UIPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage((new ImageIcon(RUTA_ICONO_CAFE)).getImage());
-        setPreferredSize(new java.awt.Dimension(850, 523));
+        setPreferredSize(new java.awt.Dimension(850, 575));
 
         jTabbedPane1.setPreferredSize(null);
 
