@@ -5,6 +5,8 @@ D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\acceso\DerbyUtil.ja
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\GestionCafeterias.java
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\cafeteria\ConsultarCafeterias.java
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\cafeteria\InsertarActualizarCafeteria.java
+D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\empleado\ActualizarEmpleado.java
+D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\empleado\ConsultaEmpleados.java
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\producto\MenuActualizar.java
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\producto\MenuEliminar.java
 D:\marco\repositorio_red\src\main\java\com\gestioncafeterias\interfazGrafica\producto\MenuInsertar.java

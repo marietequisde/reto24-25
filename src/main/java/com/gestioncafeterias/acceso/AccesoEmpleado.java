@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author DAM1B07
+ * @author marco
  */
 public class AccesoEmpleado {
      public static void insertar(Empleado empleado) throws ClassNotFoundException, SQLException {
@@ -110,7 +110,8 @@ public class AccesoEmpleado {
         try {
             conexion = DerbyUtil.abrirConexion();
             Statement sentencia = conexion.createStatement();
-            if (idNuevoGerente > 0 && existeEmpleado(conexion, idNuevoGerente)) {
+            Empleado empleado = consultar(idNuevoGerente);
+            if (idNuevoGerente > 0 && empleado != null) {
                 String sentenciaActualizarGerente = String.format("UPDATE cafeteria SET gerente = %d WHERE gerente = %d", idNuevoGerente, codigo);
                 int filasActualizadas = sentencia.executeUpdate(sentenciaActualizarGerente);
                 if (filasActualizadas > 0) {
@@ -150,25 +151,6 @@ public class AccesoEmpleado {
             DerbyUtil.cerrarConexion(conexion);
         }
         return esGerente;
-    }
-
-    private static boolean existeEmpleado(Connection conn, int idEmpleado) throws SQLException {
-        Statement sentencia;
-        ResultSet resultado = null;
-        boolean existe = false;
-        try{
-        String consultaExistencia = String.format("SELECT COUNT(*) FROM empleado WHERE id_empleado = %d", idEmpleado);
-        sentencia = conn.createStatement();
-        resultado = sentencia.executeQuery(consultaExistencia);
-        resultado.next();
-        if (resultado.getInt(1) > 0) {
-            existe = true;
-        }
-        }
-        finally{
-            if (resultado != null) resultado.close();
-        }
-        return existe;
     }
     public static List<String> consultarNombres(){
         return null;
