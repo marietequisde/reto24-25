@@ -211,7 +211,6 @@ public class MenuActualizar extends javax.swing.JFrame {
             String tipo = jTextField3.getText();
             String proveedor = jTextField4.getText();
 
-
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
             } else {

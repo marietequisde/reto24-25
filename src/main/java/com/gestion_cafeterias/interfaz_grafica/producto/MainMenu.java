@@ -330,14 +330,10 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 
     private void AreaInputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaInputIdActionPerformed
         // TODO add your handling code here:
-
-
     }//GEN-LAST:event_AreaInputIdActionPerformed
 
     public static void main(String args[]) {

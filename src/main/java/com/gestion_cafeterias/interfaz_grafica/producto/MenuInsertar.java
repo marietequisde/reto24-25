@@ -16,17 +16,12 @@ import javax.swing.ImageIcon;
  */
 public class MenuInsertar extends javax.swing.JFrame {
 
-
     /**
      * Creates new form InsertarMenu
      */
     public MenuInsertar() {
         initComponents();
         jVerify.setVisible(false);
-    }
-
-    public void insertarPrueba() {
-
     }
 
     /**
