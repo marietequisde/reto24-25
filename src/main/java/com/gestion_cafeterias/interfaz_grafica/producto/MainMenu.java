@@ -30,7 +30,7 @@ public class MainMenu extends javax.swing.JFrame {
         modelTabla.addColumn("Precio €");
         modelTabla.addColumn("Tipo");
         modelTabla.addColumn("Proveedor");
-        if(TablaConsultar.isVisible()){
+        if (TablaConsultar.isVisible()) {
             mostrar();
         }
     }
@@ -54,10 +54,7 @@ public class MainMenu extends javax.swing.JFrame {
                 modelTabla.addRow(datos);
 
             }
-            /*int filaSeleccionadaIn = TablaConsultar.getSelectedRow();
-            String filaSeleccionadaStr = String.valueOf(filaSeleccionadaIn);
-            LabelPrueba.setText(filaSeleccionadaStr);*/
-            // Suponiendo que tu tabla se llama "miTabla" y el label "lblFilaSeleccionada"
+
         } catch (SQLException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -82,12 +79,13 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
         model.setRowCount(0);
     }
-    
-    public void estaAbierto(boolean abierto){
-        if(abierto){
+
+    public void estaAbierto(boolean abierto) {
+        if (abierto) {
             mostrar();
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
