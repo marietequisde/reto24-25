@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author andro
+ * @author moha
  */
 public class MainMenu extends javax.swing.JFrame {
 
@@ -33,6 +33,7 @@ public class MainMenu extends javax.swing.JFrame {
         if (TablaConsultar.isVisible()) {
             mostrar();
         }
+        EmptyCampTxt.setVisible(false);
     }
 
     public void mostrar() {
@@ -103,6 +104,7 @@ public class MainMenu extends javax.swing.JFrame {
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
         AreaInputId = new javax.swing.JTextField();
+        EmptyCampTxt = new javax.swing.JLabel();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -202,6 +204,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        EmptyCampTxt.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        EmptyCampTxt.setForeground(new java.awt.Color(255, 0, 0));
+        EmptyCampTxt.setText("¡Valor Incorrecto!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,12 +217,6 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LabelIdNoExist)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnConsultar)
                         .addGap(15, 15, 15)
                         .addComponent(BtnConsultaPorID)
@@ -225,15 +225,25 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BtnInsertar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
-                        .addComponent(BtnEliminar)))
+                        .addComponent(BtnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelIdNoExist)
+                            .addComponent(EmptyCampTxt))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EmptyCampTxt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelIdNoExist))
@@ -298,8 +308,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
-
+      
         try {
+            
             int id = Integer.parseInt(AreaInputId.getText());
 
             List<Producto> productos = AccesoProducto.consultarPorID(id);
@@ -308,10 +319,13 @@ public class MainMenu extends javax.swing.JFrame {
 
             String[] datos = new String[5];
 
+            
             if (AccesoProducto.siExiste(id) == false) {
+                EmptyCampTxt.setVisible(false);
                 LabelIdNoExist.setVisible(true);
             } else {
                 LabelIdNoExist.setVisible(false);
+                EmptyCampTxt.setVisible(false);
                 limpiarTabla();
                 for (Producto producto : productos) {
 
@@ -324,16 +338,18 @@ public class MainMenu extends javax.swing.JFrame {
 
                 }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(NumberFormatException nfe){
+            EmptyCampTxt.setVisible(true);
         }
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 
     private void AreaInputIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaInputIdActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_AreaInputIdActionPerformed
 
     public static void main(String args[]) {
@@ -377,6 +393,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
+    private javax.swing.JLabel EmptyCampTxt;
     private javax.swing.JDialog ExceptionDialog;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;

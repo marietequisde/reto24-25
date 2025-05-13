@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author andro
+ * @author moha
  */
 public class MenuEliminar extends javax.swing.JFrame {
 

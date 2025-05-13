@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author andro
+ * @author moha
  */
 public class MenuInsertar extends javax.swing.JFrame {
 
@@ -181,19 +181,7 @@ public class MenuInsertar extends javax.swing.JFrame {
 
     private void InsertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertbtnActionPerformed
         try {
-            // TODO add your handling code here:
 
-            /*Connection conexion = null;
-            conexion = DerbyUtil.abrirConexion();
-
-            
-
-            String sentenciaInsercion = String.format("INSERT INTO "
-                    + "producto(nombre, precio, tipo, proveedor) values"
-                    + "('" + datos[0] + "', " + datos[1] + " , '" + datos[2]
-                    + "', '" + datos[3] + "')");
-            Statement sentencia = conexion.createStatement();
-            int rs = sentencia.executeUpdate(sentenciaInsercion);*/
             String nombre = jTextField1.getText();
             Double precio = Double.valueOf(jTextField2.getText());
             String tipo = jTextField3.getText();

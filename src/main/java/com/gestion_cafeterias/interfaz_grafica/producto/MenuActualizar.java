@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @author andro
+ * @author moha
  */
 public class MenuActualizar extends javax.swing.JFrame {
 
