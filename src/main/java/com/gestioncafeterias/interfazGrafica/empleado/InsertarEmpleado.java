@@ -5,28 +5,25 @@
 package com.gestioncafeterias.interfazGrafica.empleado;
 
 import com.gestioncafeterias.acceso.AccesoEmpleado;
+import com.gestioncafeterias.modelo.Empleado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
  *
  * @author DAM1B07
  */
-public class ActualizarEmpleado extends javax.swing.JFrame {
-
-    private final String idEmpleado;
+public class InsertarEmpleado extends javax.swing.JFrame {
 
     /**
      * Creates new form ActualizarEmpleado
-     *
-     * @param idEmpleado
      */
-    public ActualizarEmpleado(String idEmpleado) {
+    public InsertarEmpleado() {
         initComponents();
-        this.idEmpleado = idEmpleado;
-        lblCodigo.setText(idEmpleado);
     }
 
     public void actualizarLblCodigo() {
@@ -52,7 +49,6 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         txtDni = new javax.swing.JTextField();
         botonFinalizar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
         botonCancelar = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         lblExito = new javax.swing.JLabel();
@@ -112,9 +108,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Rellena los datos del empleado con ID: ");
-
-        lblCodigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setText("Rellena los datos del nuevo empleado");
 
         botonCancelar.setText("Cancelar");
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,53 +128,45 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSalario1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblExito, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(lblExito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(botonCancelar)
                 .addGap(33, 33, 33)
                 .addComponent(botonFinalizar)
                 .addGap(35, 35, 35))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSalario1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(93, 93, 93))
+                .addContainerGap()
+                .addComponent(lblTitulo)
+                .addGap(136, 136, 136))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(72, 72, 72)
                     .addComponent(lblNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(407, Short.MAX_VALUE)))
+                    .addContainerGap(415, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo)
-                    .addComponent(lblCodigo))
-                .addGap(39, 39, 39)
+                .addGap(23, 23, 23)
+                .addComponent(lblTitulo)
+                .addGap(53, 53, 53)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -231,12 +217,12 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         try {
             int delay = 1500;
             lblError.setText("");
-            int codigo = Integer.parseInt(idEmpleado);
             String nombre = txtNombre.getText();
             String fecha = txtFecha.getText();
             Double salario = Double.parseDouble(txtSalario.getText());
             String dni = txtDni.getText();
-            AccesoEmpleado.actualizar(codigo, nombre, salario, fecha, dni);
+            Empleado empleado = new Empleado(nombre, salario, fecha, dni);
+            AccesoEmpleado.insertar(empleado);
 
             Timer timer = new Timer(delay, new ActionListener() {
                 @Override
@@ -246,14 +232,14 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
                 }
             });
             timer.start();
-            lblExito.setText("ACCIÓN DE ACTUALIZAR EXITOSA");
+            lblExito.setText("ACCIÓN DE INSERTAR EXITOSA");
             botonCancelar.setEnabled(false);
             botonFinalizar.setEnabled(false);
         } catch (NumberFormatException nfe) {
             lblError.setText(nfe.getMessage());
-        } catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException ex) {
             lblError.setText("Error al conectar con la base de datos");
-        } catch (SQLException sqle) {
+        } catch (SQLException ex) {
             lblError.setText("Error con la base de datos");
         }
     }//GEN-LAST:event_botonFinalizarActionPerformed
@@ -266,7 +252,6 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonFinalizar;
-    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblExito;
     private javax.swing.JLabel lblFechaAlta;

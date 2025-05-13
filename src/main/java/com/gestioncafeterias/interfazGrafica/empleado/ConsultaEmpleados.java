@@ -6,10 +6,13 @@ package com.gestioncafeterias.interfazGrafica.empleado;
 
 import com.gestioncafeterias.acceso.AccesoEmpleado;
 import com.gestioncafeterias.modelo.Empleado;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class ConsultaEmpleados extends javax.swing.JFrame {
 
     DefaultTableModel modelTabla = new DefaultTableModel();
+
     /**
      * Creates new form ConsultaEmpleados
      */
@@ -30,28 +34,28 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
         modelTabla.addColumn("Salario €");
         modelTabla.addColumn("Fecha de Alta");
         modelTabla.addColumn("DNI");
-        
+
         mostrarEmpleados();
-        
+
     }
 
-    private void mostrarEmpleados(){
+    private void mostrarEmpleados() {
         try {
             List<Empleado> listaEmpleados;
-            
+
             listaEmpleados = AccesoEmpleado.consultarTodos();
-            
+
             String[] datos = new String[5];
-            
+
             for (Empleado empleado : listaEmpleados) {
-                
+
                 datos[0] = String.valueOf(empleado.getIdEmpleado());
                 datos[1] = empleado.getNombre();
                 datos[2] = String.valueOf(empleado.getSalario());
                 datos[3] = empleado.getFechaAlta();
                 datos[4] = empleado.getDni();
                 modelTabla.addRow(datos);
-                
+
             }
             jTableTodos.setModel(modelTabla);
         } catch (ClassNotFoundException ex) {
@@ -86,6 +90,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         lblError = new javax.swing.JLabel();
         botonRefresh = new javax.swing.JButton();
+        lblExito = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +108,11 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableTodos);
 
         botonInsertar.setText("Insertar");
+        botonInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInsertarActionPerformed(evt);
+            }
+        });
 
         botonConsultar.setText("Consultar ");
         botonConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +144,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
         });
 
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
         lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         botonRefresh.setText("Actualizar Tabla");
@@ -142,6 +153,10 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 botonRefreshActionPerformed(evt);
             }
         });
+
+        lblExito.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblExito.setForeground(new java.awt.Color(102, 204, 0));
+        lblExito.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,6 +190,8 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblExito, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
                         .addComponent(botonRefresh)))
                 .addContainerGap())
         );
@@ -184,7 +201,9 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonRefresh)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonRefresh)
+                    .addComponent(lblExito))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(lblError)
                 .addGap(27, 27, 27)
@@ -204,7 +223,38 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int delay = 1500;
+            lblError.setText("");
+            String id_empleado = txtCodigo.getText();
+            int codigo = Integer.parseInt(id_empleado);
+            Empleado empleado = AccesoEmpleado.consultar(codigo);
+
+            if (empleado == null) {
+                lblError.setText("No existe ningun empleado con ese codigo");
+            } else if (!AccesoEmpleado.esGerenteEliminar(codigo)) {
+                
+                Timer timer = new Timer(delay, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                     lblExito.setText("");
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+            lblExito.setText("ACCIÓN DE ELIMINAR EXITOSA");
+            } else {
+                EliminarGerente eliminar = new EliminarGerente(id_empleado);
+                eliminar.setVisible(true);
+            }
+
+        } catch (NumberFormatException nfe) {
+            lblError.setText("Escribe un numero en el cuadro de codigo");
+        } catch (ClassNotFoundException cnfe) {
+            lblError.setText("Error al conectar con la base de datos");
+        } catch (SQLException sqle) {
+            lblError.setText("Error con la base de datos");
+        }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -212,15 +262,14 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
-               try{
-           lblError.setText("");
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        Empleado empleado = AccesoEmpleado.consultar(codigo);
-         String[] datos = new String[5];
-        if (empleado == null){
-            lblError.setText("No existe ningun departamento con ese codigo");
-        }
-        else{
+        try {
+            lblError.setText("");
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            Empleado empleado = AccesoEmpleado.consultar(codigo);
+            String[] datos = new String[5];
+            if (empleado == null) {
+                lblError.setText("No existe ningun empleado con ese codigo");
+            } else {
                 modelTabla.setRowCount(0);
                 datos[0] = String.valueOf(empleado.getIdEmpleado());
                 datos[1] = empleado.getNombre();
@@ -228,29 +277,45 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 datos[3] = empleado.getFechaAlta();
                 datos[4] = empleado.getDni();
                 modelTabla.addRow(datos);
-        }
-        
-       }
-       catch(NumberFormatException nfe){
-           lblError.setText("Tiene que ser un numero entero");
-       }
-        catch (ClassNotFoundException cnfe) {
-             lblError.setText("Error al conectar con la base de datos");
-	}
-        catch(SQLException sqle){
-             lblError.setText("Error con la base de datos");
+            }
+
+        } catch (NumberFormatException nfe) {
+            lblError.setText("Escribe un numero en el cuadro de codigo");
+        } catch (ClassNotFoundException cnfe) {
+            lblError.setText("Error al conectar con la base de datos");
+        } catch (SQLException sqle) {
+            lblError.setText("Error con la base de datos");
         }
     }//GEN-LAST:event_botonConsultarActionPerformed
 
     private void botonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRefreshActionPerformed
+        modelTabla.setRowCount(0);
         mostrarEmpleados();
     }//GEN-LAST:event_botonRefreshActionPerformed
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
-        int id_empleado = Integer.parseInt(txtCodigo.getText());
-        ActualizarEmpleado actualizar = new ActualizarEmpleado(id_empleado);
-        actualizar.setVisible(true);
+        try {
+            String id_empleado = txtCodigo.getText();
+            Empleado empleado = AccesoEmpleado.consultar(Integer.parseInt(txtCodigo.getText()));
+            if (empleado == null) {
+                lblError.setText("No existe ningun empleado con ese codigo");
+            } else {
+                ActualizarEmpleado actualizar = new ActualizarEmpleado(id_empleado);
+                actualizar.setVisible(true);
+            }
+        } catch (NumberFormatException nfe) {
+            lblError.setText("Escribe un numero en el cuadro de codigo para poder actualizar");
+        } catch (ClassNotFoundException cnfe) {
+            lblError.setText("Error al conectar con la base de datos");
+        } catch (SQLException sqle) {
+            lblError.setText("Error con la base de datos");
+        }
     }//GEN-LAST:event_botonActualizarActionPerformed
+
+    private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
+        InsertarEmpleado insertar = new InsertarEmpleado();
+        insertar.setVisible(true);
+    }//GEN-LAST:event_botonInsertarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,6 +362,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     private javax.swing.JTable jTableTodos;
     private javax.swing.JLabel labelCodigo;
     private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblExito;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
