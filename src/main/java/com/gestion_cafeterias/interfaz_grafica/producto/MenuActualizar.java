@@ -22,7 +22,6 @@ public class MenuActualizar extends javax.swing.JFrame {
         initComponents();
         jVerify.setVisible(false);
         LabelIdNoExist.setVisible(false);
-
     }
 
     /**

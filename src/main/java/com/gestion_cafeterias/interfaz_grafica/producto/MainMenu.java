@@ -35,7 +35,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }
 
-    public void mostrar() {
+    private void mostrar() {
 
         try {
             List<Producto> productos = AccesoProducto.consultarTodos();
@@ -99,6 +99,7 @@ public class MainMenu extends javax.swing.JFrame {
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
         AreaInputId = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
@@ -197,6 +198,8 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("ID:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,7 +211,9 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(173, 173, 173)
+                                .addGap(130, 130, 130)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -231,7 +236,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AreaInputId)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AreaInputId)
+                        .addComponent(jLabel1))
                     .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -387,6 +394,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JDialog ExceptionDialog;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

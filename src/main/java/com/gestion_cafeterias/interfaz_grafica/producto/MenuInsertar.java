@@ -213,7 +213,6 @@ public class MenuInsertar extends javax.swing.JFrame {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
             Dialog1.setVisible(true);
             jTextArea1.setText(ex.getMessage());
-
         }
         catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
