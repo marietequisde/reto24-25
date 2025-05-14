@@ -11,4 +11,10 @@ package com.gestion_cafeterias.util;
 public class Constantes {
 
     public static final String RUTA_ICONOS = "iconos/";
+    public static final String ERROR_BBDD = "Error de BBDD.";
+    public static final String ERROR_INTERNO = "Error interno.";
+    public static final String ERROR_INESPERADO = "Error inesperado.";
+    
+    public static final String ERROR_STRING_NO_NUMERICO = "El dato debe ser numérico.";
+    
 }

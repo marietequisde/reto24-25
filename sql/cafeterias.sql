@@ -30,6 +30,7 @@ CREATE TABLE cafeteria (
     gerente INT,
     CONSTRAINT fk_gerente FOREIGN KEY (gerente) REFERENCES empleado (id_empleado) ON DELETE SET NULL,
     CONSTRAINT precio_alq_pos CHECK (precio_alquiler > 0),
+	CONSTRAINT aforo_pos CHECK (aforo_local > 0),
     PRIMARY KEY (id_cafeteria)
 );
 

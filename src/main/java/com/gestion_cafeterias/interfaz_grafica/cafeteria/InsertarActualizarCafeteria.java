@@ -7,11 +7,15 @@ package com.gestion_cafeterias.interfaz_grafica.cafeteria;
 import com.gestion_cafeterias.acceso.AccesoCafeteria;
 import com.gestion_cafeterias.acceso.AccesoEmpleado;
 import com.gestion_cafeterias.modelo.Cafeteria;
+import com.gestion_cafeterias.util.Constantes;
+import com.gestion_cafeterias.util.PopUpError;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +26,10 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private static final int MODO_INSERTAR = 0;
     private static final int MODO_ACTUALIZAR = 1;
     private static final String GERENTE_SIN_ASIGNAR = "Sin asignar";
+    private static final String ERROR_HORARIO = "El horario no puede estar vacío.";
+    private static final String ERROR_DIRECCION = "La dirección no puede estar vacía.";
+    private static final String ERROR_ALQUILER = "El precio de alquiler debe existir y ser mayor que 0.";
+    private static final String ERROR_AFORO = "El aforo debe ser mayor que 0.";
     private int modo = -1;
     private int idCafeteria;
 
@@ -39,10 +47,10 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
             jLabelTitulo.setText("Insertar cafetería");
             modo = MODO_INSERTAR;
         } catch (ClassNotFoundException | SQLException ex) {
-            jLabelError.setText("Error de BBDD");
+            mostrarError(Constantes.ERROR_BBDD);
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e) {
-            jLabelError.setText("Error inesperado.");
+            mostrarError(Constantes.ERROR_INESPERADO);
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -71,10 +79,10 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            jLabelError.setText("Error de BBDD");
+            mostrarError(Constantes.ERROR_BBDD);
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e) {
-            jLabelError.setText("Error inesperado.");
+            mostrarError(Constantes.ERROR_INESPERADO);
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -107,7 +115,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         jTextFieldAlquiler = new javax.swing.JTextField();
         jComboGerente = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jLabelError = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButtonAccion = new javax.swing.JButton();
 
@@ -129,8 +136,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         jComboGerente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText("Gerente");
-
-        jLabelError.setForeground(new java.awt.Color(255, 0, 0));
 
         jButtonAccion.setText("Insertar");
         jButtonAccion.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +177,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboGerente, 0, 246, Short.MAX_VALUE)
                                     .addComponent(jTextFieldAlquiler)))
-                            .addComponent(jLabelError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)))
                 .addContainerGap())
@@ -202,9 +206,7 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -214,10 +216,21 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
     private void jButtonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccionActionPerformed
         // TODO add your handling code here:
-        jLabelError.setText("");
+        List<String> errores = new ArrayList<>();
         String horario = jTextFieldHorario.getText();
         String direccion = jTextFieldDireccion.getText();
         int aforoLocal = (Integer) jSpinnerAforo.getValue();
+
+        if (horario == null || horario.isBlank()) {
+            errores.add(ERROR_HORARIO);
+        }
+        if (direccion == null || direccion.isBlank()) {
+            errores.add(ERROR_DIRECCION);
+        }
+        if (aforoLocal < 1) {
+            errores.add(ERROR_AFORO);
+        }
+
         String nombreGerente = (String) jComboGerente.getSelectedItem();
         if (nombreGerente.equals(GERENTE_SIN_ASIGNAR)) {
             nombreGerente = null;
@@ -227,9 +240,9 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
             if (jTextFieldAlquiler.getText() == null
                     || jTextFieldAlquiler.getText().isEmpty()
                     || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
-                jLabelError.setText("El precio de alquiler debe ser mayor que 0.");
-
-            } else {
+                errores.add(ERROR_ALQUILER);
+            }
+            if (errores.isEmpty()) {
                 double precioAlquiler = Double.parseDouble(jTextFieldAlquiler.getText());
 
                 if (modo == MODO_INSERTAR) {
@@ -246,16 +259,28 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                 this.dispose();
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            jLabelError.setText("Error de BBDD");
+            errores.add(Constantes.ERROR_BBDD);
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException ex) {
-            jLabelError.setText("El dato debe ser numérico.");
+            errores.add(Constantes.ERROR_STRING_NO_NUMERICO);
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e) {
-            jLabelError.setText("Error inesperado.");
+            errores.add(Constantes.ERROR_INESPERADO);
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (!errores.isEmpty()) {
+                mostrarErrores(errores);
+            }
         }
     }//GEN-LAST:event_jButtonAccionActionPerformed
+
+    private void mostrarErrores(List<String> errores) {
+        PopUpError.mostrarErrores(this, errores);
+    }
+
+    private void mostrarError(String error) {
+        PopUpError.mostrarError(this, error);
+    }
 
     /**
      * @param args the command line arguments
@@ -298,7 +323,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerAforo;
