@@ -161,12 +161,15 @@ public class MenuEliminar extends javax.swing.JFrame {
             Dialog1.setVisible(true);
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
             TextAreaErr.setText(ex.getMessage());
-        } catch (ClassNotFoundException ex) {
+        } 
+        catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NumberFormatException nfe) {
+        } 
+        catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡ID invalido!");
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             Dialog1.setVisible(true);
             TextAreaErr.setText(e.getLocalizedMessage());
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
