@@ -162,7 +162,8 @@ public class MenuActualizar extends javax.swing.JFrame {
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
-            } else {
+            } 
+            else {
                 actualizado = AccesoProducto.actualizar(id, nombre,
                         precio, tipo, proveedor);
                 LabelIdNoExist.setVisible(false);
@@ -170,17 +171,21 @@ public class MenuActualizar extends javax.swing.JFrame {
                     jVerify.setVisible(true);
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } 
+        catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NumberFormatException nfe){
+        } 
+        catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡Campo invalido!");
-        }
+        } 
         catch (Exception e) {
             Dialog1.setVisible(true);
             ErrTextArea.setText(e.getLocalizedMessage());
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 

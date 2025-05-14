@@ -52,20 +52,17 @@ public class MainMenu extends javax.swing.JFrame {
                 datos[3] = producto.getTipo();
                 datos[4] = producto.getProveedor();
                 modelTabla.addRow(datos);
-
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(Exception e){
+        } catch (Exception e) {
             ExceptionDialog.setVisible(true);
             ErrTextArea.setText(e.getLocalizedMessage());
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
-   
 
     public void actualizarTabla() {
         DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
@@ -295,13 +292,13 @@ public class MainMenu extends javax.swing.JFrame {
                 actualizarTabla();
             }
         });
-        
+
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
-      
+
         try {
-            
+
             int id = Integer.parseInt(AreaInputId.getText());
 
             List<Producto> productos = AccesoProducto.consultarPorID(id);
@@ -310,7 +307,6 @@ public class MainMenu extends javax.swing.JFrame {
 
             String[] datos = new String[5];
 
-            
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
@@ -325,19 +321,19 @@ public class MainMenu extends javax.swing.JFrame {
                     datos[3] = producto.getTipo();
                     datos[4] = producto.getProveedor();
                     modelTabla.addRow(datos);
-
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡ID invalido!");
-        }catch(Exception e){
+        } catch (Exception e) {
             ExceptionDialog.setVisible(true);
             ErrTextArea.setText(e.getLocalizedMessage());
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 

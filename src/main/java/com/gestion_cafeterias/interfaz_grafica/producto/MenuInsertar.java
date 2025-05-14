@@ -9,13 +9,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-
 /**
  *
  * @author moha
  */
 public class MenuInsertar extends javax.swing.JFrame {
-
     /**
      * Creates new form InsertarMenu
      */
@@ -24,7 +22,6 @@ public class MenuInsertar extends javax.swing.JFrame {
         jVerify.setVisible(false);
         LabelIdNoExist.setVisible(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -202,7 +199,7 @@ public class MenuInsertar extends javax.swing.JFrame {
 
     private void InsertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertbtnActionPerformed
         try {
-            
+
             String nombre = jTextField1.getText();
             Double precio = Double.valueOf(jTextField2.getText());
             String tipo = jTextField3.getText();
@@ -211,26 +208,26 @@ public class MenuInsertar extends javax.swing.JFrame {
             AccesoProducto.insertarProducto(nombre, precio, tipo, proveedor);
 
             jVerify.setVisible(true);
-
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
             Dialog1.setVisible(true);
             jTextArea1.setText(ex.getMessage());
 
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NumberFormatException nfe){
+        }
+        catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡Hay campos vacios!");
         }
-        catch(Exception e){
+        catch (Exception e) {
             Dialog1.setVisible(true);
             jTextArea1.setText(e.getLocalizedMessage());
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
-
-
     }//GEN-LAST:event_InsertbtnActionPerformed
-
     /**
      * @param args the command line arguments
      */

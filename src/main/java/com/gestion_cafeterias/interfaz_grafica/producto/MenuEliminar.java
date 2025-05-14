@@ -152,26 +152,24 @@ public class MenuEliminar extends javax.swing.JFrame {
             if (!AccesoProducto.siExiste(id)) {
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
-
             } else {
                 LabelIdNoExist.setVisible(false);
                 AccesoProducto.eliminar(id);
                 jVerify.setVisible(true);
             }
-
         } catch (SQLException ex) {
             Dialog1.setVisible(true);
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
             TextAreaErr.setText(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(NumberFormatException nfe ){
+        } catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡ID invalido!");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Dialog1.setVisible(true);
             TextAreaErr.setText(e.getLocalizedMessage());
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_InsertbtnActionPerformed
 
