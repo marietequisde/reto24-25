@@ -104,7 +104,6 @@ public class MenuEliminar extends javax.swing.JFrame {
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
-        LabelIdNoExist.setText("Este ID no existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,9 +120,9 @@ public class MenuEliminar extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelIdNoExist)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
@@ -134,8 +133,8 @@ public class MenuEliminar extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LabelIdNoExist)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jVerify)
                 .addGap(32, 32, 32)
                 .addComponent(Insertbtn)
@@ -152,6 +151,7 @@ public class MenuEliminar extends javax.swing.JFrame {
 
             if (!AccesoProducto.siExiste(id)) {
                 LabelIdNoExist.setVisible(true);
+                LabelIdNoExist.setText("¡ID no existe!");
 
             } else {
                 LabelIdNoExist.setVisible(false);
@@ -165,9 +165,13 @@ public class MenuEliminar extends javax.swing.JFrame {
             TextAreaErr.setText(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        } catch(NumberFormatException nfe ){
+            LabelIdNoExist.setVisible(true);
+            LabelIdNoExist.setText("¡ID invalido!");
+        }
+        catch (Exception e) {
             Dialog1.setVisible(true);
-            TextAreaErr.setText(ex.getLocalizedMessage());
+            TextAreaErr.setText(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_InsertbtnActionPerformed
 

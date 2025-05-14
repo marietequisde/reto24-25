@@ -37,7 +37,7 @@ public class MenuActualizar extends javax.swing.JFrame {
         Dialog1 = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ErrtextArea = new javax.swing.JTextArea();
+        ErrTextArea = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -59,9 +59,9 @@ public class MenuActualizar extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DAM1B22\\Pictures\\x-mark-64.png")); // NOI18N
         jLabel5.setText("Error de insercion. Descripcion del Error: ");
 
-        ErrtextArea.setColumns(20);
-        ErrtextArea.setRows(5);
-        jScrollPane1.setViewportView(ErrtextArea);
+        ErrTextArea.setColumns(20);
+        ErrTextArea.setRows(5);
+        jScrollPane1.setViewportView(ErrTextArea);
 
         javax.swing.GroupLayout Dialog1Layout = new javax.swing.GroupLayout(Dialog1.getContentPane());
         Dialog1.getContentPane().setLayout(Dialog1Layout);
@@ -89,20 +89,29 @@ public class MenuActualizar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("UI Actualizar Producto");
         setBackground(new java.awt.Color(0, 102, 102));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 89, 100, -1));
 
         jLabel1.setText("Nombre");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 92, -1, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 123, 100, -1));
 
         jLabel2.setText("Precio");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 126, -1, -1));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 157, 100, -1));
 
         jLabel3.setText("Tipo");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 191, 102, -1));
 
         jLabel4.setText("Proveedor");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 194, -1, -1));
 
         Updatebtn.setText("Actualizar");
         Updatebtn.addActionListener(new java.awt.event.ActionListener() {
@@ -110,88 +119,27 @@ public class MenuActualizar extends javax.swing.JFrame {
                 UpdatebtnActionPerformed(evt);
             }
         });
+        getContentPane().add(Updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 275, -1, -1));
 
         jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Actualizado!");
+        getContentPane().add(jVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 242, -1, -1));
 
         jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 316, -1, -1));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 37, 100, -1));
 
         jLabel7.setText("ID");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 40, -1, -1));
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
-        LabelIdNoExist.setText("¡Este ID no existe!");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jVerify)
-                                .addComponent(Updatebtn))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LabelIdNoExist)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45)))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(LabelIdNoExist)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jVerify)
-                .addGap(18, 18, 18)
-                .addComponent(Updatebtn)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6))
-        );
+        LabelIdNoExist.setMaximumSize(new java.awt.Dimension(0, 0));
+        LabelIdNoExist.setMinimumSize(new java.awt.Dimension(0, 0));
+        getContentPane().add(LabelIdNoExist, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 130, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,6 +161,7 @@ public class MenuActualizar extends javax.swing.JFrame {
 
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
+                LabelIdNoExist.setText("¡ID no existe!");
             } else {
                 actualizado = AccesoProducto.actualizar(id, nombre,
                         precio, tipo, proveedor);
@@ -225,9 +174,13 @@ public class MenuActualizar extends javax.swing.JFrame {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception e) {
+        }catch(NumberFormatException nfe){
+            LabelIdNoExist.setVisible(true);
+            LabelIdNoExist.setText("¡Campo invalido!");
+        }
+        catch (Exception e) {
             Dialog1.setVisible(true);
-            ErrtextArea.setText(e.getLocalizedMessage());
+            ErrTextArea.setText(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 
@@ -272,7 +225,7 @@ public class MenuActualizar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Dialog1;
-    private javax.swing.JTextArea ErrtextArea;
+    private javax.swing.JTextArea ErrTextArea;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JButton Updatebtn;
     private javax.swing.JLabel jLabel1;

@@ -33,7 +33,6 @@ public class MainMenu extends javax.swing.JFrame {
         if (TablaConsultar.isVisible()) {
             mostrar();
         }
-        EmptyCampTxt.setVisible(false);
     }
 
     public void mostrar() {
@@ -60,14 +59,13 @@ public class MainMenu extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception e){
+            ExceptionDialog.setVisible(true);
+            ErrTextArea.setText(e.getLocalizedMessage());
         }
     }
 
-    public String getSelectedID() {
-        int row = TablaConsultar.getSelectedRow();
-        String value = TablaConsultar.getModel().getValueAt(row, 0).toString();
-        return value;
-    }
+   
 
     public void actualizarTabla() {
         DefaultTableModel model = (DefaultTableModel) TablaConsultar.getModel();
@@ -94,7 +92,7 @@ public class MainMenu extends javax.swing.JFrame {
         ExceptionDialog = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TextErrEliminar = new javax.swing.JTextArea();
+        ErrTextArea = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaConsultar = new javax.swing.JTable();
         BtnConsultar = new javax.swing.JButton();
@@ -104,16 +102,15 @@ public class MainMenu extends javax.swing.JFrame {
         BtnConsultaPorID = new javax.swing.JButton();
         LabelIdNoExist = new javax.swing.JLabel();
         AreaInputId = new javax.swing.JTextField();
-        EmptyCampTxt = new javax.swing.JLabel();
 
         ExceptionDialog.setTitle("Exception");
         ExceptionDialog.setSize(new java.awt.Dimension(379, 285));
 
         jLabel5.setText("Error de eliminacion. Descripcion del Error: ");
 
-        TextErrEliminar.setColumns(20);
-        TextErrEliminar.setRows(5);
-        jScrollPane2.setViewportView(TextErrEliminar);
+        ErrTextArea.setColumns(20);
+        ErrTextArea.setRows(5);
+        jScrollPane2.setViewportView(ErrTextArea);
 
         javax.swing.GroupLayout ExceptionDialogLayout = new javax.swing.GroupLayout(ExceptionDialog.getContentPane());
         ExceptionDialog.getContentPane().setLayout(ExceptionDialogLayout);
@@ -196,17 +193,12 @@ public class MainMenu extends javax.swing.JFrame {
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
-        LabelIdNoExist.setText("¡Este ID no existe!");
 
         AreaInputId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AreaInputIdActionPerformed(evt);
             }
         });
-
-        EmptyCampTxt.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        EmptyCampTxt.setForeground(new java.awt.Color(255, 0, 0));
-        EmptyCampTxt.setText("¡Valor Incorrecto!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,36 +209,33 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnConsultar)
-                        .addGap(15, 15, 15)
-                        .addComponent(BtnConsultaPorID)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnActualizar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(173, 173, 173)
+                                .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(BtnConsultar)
+                                .addGap(15, 15, 15)
+                                .addComponent(BtnConsultaPorID)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnActualizar)))
                         .addGap(18, 18, 18)
                         .addComponent(BtnInsertar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
-                        .addComponent(BtnEliminar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelIdNoExist)
-                            .addComponent(EmptyCampTxt))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(BtnEliminar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(EmptyCampTxt)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AreaInputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelIdNoExist))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AreaInputId)
+                    .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnConsultar)
@@ -261,6 +250,7 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
+        LabelIdNoExist.setVisible(false);
         limpiarTabla();
         mostrar();
         /* new InsertarMenu().setVisible(true);*/
@@ -305,6 +295,7 @@ public class MainMenu extends javax.swing.JFrame {
                 actualizarTabla();
             }
         });
+        
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnConsultaPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaPorIDActionPerformed
@@ -321,11 +312,10 @@ public class MainMenu extends javax.swing.JFrame {
 
             
             if (AccesoProducto.siExiste(id) == false) {
-                EmptyCampTxt.setVisible(false);
                 LabelIdNoExist.setVisible(true);
+                LabelIdNoExist.setText("¡ID no existe!");
             } else {
                 LabelIdNoExist.setVisible(false);
-                EmptyCampTxt.setVisible(false);
                 limpiarTabla();
                 for (Producto producto : productos) {
 
@@ -343,7 +333,11 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }catch(NumberFormatException nfe){
-            EmptyCampTxt.setVisible(true);
+            LabelIdNoExist.setVisible(true);
+            LabelIdNoExist.setText("¡ID invalido!");
+        }catch(Exception e){
+            ExceptionDialog.setVisible(true);
+            ErrTextArea.setText(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_BtnConsultaPorIDActionPerformed
 
@@ -393,11 +387,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
-    private javax.swing.JLabel EmptyCampTxt;
+    private javax.swing.JTextArea ErrTextArea;
     private javax.swing.JDialog ExceptionDialog;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JTable TablaConsultar;
-    private javax.swing.JTextArea TextErrEliminar;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
