@@ -7,7 +7,7 @@
       <Connection code="(new ImageIcon(RUTA_ICONO_CAFE)).getImage()" type="code"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[850, 523]"/>
+      <Dimension value="[850, 575]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
