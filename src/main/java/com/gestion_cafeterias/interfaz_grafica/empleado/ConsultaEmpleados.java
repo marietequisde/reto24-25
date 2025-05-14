@@ -62,6 +62,8 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             Logger.getLogger(ConsultaEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            lblError.setText("Ha ocurrido algun error perdone las molestias");
         }
     }
 
@@ -172,20 +174,19 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblExito, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66)
-                                .addComponent(botonRefresh)))
-                        .addContainerGap())
-                    .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonRefresh))
+                            .addComponent(lblExito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +194,10 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonRefresh)
-                    .addComponent(lblExito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addComponent(botonRefresh)
+                .addGap(15, 15, 15)
+                .addComponent(lblExito, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(lblError)
                 .addGap(29, 29, 29)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,20 +216,20 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
 
             if (empleado == null) {
                 lblError.setText("No existe ningun empleado con ese codigo");
-            } else if (!AccesoEmpleado.esGerenteEliminar(codigo)) {
-                
+            } else if (AccesoEmpleado.eliminar(codigo)) {
+
                 Timer timer = new Timer(delay, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                     lblExito.setText("");
-                    ((Timer) e.getSource()).stop();
-                }
-            });
-            timer.start();
-            lblExito.setText("ACCIÓN DE ELIMINAR EXITOSA");
-            } else {
-                EliminarGerente eliminar = new EliminarGerente(id_empleado);
-                eliminar.setVisible(true);
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lblExito.setText("");
+                        txtCodigo.setText("");
+                        modelTabla.setRowCount(0);
+                        mostrarEmpleados();
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                timer.start();
+                lblExito.setText("ACCIÓN DE ELIMINAR EXITOSA");
             }
 
         } catch (NumberFormatException nfe) {
@@ -237,6 +238,8 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
             lblError.setText("Error con la base de datos");
+        } catch (Exception e) {
+            lblError.setText("Ha ocurrido algun error perdone las molestias");
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
@@ -268,12 +271,15 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
             lblError.setText("Error con la base de datos");
+        } catch (Exception e) {
+            lblError.setText("Ha ocurrido algun error perdone las molestias");
         }
     }//GEN-LAST:event_botonConsultarActionPerformed
 
     private void botonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRefreshActionPerformed
         modelTabla.setRowCount(0);
         mostrarEmpleados();
+        txtCodigo.setText("");
     }//GEN-LAST:event_botonRefreshActionPerformed
 
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
@@ -286,12 +292,15 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
                 ActualizarEmpleado actualizar = new ActualizarEmpleado(id_empleado);
                 actualizar.setVisible(true);
             }
+
         } catch (NumberFormatException nfe) {
             lblError.setText("Escribe un numero en el cuadro de codigo para poder actualizar");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
             lblError.setText("Error con la base de datos");
+        } catch (Exception e) {
+            lblError.setText("Ha ocurrido algun error perdone las molestias");
         }
     }//GEN-LAST:event_botonActualizarActionPerformed
 
