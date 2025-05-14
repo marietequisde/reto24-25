@@ -9,8 +9,6 @@ import com.gestion_cafeterias.modelo.Empleado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
@@ -221,20 +219,25 @@ public class InsertarEmpleado extends javax.swing.JFrame {
             String fecha = txtFecha.getText();
             Double salario = Double.parseDouble(txtSalario.getText());
             String dni = txtDni.getText();
-            Empleado empleado = new Empleado(nombre, salario, fecha, dni);
-            AccesoEmpleado.insertar(empleado);
+            
+            if (nombre.isEmpty() || dni.isEmpty()) {
+                lblError.setText("No puedes dejar campos vacíos");
+            } else {
+                Empleado empleado = new Empleado(nombre, salario, fecha, dni);
+                AccesoEmpleado.insertar(empleado);
 
-            Timer timer = new Timer(delay, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                    ((Timer) e.getSource()).stop();
-                }
-            });
-            timer.start();
-            lblExito.setText("ACCIÓN DE INSERTAR EXITOSA");
-            botonCancelar.setEnabled(false);
-            botonFinalizar.setEnabled(false);
+                Timer timer = new Timer(delay, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                timer.start();
+                lblExito.setText("ACCIÓN DE INSERTAR EXITOSA");
+                botonCancelar.setEnabled(false);
+                botonFinalizar.setEnabled(false);
+            }
         } catch (NumberFormatException nfe) {
             lblError.setText(nfe.getMessage());
         } catch (ClassNotFoundException ex) {

@@ -236,19 +236,24 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             String fecha = txtFecha.getText();
             Double salario = Double.parseDouble(txtSalario.getText());
             String dni = txtDni.getText();
-            AccesoEmpleado.actualizar(codigo, nombre, salario, fecha, dni);
 
-            Timer timer = new Timer(delay, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                    ((Timer) e.getSource()).stop();
-                }
-            });
-            timer.start();
-            lblExito.setText("ACCIÓN DE ACTUALIZAR EXITOSA");
-            botonCancelar.setEnabled(false);
-            botonFinalizar.setEnabled(false);
+            if (nombre.isEmpty() || dni.isEmpty()) {
+                lblError.setText("No puedes dejar campos vacíos");
+            } else {
+                AccesoEmpleado.actualizar(codigo, nombre, salario, fecha, dni);
+
+                Timer timer = new Timer(delay, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                timer.start();
+                lblExito.setText("ACCIÓN DE ACTUALIZAR EXITOSA");
+                botonCancelar.setEnabled(false);
+                botonFinalizar.setEnabled(false);
+            }
         } catch (NumberFormatException nfe) {
             lblError.setText(nfe.getMessage());
         } catch (ClassNotFoundException cnfe) {
