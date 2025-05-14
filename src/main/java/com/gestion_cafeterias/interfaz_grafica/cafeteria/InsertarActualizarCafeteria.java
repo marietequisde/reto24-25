@@ -24,7 +24,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private static final String GERENTE_SIN_ASIGNAR = "Sin asignar";
     private int modo = -1;
     private int idCafeteria;
-    
 
     /**
      * Creates new form InsertarCafeteria
@@ -42,6 +41,9 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException ex) {
             jLabelError.setText("Error de BBDD");
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            jLabelError.setText("Error inesperado.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -64,13 +66,16 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                 } else {
                     jComboGerente.setSelectedItem(GERENTE_SIN_ASIGNAR);
                 }
-                
+
                 modo = MODO_ACTUALIZAR;
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
             jLabelError.setText("Error de BBDD");
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            jLabelError.setText("Error inesperado.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -246,6 +251,9 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         } catch (NumberFormatException ex) {
             jLabelError.setText("El dato debe ser numérico.");
             Logger.getLogger(InsertarActualizarCafeteria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            jLabelError.setText("Error inesperado.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jButtonAccionActionPerformed
 

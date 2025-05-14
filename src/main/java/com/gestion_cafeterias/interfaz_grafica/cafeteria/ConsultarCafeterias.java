@@ -173,6 +173,9 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             mostrarMensajeError("Error interno.");
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            mostrarMensajeError("Error inesperado.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -212,6 +215,9 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
             } catch (ClassNotFoundException | SQLException ex) {
                 mostrarMensajeError("Error interno.");
                 Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                mostrarMensajeError("Error inesperado.");
+                Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
@@ -235,6 +241,9 @@ public class ConsultarCafeterias extends javax.swing.JFrame {
         } catch (NumberFormatException ex) {
             mostrarMensajeError("El identificador debe ser numérico.");
             Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            mostrarMensajeError("Error inesperado.");
+            Logger.getLogger(ConsultarCafeterias.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
