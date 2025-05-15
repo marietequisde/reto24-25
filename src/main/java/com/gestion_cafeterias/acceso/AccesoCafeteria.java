@@ -14,11 +14,16 @@ import java.util.ArrayList;
  */
 public class AccesoCafeteria {
 
-    private static final String SQL_INSERTAR
+    private static final String SQL_INSERTAR_CON_GERENTE
             = "INSERT INTO cafeteria (horario, "
             + "direccion, aforo_local, precio_alquiler, gerente) "
-            + "VALUES ('%s', '%s', %s, %s, "
-            + "(SELECT id_empleado FROM empleado WHERE nombre = '%s'))";
+            + "VALUES (%s, %s, %s, %s, "
+            + "(SELECT id_empleado FROM empleado WHERE nombre = %s))";
+
+    private static final String SQL_INSERTAR_SIN_GERENTE
+            = "INSERT INTO cafeteria (horario, "
+            + "direccion, aforo_local, precio_alquiler) "
+            + "VALUES (%s, %s, %s, %s)";
 
     private static final String SQL_CONSULTAR_UNO
             = "SELECT id_cafeteria, horario, direccion, aforo_local, precio_alquiler, nombre "
@@ -31,25 +36,43 @@ public class AccesoCafeteria {
             + "FROM cafeteria "
             + "LEFT JOIN empleado ON gerente = id_empleado";
 
-    private static final String SQL_ACTUALIZAR_UNO
+    private static final String SQL_ACTUALIZAR_UNO_CON_GERENTE
             = "UPDATE cafeteria "
-            + "SET horario = '%s', direccion = '%s', aforo_local = %d, precio_alquiler = %s , "
-            + "gerente = (SELECT id_empleado FROM empleado WHERE nombre = '%s') "
-            + "WHERE id_cafeteria = %d";
+            + "SET horario = %s, direccion = %s, aforo_local = %s, precio_alquiler = %s , "
+            + "gerente = (SELECT id_empleado FROM empleado WHERE nombre = %s) "
+            + "WHERE id_cafeteria = %s";
+
+    private static final String SQL_ACTUALIZAR_UNO_SIN_GERENTE
+            = "UPDATE cafeteria "
+            + "SET horario = %s, direccion = %s, aforo_local = %s, precio_alquiler = %s, gerente = null "
+            + "WHERE id_cafeteria = %s";
 
     private static final String SQL_ELIMINAR_UNO
             = "DELETE FROM cafeteria WHERE id_cafeteria = %d";
+
+    private static final String SQL_NULL = "NULL";
 
     public static void insertar(Cafeteria cafeteria) throws ClassNotFoundException, SQLException {
         Connection conexion = null;
         Statement sentencia = null;
         try {
             conexion = DerbyUtil.abrirConexion();
+            String sentenciaInsert;
+            if (!toSQLString(cafeteria.getNombreGerente()).equals(SQL_NULL)) {
+                sentenciaInsert = String.format(SQL_INSERTAR_CON_GERENTE,
+                        toSQLString(cafeteria.getHorario()),
+                        toSQLString(cafeteria.getDireccion()),
+                        toSQLString(cafeteria.getAforoLocal()),
+                        toSQLString(cafeteria.getPrecioAlquiler()),
+                        toSQLString(cafeteria.getNombreGerente()));
+            } else {
+                sentenciaInsert = String.format(SQL_INSERTAR_SIN_GERENTE,
+                        toSQLString(cafeteria.getHorario()),
+                        toSQLString(cafeteria.getDireccion()),
+                        toSQLString(cafeteria.getAforoLocal()),
+                        toSQLString(cafeteria.getPrecioAlquiler()));
+            }
 
-            String stringPrecio = String.valueOf(cafeteria.getPrecioAlquiler()).replace(',', '.');
-            String sentenciaInsert = String.format(SQL_INSERTAR,
-                    cafeteria.getHorario(), cafeteria.getDireccion(),
-                    cafeteria.getAforoLocal(), stringPrecio, cafeteria.getNombreGerente());
             sentencia = conexion.createStatement();
 
             sentencia.executeUpdate(sentenciaInsert);
@@ -77,8 +100,8 @@ public class AccesoCafeteria {
                 cafeteria = new Cafeteria(resultado.getInt("id_cafeteria"),
                         resultado.getString("horario"),
                         resultado.getString("direccion"),
-                        resultado.getInt("aforo_local"),
-                        resultado.getDouble("precio_alquiler"),
+                        toInteger(resultado.getString("aforo_local")),
+                        toDouble(resultado.getString("precio_alquiler")),
                         resultado.getString("nombre"));
             }
             sentencia.close();
@@ -90,6 +113,20 @@ public class AccesoCafeteria {
         }
 
         return cafeteria;
+    }
+
+    private static Integer toInteger(String cadena) {
+        if (cadena != null) {
+            return Integer.valueOf(cadena);
+        }
+        return null;
+    }
+
+    private static Double toDouble(String cadena) {
+        if (cadena != null) {
+            return Double.valueOf(cadena);
+        }
+        return null;
     }
 
     public static List<Cafeteria> consultarTodos() throws ClassNotFoundException, SQLException {
@@ -108,8 +145,8 @@ public class AccesoCafeteria {
                 Cafeteria cafeteria = new Cafeteria(resultados.getInt("id_cafeteria"),
                         resultados.getString("horario"),
                         resultados.getString("direccion"),
-                        resultados.getInt("aforo_local"),
-                        resultados.getDouble("precio_alquiler"),
+                        toInteger(resultados.getString("aforo_local")),
+                        toDouble(resultados.getString("precio_alquiler")),
                         resultados.getString("nombre"));
                 cafeterias.add(cafeteria);
             }
@@ -132,12 +169,23 @@ public class AccesoCafeteria {
         boolean modificado = false;
         try {
             conexion = DerbyUtil.abrirConexion();
-
-            String precioString = String.format("%.2f", cafeteria.getPrecioAlquiler()).replace(',', '.');
-            String sentenciaActualizar = String.format(SQL_ACTUALIZAR_UNO,
-                    cafeteria.getHorario(), cafeteria.getDireccion(),
-                    cafeteria.getAforoLocal(), precioString,
-                    cafeteria.getNombreGerente(), cafeteria.getIdCafeteria());
+            String sentenciaActualizar;
+            if (!toSQLString(cafeteria.getNombreGerente()).equals(SQL_NULL)) {
+                sentenciaActualizar = String.format(SQL_ACTUALIZAR_UNO_CON_GERENTE,
+                        toSQLString(cafeteria.getHorario()),
+                        toSQLString(cafeteria.getDireccion()),
+                        toSQLString(cafeteria.getAforoLocal()),
+                        toSQLString(cafeteria.getPrecioAlquiler()),
+                        toSQLString(cafeteria.getNombreGerente()),
+                        toSQLString(cafeteria.getIdCafeteria()));
+            } else {
+                sentenciaActualizar = String.format(SQL_ACTUALIZAR_UNO_SIN_GERENTE,
+                        toSQLString(cafeteria.getHorario()),
+                        toSQLString(cafeteria.getDireccion()),
+                        toSQLString(cafeteria.getAforoLocal()),
+                        toSQLString(cafeteria.getPrecioAlquiler()),
+                        toSQLString(cafeteria.getIdCafeteria()));
+            }
 
             Statement sentencia = conexion.createStatement();
             if (sentencia.executeUpdate(sentenciaActualizar) == 1) {
@@ -167,5 +215,26 @@ public class AccesoCafeteria {
         }
 
         return eliminado;
+    }
+
+    private static String toSQLString(String cadena) {
+        if (cadena == null || cadena.isBlank()) {
+            return SQL_NULL;
+        }
+        return "'" + cadena + "'";
+    }
+
+    private static String toSQLString(Integer entero) {
+        if (entero == null) {
+            return SQL_NULL;
+        }
+        return entero.toString();
+    }
+
+    private static String toSQLString(Double decimal) {
+        if (decimal == null) {
+            return SQL_NULL;
+        }
+        return decimal.toString().replace(',', '.');
     }
 }

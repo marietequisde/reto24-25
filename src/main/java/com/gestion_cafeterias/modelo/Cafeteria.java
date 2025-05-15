@@ -5,6 +5,7 @@
 package com.gestion_cafeterias.modelo;
 
 import com.gestion_cafeterias.interfaz_grafica.FilaTabla;
+import java.util.Arrays;
 
 /**
  *
@@ -12,14 +13,14 @@ import com.gestion_cafeterias.interfaz_grafica.FilaTabla;
  */
 public class Cafeteria implements FilaTabla {
 
-    private int idCafeteria;
+    private Integer idCafeteria;
     private String horario;
     private String direccion;
-    private int aforoLocal;
-    private double precioAlquiler;
+    private Integer aforoLocal;
+    private Double precioAlquiler;
     private String nombreGerente;
 
-    public Cafeteria(String horario, String direccion, int aforoLocal, double precioAlquiler, String nombreGerente) {
+    public Cafeteria(String horario, String direccion, Integer aforoLocal, Double precioAlquiler, String nombreGerente) {
         this.horario = horario;
         this.direccion = direccion;
         this.aforoLocal = aforoLocal;
@@ -27,7 +28,7 @@ public class Cafeteria implements FilaTabla {
         this.nombreGerente = nombreGerente;
     }
 
-    public Cafeteria(int idCafeteria, String horario, String direccion, int aforoLocal, double precioAlquiler, String nombreGerente) {
+    public Cafeteria(Integer idCafeteria, String horario, String direccion, Integer aforoLocal, Double precioAlquiler, String nombreGerente) {
         this.idCafeteria = idCafeteria;
         this.horario = horario;
         this.direccion = direccion;
@@ -36,7 +37,7 @@ public class Cafeteria implements FilaTabla {
         this.nombreGerente = nombreGerente;
     }
 
-    public int getIdCafeteria() {
+    public Integer getIdCafeteria() {
         return idCafeteria;
     }
 
@@ -56,19 +57,19 @@ public class Cafeteria implements FilaTabla {
         this.direccion = direccion;
     }
 
-    public int getAforoLocal() {
+    public Integer getAforoLocal() {
         return aforoLocal;
     }
 
-    public void setAforoLocal(int aforoLocal) {
+    public void setAforoLocal(Integer aforoLocal) {
         this.aforoLocal = aforoLocal;
     }
 
-    public double getPrecioAlquiler() {
+    public Double getPrecioAlquiler() {
         return precioAlquiler;
     }
 
-    public void setPrecioAlquiler(double precioAlquiler) {
+    public void setPrecioAlquiler(Double precioAlquiler) {
         this.precioAlquiler = precioAlquiler;
     }
 
@@ -94,8 +95,17 @@ public class Cafeteria implements FilaTabla {
         atributos[0] = String.valueOf(idCafeteria);
         atributos[1] = horario;
         atributos[2] = direccion;
-        atributos[3] = String.valueOf(aforoLocal);
-        atributos[4] = String.valueOf(precioAlquiler);
+        if (aforoLocal != null) {
+            atributos[3] = String.valueOf(aforoLocal);
+        } else {
+            atributos[3] = "";
+        }
+        
+        if (precioAlquiler != null) {
+            atributos[4] = String.valueOf(precioAlquiler);
+        } else {
+            atributos[4] = "";
+        }
         atributos[5] = nombreGerente;
         return atributos;
     }

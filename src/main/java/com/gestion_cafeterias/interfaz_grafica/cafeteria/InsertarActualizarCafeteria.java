@@ -26,10 +26,9 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private static final int MODO_INSERTAR = 0;
     private static final int MODO_ACTUALIZAR = 1;
     private static final String GERENTE_SIN_ASIGNAR = "Sin asignar";
-    private static final String ERROR_HORARIO = "El horario no puede estar vacío.";
     private static final String ERROR_DIRECCION = "La dirección no puede estar vacía.";
-    private static final String ERROR_ALQUILER = "El precio de alquiler debe existir y ser mayor que 0.";
-    private static final String ERROR_AFORO = "El aforo debe ser mayor que 0.";
+    private static final String ERROR_ALQUILER = "El precio de alquiler debe ser mayor que 0.";
+    private static final String ERROR_AFORO = "El aforo del local debe ser mayor que 0.";
     private int modo = -1;
     private int idCafeteria;
 
@@ -57,17 +56,28 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
 
     public InsertarActualizarCafeteria(java.awt.Frame parent, boolean modal, int idCafeteria) {
         super(parent, modal);
+
         try {
             inicializarComponentes();
             jButtonAccion.setText("Actualizar");
             jLabelTitulo.setText("Actualizar cafetería");
             Cafeteria cafeteria = AccesoCafeteria.consultar(idCafeteria);
             if (cafeteria != null) {
+                Double alquiler = cafeteria.getPrecioAlquiler();
+                Integer aforo = cafeteria.getAforoLocal();
+
                 this.idCafeteria = cafeteria.getIdCafeteria();
-                jTextFieldAlquiler.setText(String.valueOf(cafeteria.getPrecioAlquiler()));
+
+                if (alquiler != null) {
+                    jTextFieldAlquiler.setText(alquiler.toString());
+                }
+                if (aforo != null) {
+                    jTextFieldAforo.setText(aforo.toString());
+                }
+
                 jTextFieldDireccion.setText(cafeteria.getDireccion());
                 jTextFieldHorario.setText(cafeteria.getHorario());
-                jSpinnerAforo.setValue(cafeteria.getAforoLocal());
+
                 String nombreGerente = cafeteria.getNombreGerente();
                 if (nombreGerente != null) {
                     jComboGerente.setSelectedItem(nombreGerente);
@@ -110,13 +120,13 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTextFieldDireccion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jSpinnerAforo = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldAlquiler = new javax.swing.JTextField();
         jComboGerente = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButtonAccion = new javax.swing.JButton();
+        jTextFieldAforo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -160,7 +170,7 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinnerAforo))
+                                .addComponent(jTextFieldAforo))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,10 +205,10 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jSpinnerAforo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldAforo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,7 +216,7 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -219,16 +229,11 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         List<String> errores = new ArrayList<>();
         String horario = jTextFieldHorario.getText();
         String direccion = jTextFieldDireccion.getText();
-        int aforoLocal = (Integer) jSpinnerAforo.getValue();
+        String aforoLocal = jTextFieldAforo.getText();
+        String alquiler = jTextFieldAlquiler.getText();
 
-        if (horario == null || horario.isBlank()) {
-            errores.add(ERROR_HORARIO);
-        }
         if (direccion == null || direccion.isBlank()) {
             errores.add(ERROR_DIRECCION);
-        }
-        if (aforoLocal < 1) {
-            errores.add(ERROR_AFORO);
         }
 
         String nombreGerente = (String) jComboGerente.getSelectedItem();
@@ -237,22 +242,35 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
         }
 
         try {
-            if (jTextFieldAlquiler.getText() == null
-                    || jTextFieldAlquiler.getText().isEmpty()
-                    || Double.parseDouble(jTextFieldAlquiler.getText()) <= 0) {
+            if (alquiler != null
+                    && !alquiler.isEmpty()
+                    && Double.parseDouble(alquiler) <= 0) {
                 errores.add(ERROR_ALQUILER);
             }
+            if (aforoLocal != null
+                    && !aforoLocal.isEmpty()
+                    && Integer.parseInt(aforoLocal) <= 0) {
+                errores.add(ERROR_AFORO);
+            }
             if (errores.isEmpty()) {
-                double precioAlquiler = Double.parseDouble(jTextFieldAlquiler.getText());
+                Double precioAlquiler = null;
+                if (alquiler != null && !alquiler.isBlank()) {
+                    precioAlquiler = Double.valueOf(alquiler);
+                }
+
+                Integer numAforo = null;
+                if (aforoLocal != null && !aforoLocal.isBlank()) {
+                    numAforo = Integer.valueOf(aforoLocal);
+                }
 
                 if (modo == MODO_INSERTAR) {
                     Cafeteria nuevaCafeteria = new Cafeteria(horario, direccion,
-                            aforoLocal, precioAlquiler, nombreGerente);
+                            numAforo, precioAlquiler, nombreGerente);
 
                     AccesoCafeteria.insertar(nuevaCafeteria);
                 } else if (modo == MODO_ACTUALIZAR) {
                     Cafeteria nuevaCafeteria = new Cafeteria(idCafeteria, horario,
-                            direccion, aforoLocal, precioAlquiler, nombreGerente);
+                            direccion, numAforo, precioAlquiler, nombreGerente);
 
                     AccesoCafeteria.actualizar(nuevaCafeteria);
                 }
@@ -325,7 +343,7 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinnerAforo;
+    private javax.swing.JTextField jTextFieldAforo;
     private javax.swing.JTextField jTextFieldAlquiler;
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldHorario;
