@@ -57,7 +57,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         lblError = new javax.swing.JLabel();
         lblExito = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblFechaAlta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -245,6 +245,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
                 Timer timer = new Timer(delay, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        
                         dispose();
                         ((Timer) e.getSource()).stop();
                     }
