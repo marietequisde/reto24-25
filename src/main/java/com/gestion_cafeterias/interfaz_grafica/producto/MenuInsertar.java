@@ -9,11 +9,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author moha
  */
 public class MenuInsertar extends javax.swing.JFrame {
+
     /**
      * Creates new form InsertarMenu
      */
@@ -22,6 +24,7 @@ public class MenuInsertar extends javax.swing.JFrame {
         jVerify.setVisible(false);
         LabelIdNoExist.setVisible(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,13 +38,13 @@ public class MenuInsertar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        fieldName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        fieldPrice = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        fieldType = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        fieldProve = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Insertbtn = new javax.swing.JButton();
         jVerify = new javax.swing.JLabel();
@@ -91,9 +94,9 @@ public class MenuInsertar extends javax.swing.JFrame {
 
         jLabel3.setText("Tipo");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        fieldProve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                fieldProveActionPerformed(evt);
             }
         });
 
@@ -128,8 +131,7 @@ public class MenuInsertar extends javax.swing.JFrame {
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jVerify)
-                            .addComponent(Insertbtn))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(Insertbtn))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -140,23 +142,23 @@ public class MenuInsertar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(2, 2, 2)))
                         .addGap(2, 2, 2)))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -168,19 +170,19 @@ public class MenuInsertar extends javax.swing.JFrame {
                 .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jVerify)
@@ -193,35 +195,38 @@ public class MenuInsertar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void fieldProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldProveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_fieldProveActionPerformed
 
     private void InsertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertbtnActionPerformed
         try {
 
-            String nombre = jTextField1.getText();
-            Double precio = Double.valueOf(jTextField2.getText());
-            String tipo = jTextField3.getText();
-            String proveedor = jTextField4.getText();
-            LabelIdNoExist.setVisible(false);
-            AccesoProducto.insertarProducto(nombre, precio, tipo, proveedor);
+            if (fieldName.getText().isEmpty() || fieldType.getText().isEmpty()
+                    || fieldProve.getText().isEmpty() || fieldPrice.getText().isEmpty()) {
+                LabelIdNoExist.setVisible(true);
+                LabelIdNoExist.setText("No se admiten campos vacios");
+            } else {
+                String nombre = fieldName.getText();
+                Double precio = Double.valueOf(fieldPrice.getText());
+                String tipo = fieldType.getText();
+                String proveedor = fieldProve.getText();
+                LabelIdNoExist.setVisible(false);
+                AccesoProducto.insertarProducto(nombre, precio, tipo, proveedor);
 
-            jVerify.setVisible(true);
-        }
-        catch (SQLException ex) {
+                jVerify.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
             Dialog1.setVisible(true);
             jTextArea1.setText(ex.getMessage());
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuInsertar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
-            LabelIdNoExist.setText("¡Hay campos vacios!");
-        }
-        catch (Exception e) {
+            LabelIdNoExist.setText("¡Precio no valido!");
+        } catch (Exception e) {
             Dialog1.setVisible(true);
             jTextArea1.setText(e.getLocalizedMessage());
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
@@ -268,6 +273,10 @@ public class MenuInsertar extends javax.swing.JFrame {
     private javax.swing.JDialog Dialog1;
     private javax.swing.JButton Insertbtn;
     private javax.swing.JLabel LabelIdNoExist;
+    private javax.swing.JTextField fieldName;
+    private javax.swing.JTextField fieldPrice;
+    private javax.swing.JTextField fieldProve;
+    private javax.swing.JTextField fieldType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,10 +285,6 @@ public class MenuInsertar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel jVerify;
     // End of variables declaration//GEN-END:variables
 }

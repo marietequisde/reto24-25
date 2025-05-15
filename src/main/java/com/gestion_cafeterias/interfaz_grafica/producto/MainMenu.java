@@ -92,7 +92,7 @@ public class MainMenu extends javax.swing.JFrame {
         ErrTextArea = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaConsultar = new javax.swing.JTable();
-        BtnConsultar = new javax.swing.JButton();
+        BtnVolver = new javax.swing.JButton();
         BtnInsertar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
@@ -152,10 +152,10 @@ public class MainMenu extends javax.swing.JFrame {
         TablaConsultar.setGridColor(new java.awt.Color(0, 0, 204));
         jScrollPane1.setViewportView(TablaConsultar);
 
-        BtnConsultar.setText("Volver al listado");
-        BtnConsultar.addActionListener(new java.awt.event.ActionListener() {
+        BtnVolver.setText("Volver al listado");
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnConsultarActionPerformed(evt);
+                BtnVolverActionPerformed(evt);
             }
         });
 
@@ -218,7 +218,7 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(BtnConsultar)
+                                .addComponent(BtnVolver)
                                 .addGap(15, 15, 15)
                                 .addComponent(BtnConsultaPorID)
                                 .addGap(18, 18, 18)
@@ -242,7 +242,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnConsultar)
+                    .addComponent(BtnVolver)
                     .addComponent(BtnInsertar)
                     .addComponent(BtnActualizar)
                     .addComponent(BtnConsultaPorID)
@@ -253,13 +253,14 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
         LabelIdNoExist.setVisible(false);
+        AreaInputId.setText("");
         limpiarTabla();
         mostrar();
         /* new InsertarMenu().setVisible(true);*/
 
-    }//GEN-LAST:event_BtnConsultarActionPerformed
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void BtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInsertarActionPerformed
 
@@ -387,9 +388,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField AreaInputId;
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnConsultaPorID;
-    private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnInsertar;
+    private javax.swing.JButton BtnVolver;
     private javax.swing.JTextArea ErrTextArea;
     private javax.swing.JDialog ExceptionDialog;
     private javax.swing.JLabel LabelIdNoExist;
