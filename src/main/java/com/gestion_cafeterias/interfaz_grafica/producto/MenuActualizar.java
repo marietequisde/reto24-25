@@ -47,7 +47,6 @@ public class MenuActualizar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Updatebtn = new javax.swing.JButton();
         jVerify = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         fieldId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         LabelIdNoExist = new javax.swing.JLabel();
@@ -124,9 +123,6 @@ public class MenuActualizar extends javax.swing.JFrame {
         jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Actualizado!");
         getContentPane().add(jVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 242, -1, -1));
-
-        jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 316, -1, -1));
         getContentPane().add(fieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 37, 100, -1));
 
         jLabel7.setText("ID");
@@ -242,7 +238,6 @@ public class MenuActualizar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jVerify;

@@ -48,7 +48,6 @@ public class MenuInsertar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Insertbtn = new javax.swing.JButton();
         jVerify = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         LabelIdNoExist = new javax.swing.JLabel();
 
         Dialog1.setTitle("Exception");
@@ -113,8 +112,6 @@ public class MenuInsertar extends javax.swing.JFrame {
         jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Guardado!");
 
-        jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
-
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
@@ -125,14 +122,11 @@ public class MenuInsertar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jVerify)
-                            .addComponent(Insertbtn))))
-                .addContainerGap())
+                    .addComponent(jVerify)
+                    .addComponent(Insertbtn))
+                .addGap(83, 83, 83))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LabelIdNoExist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -188,8 +182,7 @@ public class MenuInsertar extends javax.swing.JFrame {
                 .addComponent(jVerify)
                 .addGap(18, 18, 18)
                 .addComponent(Insertbtn)
-                .addGap(22, 22, 22)
-                .addComponent(jLabel6))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -282,7 +275,6 @@ public class MenuInsertar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jVerify;
