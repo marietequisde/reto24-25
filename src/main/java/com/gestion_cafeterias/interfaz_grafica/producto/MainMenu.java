@@ -76,12 +76,6 @@ public class MainMenu extends javax.swing.JFrame {
         model.setRowCount(0);
     }
 
-    public void estaAbierto(boolean abierto) {
-        if (abierto) {
-            mostrar();
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

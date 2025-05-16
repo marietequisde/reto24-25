@@ -16,9 +16,6 @@ import javax.swing.ImageIcon;
  */
 public class MenuInsertar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InsertarMenu
-     */
     public MenuInsertar() {
         initComponents();
         jVerify.setVisible(false);
@@ -225,9 +222,7 @@ public class MenuInsertar extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_InsertbtnActionPerformed
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -10,14 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author moha
  */
 public class MenuEliminar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InsertarMenu
-     */
     public MenuEliminar() {
         initComponents();
         jVerify.setVisible(false);
@@ -147,8 +143,9 @@ public class MenuEliminar extends javax.swing.JFrame {
         try {
 
             int id = Integer.parseInt(jTextField1.getText());
-            
+
             if (!AccesoProducto.siExiste(id)) {
+                jVerify.setVisible(false);
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
             } else {
@@ -161,15 +158,12 @@ public class MenuEliminar extends javax.swing.JFrame {
             Dialog1.setVisible(true);
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
             TextAreaErr.setText(ex.getMessage());
-        } 
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
             LabelIdNoExist.setText("¡ID invalido!");
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             Dialog1.setVisible(true);
             TextAreaErr.setText(e.getLocalizedMessage());
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);

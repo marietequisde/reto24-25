@@ -15,9 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MenuActualizar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InsertarMenu
-     */
     public MenuActualizar() {
         initComponents();
         jVerify.setVisible(false);
@@ -87,29 +84,20 @@ public class MenuActualizar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("UI Actualizar Producto");
         setBackground(new java.awt.Color(0, 102, 102));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(fieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 89, 100, -1));
 
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 92, -1, -1));
-        getContentPane().add(FieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 123, 100, -1));
 
         jLabel2.setText("Precio");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 126, -1, -1));
-        getContentPane().add(fieldType, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 157, 100, -1));
 
         jLabel3.setText("Tipo");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
         fieldProve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldProveActionPerformed(evt);
             }
         });
-        getContentPane().add(fieldProve, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 191, 102, -1));
 
         jLabel4.setText("Proveedor");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 194, -1, -1));
 
         Updatebtn.setText("Actualizar");
         Updatebtn.addActionListener(new java.awt.event.ActionListener() {
@@ -117,22 +105,101 @@ public class MenuActualizar extends javax.swing.JFrame {
                 UpdatebtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 275, -1, -1));
 
         jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Actualizado!");
-        getContentPane().add(jVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 242, -1, -1));
-        getContentPane().add(fieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 37, 100, -1));
 
         jLabel7.setText("ID");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 40, -1, -1));
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
-        getContentPane().add(LabelIdNoExist, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 20));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel2)
+                                .addGap(12, 12, 12)
+                                .addComponent(FieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel3)
+                                .addGap(12, 12, 12)
+                                .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Updatebtn)
+                                    .addComponent(jVerify)
+                                    .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel7))
+                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1))
+                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2))
+                    .addComponent(FieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3))
+                    .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel4))
+                    .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jVerify)
+                .addGap(18, 18, 18)
+                .addComponent(Updatebtn)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -145,17 +212,17 @@ public class MenuActualizar extends javax.swing.JFrame {
         try {
 
             boolean actualizado;
-            
+
             String nombre = fieldName.getText();
             Double precio = Double.valueOf(FieldPrice.getText());
             String tipo = fieldType.getText();
             String proveedor = fieldProve.getText();
             int id = Integer.parseInt(fieldId.getText());
-            
+
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
-            }else if (fieldId.getText().isEmpty() 
+            } else if (fieldId.getText().isEmpty()
                     || fieldName.getText().isEmpty()
                     || FieldPrice.getText().isEmpty()
                     || fieldType.getText().isEmpty()
@@ -184,9 +251,6 @@ public class MenuActualizar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
