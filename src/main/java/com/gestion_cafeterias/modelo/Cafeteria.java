@@ -5,7 +5,6 @@
 package com.gestion_cafeterias.modelo;
 
 import com.gestion_cafeterias.interfaz_grafica.FilaTabla;
-import java.util.Arrays;
 
 /**
  *
@@ -20,7 +19,8 @@ public class Cafeteria implements FilaTabla {
     private Double precioAlquiler;
     private String nombreGerente;
 
-    public Cafeteria(String horario, String direccion, Integer aforoLocal, Double precioAlquiler, String nombreGerente) {
+    public Cafeteria(String horario, String direccion, Integer aforoLocal,
+            Double precioAlquiler, String nombreGerente) {
         this.horario = horario;
         this.direccion = direccion;
         this.aforoLocal = aforoLocal;
@@ -28,7 +28,8 @@ public class Cafeteria implements FilaTabla {
         this.nombreGerente = nombreGerente;
     }
 
-    public Cafeteria(Integer idCafeteria, String horario, String direccion, Integer aforoLocal, Double precioAlquiler, String nombreGerente) {
+    public Cafeteria(Integer idCafeteria, String horario, String direccion,
+            Integer aforoLocal, Double precioAlquiler, String nombreGerente) {
         this.idCafeteria = idCafeteria;
         this.horario = horario;
         this.direccion = direccion;
@@ -100,7 +101,7 @@ public class Cafeteria implements FilaTabla {
         } else {
             atributos[3] = "";
         }
-        
+
         if (precioAlquiler != null) {
             atributos[4] = String.valueOf(precioAlquiler);
         } else {

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -225,7 +224,6 @@ public class InsertarActualizarCafeteria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccionActionPerformed
-        // TODO add your handling code here:
         List<String> errores = new ArrayList<>();
         String horario = jTextFieldHorario.getText();
         String direccion = jTextFieldDireccion.getText();
