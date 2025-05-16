@@ -8,6 +8,8 @@ import com.gestion_cafeterias.acceso.AccesoEmpleado;
 import com.gestion_cafeterias.modelo.Empleado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -233,7 +235,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -266,7 +268,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -285,16 +287,25 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
     private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
         try {
             String id_empleado = txtCodigo.getText();
+            ActualizarEmpleado actualizar = null;
             Empleado empleado = AccesoEmpleado.consultar(Integer.parseInt(txtCodigo.getText()));
             if (empleado == null) {
                 lblError.setText("No existe ningun empleado con ese codigo");
             } else {
-                ActualizarEmpleado actualizar = new ActualizarEmpleado(id_empleado);
+                actualizar = new ActualizarEmpleado(id_empleado);
+                actualizar.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        modelTabla.setRowCount(0);
+                        mostrarEmpleados();
+                        txtCodigo.setText("");
+                    }
+                });
                 actualizar.setVisible(true);
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo para poder actualizar");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -306,7 +317,16 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         InsertarEmpleado insertar = new InsertarEmpleado();
+        insertar.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                modelTabla.setRowCount(0);
+                mostrarEmpleados();
+                txtCodigo.setText("");
+            }
+        });
         insertar.setVisible(true);
+
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     /**

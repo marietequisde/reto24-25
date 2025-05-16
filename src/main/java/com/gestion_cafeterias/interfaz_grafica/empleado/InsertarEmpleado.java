@@ -51,7 +51,7 @@ public class InsertarEmpleado extends javax.swing.JFrame {
         lblError = new javax.swing.JLabel();
         lblExito = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblFechaAlta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -222,7 +222,11 @@ public class InsertarEmpleado extends javax.swing.JFrame {
             
             if (nombre.isEmpty() || dni.isEmpty()) {
                 lblError.setText("No puedes dejar campos vacíos");
-            } else {
+            } 
+            else if(!ActualizarEmpleado.dniValido(dni)){
+                 lblError.setText("DNI no valido");   
+            }
+            else {
                 Empleado empleado = new Empleado(nombre, salario, fecha, dni);
                 AccesoEmpleado.insertar(empleado);
 
