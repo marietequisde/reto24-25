@@ -15,9 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MenuActualizar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InsertarMenu
-     */
     public MenuActualizar() {
         initComponents();
         jVerify.setVisible(false);
@@ -37,18 +34,17 @@ public class MenuActualizar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ErrTextArea = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        fieldName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        FieldPrice = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        fieldType = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        fieldProve = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Updatebtn = new javax.swing.JButton();
         jVerify = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        fieldId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         LabelIdNoExist = new javax.swing.JLabel();
 
@@ -88,29 +84,20 @@ public class MenuActualizar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("UI Actualizar Producto");
         setBackground(new java.awt.Color(0, 102, 102));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 89, 100, -1));
 
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 92, -1, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 123, 100, -1));
 
         jLabel2.setText("Precio");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 126, -1, -1));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 157, 100, -1));
 
         jLabel3.setText("Tipo");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        fieldProve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                fieldProveActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 191, 102, -1));
 
         jLabel4.setText("Proveedor");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 194, -1, -1));
 
         Updatebtn.setText("Actualizar");
         Updatebtn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,51 +105,131 @@ public class MenuActualizar extends javax.swing.JFrame {
                 UpdatebtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 275, -1, -1));
 
         jVerify.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jVerify.setIcon(new javax.swing.ImageIcon("iconos\\Ok.png"));
         jVerify.setText("Actualizado!");
-        getContentPane().add(jVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 242, -1, -1));
-
-        jLabel6.setText("Nota: Actualizar la tabla despues de la insercion");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 316, -1, -1));
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 37, 100, -1));
 
         jLabel7.setText("ID");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 40, -1, -1));
 
         LabelIdNoExist.setBackground(new java.awt.Color(204, 204, 204));
         LabelIdNoExist.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         LabelIdNoExist.setForeground(new java.awt.Color(255, 0, 0));
         LabelIdNoExist.setIcon(new javax.swing.ImageIcon("iconos\\warning2.png"));
-        LabelIdNoExist.setMaximumSize(new java.awt.Dimension(0, 0));
-        LabelIdNoExist.setMinimumSize(new java.awt.Dimension(0, 0));
-        getContentPane().add(LabelIdNoExist, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 130, 20));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel2)
+                                .addGap(12, 12, 12)
+                                .addComponent(FieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel3)
+                                .addGap(12, 12, 12)
+                                .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Updatebtn)
+                                    .addComponent(jVerify)
+                                    .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(LabelIdNoExist, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel7))
+                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1))
+                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2))
+                    .addComponent(FieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3))
+                    .addComponent(fieldType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel4))
+                    .addComponent(fieldProve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jVerify)
+                .addGap(18, 18, 18)
+                .addComponent(Updatebtn)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void fieldProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldProveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_fieldProveActionPerformed
 
     private void UpdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatebtnActionPerformed
         try {
 
             boolean actualizado;
-            int id = Integer.parseInt(jTextField5.getText());
 
-            String nombre = jTextField1.getText();
-            Double precio = Double.valueOf(jTextField2.getText());
-            String tipo = jTextField3.getText();
-            String proveedor = jTextField4.getText();
+            String nombre = fieldName.getText();
+            Double precio = Double.valueOf(FieldPrice.getText());
+            String tipo = fieldType.getText();
+            String proveedor = fieldProve.getText();
+            int id = Integer.parseInt(fieldId.getText());
 
             if (AccesoProducto.siExiste(id) == false) {
                 LabelIdNoExist.setVisible(true);
                 LabelIdNoExist.setText("¡ID no existe!");
-            } 
-            else {
+            } else if (fieldId.getText().isEmpty()
+                    || fieldName.getText().isEmpty()
+                    || FieldPrice.getText().isEmpty()
+                    || fieldType.getText().isEmpty()
+                    || fieldProve.getText().isEmpty()) {
+                LabelIdNoExist.setVisible(true);
+                LabelIdNoExist.setText("¡No se admiten campos vacios!");
+            } else {
                 actualizado = AccesoProducto.actualizar(id, nombre,
                         precio, tipo, proveedor);
                 LabelIdNoExist.setVisible(false);
@@ -170,27 +237,20 @@ public class MenuActualizar extends javax.swing.JFrame {
                     jVerify.setVisible(true);
                 }
             }
-        } 
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(MenuActualizar.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             LabelIdNoExist.setVisible(true);
-            LabelIdNoExist.setText("¡Campo invalido!");
-        } 
-        catch (Exception e) {
+            LabelIdNoExist.setText("¡Dato invalido!");
+        } catch (Exception e) {
             Dialog1.setVisible(true);
             ErrTextArea.setText(e.getLocalizedMessage());
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -230,21 +290,20 @@ public class MenuActualizar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Dialog1;
     private javax.swing.JTextArea ErrTextArea;
+    private javax.swing.JTextField FieldPrice;
     private javax.swing.JLabel LabelIdNoExist;
     private javax.swing.JButton Updatebtn;
+    private javax.swing.JTextField fieldId;
+    private javax.swing.JTextField fieldName;
+    private javax.swing.JTextField fieldProve;
+    private javax.swing.JTextField fieldType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel jVerify;
     // End of variables declaration//GEN-END:variables
 DefaultTableModel modelTabla = new DefaultTableModel();

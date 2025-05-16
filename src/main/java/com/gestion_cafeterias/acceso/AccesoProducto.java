@@ -4,7 +4,6 @@
  */
 package com.gestion_cafeterias.acceso;
 
-import com.gestion_cafeterias.acceso.DerbyUtil;
 import com.gestion_cafeterias.modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,24 +98,6 @@ public class AccesoProducto {
         return productos;
     }
 
-    /*public static boolean actualizar(int id, String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
-        Connection conexion = null;
-        boolean actualizado = false;
-
-        try {
-            conexion = DerbyUtil.abrirConexion();
-            String sentenciaUpt = String.format("UPDATE producto SET nombre = '%s'"
-                    + ", precio = %f, tipo = '%s', proveedor = '%s'"
-                    + " WHERE id_producto = %d", nombre, precio, tipo, proveedor, id);
-            Statement sentencia = conexion.createStatement();
-            if (sentencia.executeUpdate(sentenciaUpt) == 1) {
-                actualizado = true;
-            }
-        } finally {
-            DerbyUtil.cerrarConexion(conexion);
-        }
-        return actualizado;
-    }*/
     public static boolean actualizar(int id, String nombre, Double precio, String tipo, String proveedor) throws SQLException, ClassNotFoundException {
         Connection conexion = null;
         boolean actualizado = false;
