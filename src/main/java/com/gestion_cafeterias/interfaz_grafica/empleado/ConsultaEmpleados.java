@@ -235,7 +235,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -268,7 +268,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -305,7 +305,7 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException nfe) {
-            lblError.setText("Escribe un numero en el cuadro de codigo para poder actualizar");
+            lblError.setText("Escribe un numero entero en el cuadro de codigo");
         } catch (ClassNotFoundException cnfe) {
             lblError.setText("Error al conectar con la base de datos");
         } catch (SQLException sqle) {
@@ -317,7 +317,16 @@ public class ConsultaEmpleados extends javax.swing.JFrame {
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         InsertarEmpleado insertar = new InsertarEmpleado();
+        insertar.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                modelTabla.setRowCount(0);
+                mostrarEmpleados();
+                txtCodigo.setText("");
+            }
+        });
         insertar.setVisible(true);
+
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     /**

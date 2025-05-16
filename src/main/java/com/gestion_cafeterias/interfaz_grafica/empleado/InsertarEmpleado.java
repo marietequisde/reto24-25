@@ -222,7 +222,11 @@ public class InsertarEmpleado extends javax.swing.JFrame {
             
             if (nombre.isEmpty() || dni.isEmpty()) {
                 lblError.setText("No puedes dejar campos vacíos");
-            } else {
+            } 
+            else if(!ActualizarEmpleado.dniValido(dni)){
+                 lblError.setText("DNI no valido");   
+            }
+            else {
                 Empleado empleado = new Empleado(nombre, salario, fecha, dni);
                 AccesoEmpleado.insertar(empleado);
 

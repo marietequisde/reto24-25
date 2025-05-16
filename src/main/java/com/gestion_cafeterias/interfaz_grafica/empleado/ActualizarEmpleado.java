@@ -33,6 +33,20 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
 
     }
 
+    public static boolean dniValido(String dni) {
+        char[] letrasDNI = {
+            'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X',
+            'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'
+        };
+        if (dni.matches("\\d{8}[a-zA-Z]")) {
+            int dividendo = Integer.parseInt(dni.substring(0, 7));
+            if (letrasDNI[dividendo % 23] == dni.charAt(8)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,15 +251,21 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             Double salario = Double.parseDouble(txtSalario.getText());
             String dni = txtDni.getText();
 
+    
+
             if (nombre.isEmpty() || dni.isEmpty()) {
                 lblError.setText("No puedes dejar campos vacíos");
-            } else {
+            }
+            else if (!dniValido(dni)){
+              lblError.setText("DNI no valido");   
+            }
+            else {
                 AccesoEmpleado.actualizar(codigo, nombre, salario, fecha, dni);
 
                 Timer timer = new Timer(delay, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        
+
                         dispose();
                         ((Timer) e.getSource()).stop();
                     }
